@@ -45,6 +45,26 @@ export function GuestbookSection({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  React.useEffect(() => {
+    if (invitationId && invitationId !== "mock-id") {
+      fetch(`/api/wishes?invitationId=${invitationId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && Array.isArray(data.wishes) && data.wishes.length > 0) {
+            setWishes(
+              data.wishes.map((w: any) => ({
+                id: w.id,
+                name: w.name || w.sender_name || "Tamu",
+                message: w.message,
+                createdAt: w.created_at || w.createdAt,
+              }))
+            );
+          }
+        })
+        .catch(() => {});
+    }
+  }, [invitationId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !message.trim()) {
@@ -58,6 +78,12 @@ export function GuestbookSection({
     try {
       if (onWishSubmit) {
         await onWishSubmit({ invitationId, name, message });
+      } else if (invitationId && invitationId !== "mock-id") {
+        await fetch("/api/wishes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ invitationId, senderName: name, message }),
+        });
       } else {
         await new Promise((resolve) => setTimeout(resolve, 500));
       }

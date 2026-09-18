@@ -42,6 +42,23 @@ export function RSVPSection({
     try {
       if (onRSVPSubmit) {
         await onRSVPSubmit(formData);
+      } else if (invitationId && invitationId !== "mock-id") {
+        await fetch("/api/rsvp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            invitationId,
+            guestName: formData.name,
+            attendanceStatus:
+              formData.attendance === "hadir"
+                ? "attending"
+                : formData.attendance === "tidak_hadir"
+                ? "declined"
+                : "uncertain",
+            paxCount: formData.guestCount,
+            notes: formData.message,
+          }),
+        });
       } else {
         // Fallback for demo mode
         await new Promise((resolve) => setTimeout(resolve, 600));

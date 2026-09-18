@@ -27,3 +27,64 @@ export function formatDateIndonesian(dateString: string): string {
     return dateString;
   }
 }
+
+/**
+ * Generate a URL-safe slug from couple names + random suffix.
+ * Runs server-side only (uses crypto).
+ */
+export function generateSlug(brideName: string, groomName: string): string {
+  const clean = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "")
+      .slice(0, 12);
+  const suffix = Math.random().toString(36).slice(2, 7);
+  return `${clean(brideName)}-${clean(groomName)}-${suffix}`;
+}
+
+/**
+ * Generate an order number in format TTI-YYYYMMDD-XXXXX.
+ */
+export function generateOrderNumber(): string {
+  const now = new Date();
+  const date = now
+    .toISOString()
+    .slice(0, 10)
+    .replace(/-/g, "");
+  const rand = Math.random().toString(36).slice(2, 7).toUpperCase();
+  return `TTI-${date}-${rand}`;
+}
+
+/**
+ * Generate a cryptographically random hex token (64 chars = 32 bytes).
+ * Falls back to Math.random for environments without Web Crypto.
+ */
+export function generateSecureToken(): string {
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    const arr = new Uint8Array(32);
+    crypto.getRandomValues(arr);
+    return Array.from(arr)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+  // Fallback (non-secure, only for SSR environments without Web Crypto)
+  return Array.from({ length: 64 }, () =>
+    Math.floor(Math.random() * 16).toString(16)
+  ).join("");
+}
+
+/**
+ * Build a WhatsApp share URL with a pre-filled message.
+ */
+export function buildWhatsAppUrl(
+  phone: string,
+  message: string
+): string {
+  const encoded = encodeURIComponent(message);
+  const cleanPhone = phone.replace(/[^0-9]/g, "").replace(/^0/, "62");
+  return cleanPhone
+    ? `https://wa.me/${cleanPhone}?text=${encoded}`
+    : `https://wa.me/?text=${encoded}`;
+}
