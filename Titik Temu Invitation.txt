@@ -1,0 +1,2254 @@
+# TITIK TEMU INVITATION
+
+## MASTER DEVELOPMENT PROMPT — MVP V1
+
+Anda bertindak sebagai:
+
+* Principal Software Engineer
+* Senior Full-Stack Developer
+* Software Architect
+* Senior UI/UX Engineer
+* Database Engineer
+* Security Engineer
+* QA Engineer
+
+Tugas Anda adalah membangun **MVP V1 platform undangan digital** bernama sementara:
+
+# TITIK TEMU INVITATION
+
+Produk ini akan menjadi bagian dari ekosistem bisnis **Titik Temu Project**.
+
+Tujuan utama:
+
+> Membuat platform undangan digital yang memungkinkan pelanggan memilih template, mengisi data, mengunggah foto, melakukan pembayaran, kemudian memperoleh undangan digital yang otomatis diterbitkan dan dapat dibagikan melalui WhatsApp.
+
+---
+
+# 1. CUSTOMER JOURNEY
+
+Flow utama WAJIB seperti berikut:
+
+```text
+Customer
+   ↓
+Landing Page
+   ↓
+Pilih Template
+   ↓
+Isi Data
+   ↓
+Upload Foto
+   ↓
+Preview
+   ↓
+Pilih Paket
+   ↓
+Bayar
+   ↓
+Payment Verification
+   ↓
+Invitation Automatically Published
+   ↓
+Mendapatkan Link
+   ↓
+Share ke WhatsApp
+```
+
+Flow harus terasa seperti satu proses yang sederhana.
+
+Customer tidak boleh dipaksa memahami:
+
+* database
+* API
+* slug
+* webhook
+* storage
+* deployment
+* technical configuration
+
+Semua kompleksitas tersebut harus ditangani oleh sistem.
+
+---
+
+# 2. PRODUCT PRINCIPLE
+
+Produk bukan sekadar landing page.
+
+Produk adalah:
+
+```text
+Template Engine
++
+Invitation Builder
++
+Database
++
+Media Storage
++
+Payment System
++
+Publishing System
++
+Guest Personalization
+```
+
+Jangan membuat aplikasi sebagai static mockup.
+
+Semua flow utama harus benar-benar bekerja.
+
+---
+
+# 3. TECHNOLOGY STACK
+
+Gunakan:
+
+```text
+Frontend
+Next.js
+TypeScript
+App Router
+Tailwind CSS
+
+Backend / Database
+Supabase
+PostgreSQL
+Supabase Auth
+Supabase Storage
+Row Level Security
+
+Payment
+Midtrans Snap
+
+Validation
+Zod
+
+Forms
+React Hook Form jika diperlukan
+
+Icons
+Lucide React
+
+Testing
+Vitest/Jest
+Playwright jika feasible
+```
+
+Gunakan dependency stabil dan sesuai kebutuhan.
+
+Jangan memasang library hanya karena populer.
+
+---
+
+# 4. ARSITECTURE PRINCIPLE
+
+Gunakan:
+
+```text
+UI
+↓
+Application Layer
+↓
+Business Logic
+↓
+Data Access Layer
+↓
+Supabase
+```
+
+Jangan mencampur:
+
+* database query
+* payment logic
+* validation
+* UI state
+
+dalam satu component.
+
+Gunakan reusable service/module.
+
+---
+
+# 5. TEMPLATE ENGINE
+
+Template tidak boleh menjadi halaman yang terpisah secara total.
+
+Gunakan:
+
+```text
+Invitation Data
+       ↓
+Invitation Engine
+       ↓
+Template Renderer
+       ↓
+Public Invitation
+```
+
+MVP V1 memiliki minimal 3 template:
+
+```text
+01 Elegant
+02 Minimalist
+03 Nusantara
+```
+
+Ketiga template harus menggunakan data invitation yang sama.
+
+Contoh:
+
+```text
+Shava & Dedek
+```
+
+dapat dirender menjadi:
+
+```text
+Elegant
+```
+
+atau:
+
+```text
+Minimalist
+```
+
+tanpa mengubah data.
+
+---
+
+# 6. VISUAL DIRECTION
+
+## Platform dashboard
+
+Gunakan visual language:
+
+* Vercel
+* Linear
+* Stripe
+* Notion
+* GitHub
+
+Karakter:
+
+* clean
+* modern
+* premium
+* professional
+* minimal
+* strong typography
+* clear hierarchy
+* subtle border
+* subtle shadow
+* solid surfaces
+* whitespace yang cukup
+
+Hindari:
+
+* glassmorphism berlebihan
+* transparansi berlebihan
+* gradient berlebihan
+* shadow berat
+* rounded cards berlebihan
+* UI yang terlihat seperti template murah
+
+## Public invitation
+
+Public invitation harus:
+
+* emosional
+* elegant
+* immersive
+* mobile-first
+* smooth
+* memiliki visual identity sesuai template
+
+---
+
+# 7. LANDING PAGE
+
+Route:
+
+```text
+/
+```
+
+Sections:
+
+```text
+Hero
+Template Showcase
+How It Works
+Features
+Invitation Preview
+Pricing
+FAQ
+CTA
+Footer
+```
+
+Hero:
+
+```text
+Buat Undangan Digital yang Berkesan
+```
+
+Subheadline:
+
+```text
+Pilih desain, isi data, upload foto, dan terbitkan
+undangan digital Anda dalam beberapa langkah.
+```
+
+Primary CTA:
+
+```text
+Buat Undangan
+```
+
+Secondary CTA:
+
+```text
+Lihat Template
+```
+
+---
+
+# 8. TEMPLATE MARKETPLACE
+
+Route:
+
+```text
+/templates
+```
+
+Setiap template menampilkan:
+
+```text
+Preview
+Nama
+Deskripsi
+Style
+Tombol Gunakan Template
+```
+
+Jangan gunakan screenshot sebagai template sebenarnya.
+
+Thumbnail hanya untuk showcase.
+
+Template harus benar-benar usable.
+
+---
+
+# 9. CREATE INVITATION WIZARD
+
+Route:
+
+```text
+/create
+```
+
+Gunakan multi-step form.
+
+### STEP 01
+
+```text
+Pilih Template
+```
+
+### STEP 02
+
+```text
+Data Mempelai
+```
+
+### STEP 03
+
+```text
+Data Acara
+```
+
+### STEP 04
+
+```text
+Foto & Media
+```
+
+### STEP 05
+
+```text
+Love Story
+```
+
+### STEP 06
+
+```text
+Wedding Gift
+```
+
+### STEP 07
+
+```text
+Preview
+```
+
+### STEP 08
+
+```text
+Checkout
+```
+
+### STEP 09
+
+```text
+Published
+```
+
+Progress indicator:
+
+```text
+Template
+   ↓
+Data
+   ↓
+Media
+   ↓
+Story
+   ↓
+Preview
+   ↓
+Payment
+   ↓
+Published
+```
+
+Customer dapat kembali ke step sebelumnya.
+
+Jangan sampai data hilang ketika berpindah step.
+
+---
+
+# 10. INVITATION DATA
+
+Data minimal:
+
+```text
+title
+event_type
+
+bride_name
+bride_full_name
+bride_parent_names
+bride_social
+
+groom_name
+groom_full_name
+groom_parent_names
+groom_social
+
+event_date
+timezone
+
+akad_date
+akad_start_time
+akad_end_time
+
+reception_date
+reception_start_time
+reception_end_time
+
+venue_name
+venue_address
+latitude
+longitude
+maps_url
+
+opening_text
+
+story
+
+cover_image
+music
+
+status
+
+slug
+
+created_at
+updated_at
+published_at
+```
+
+Timezone default:
+
+```text
+Asia/Jakarta
+```
+
+Gunakan tipe data database yang benar.
+
+Jangan menyimpan tanggal sebagai string arbitrer jika sebenarnya merupakan date/time.
+
+---
+
+# 11. INVITATION STATUS
+
+Gunakan status:
+
+```text
+draft
+pending_payment
+paid
+published
+unpublished
+cancelled
+expired
+```
+
+Public invitation hanya dapat diakses apabila:
+
+```text
+status = published
+```
+
+Draft tidak boleh terbuka hanya karena seseorang mengetahui ID database.
+
+---
+
+# 12. PUBLIC INVITATION
+
+Format URL:
+
+```text
+/[slug]
+```
+
+Contoh:
+
+```text
+/shava-dedek
+```
+
+Public invitation memiliki:
+
+```text
+Cover
+Opening
+Bride & Groom
+Event Details
+Countdown
+Location
+Love Story
+Gallery
+RSVP
+Guestbook
+Wedding Gift
+Closing
+Music Player
+```
+
+Jangan membuat public invitation bergantung pada dashboard.
+
+Public page harus tetap dapat dibuka secara mandiri berdasarkan invitation slug.
+
+---
+
+# 13. REUSABLE INVITATION COMPONENTS
+
+Buat component:
+
+```text
+InvitationCover
+InvitationOpening
+GuestGreeting
+CoupleProfile
+EventSection
+Countdown
+LocationSection
+StoryTimeline
+GallerySection
+RSVPSection
+GuestbookSection
+WeddingGiftSection
+MusicPlayer
+ClosingSection
+```
+
+Setiap component harus reusable.
+
+Jangan membuat semua markup dalam satu file besar.
+
+---
+
+# 14. TEMPLATE CONFIGURATION
+
+Gunakan konfigurasi seperti:
+
+```ts
+type TemplateConfig = {
+  id: string
+  slug: string
+  name: string
+
+  colors: {
+    primary: string
+    secondary: string
+    background: string
+    foreground: string
+    accent: string
+  }
+
+  typography: {
+    heading: string
+    body: string
+  }
+
+  sections: string[]
+
+  animationStyle?: string
+  ornamentStyle?: string
+}
+```
+
+Template harus dapat mengontrol:
+
+```text
+warna
+font
+spacing
+ornament
+border
+section arrangement
+animation
+```
+
+tanpa duplikasi business logic.
+
+---
+
+# 15. GALLERY / IMAGE UPLOAD
+
+Storage:
+
+```text
+Supabase Storage
+```
+
+MVP maksimal:
+
+```text
+10 images
+```
+
+Per file:
+
+```text
+maksimum 10 MB
+```
+
+Allowed:
+
+```text
+JPG
+JPEG
+PNG
+WebP
+```
+
+Validasi server-side:
+
+* MIME
+* extension
+* file size
+* ownership
+* invitation ownership
+
+Jangan mempercayai validation dari browser.
+
+Buat struktur storage yang terorganisasi:
+
+```text
+invitations/
+  {invitationId}/
+     cover/
+     couple/
+     gallery/
+     music/
+```
+
+---
+
+# 16. MUSIC
+
+MVP mendukung:
+
+```text
+1 background music
+```
+
+Allowed:
+
+```text
+MP3
+M4A
+```
+
+Maximum:
+
+```text
+10 MB
+```
+
+Jangan mengandalkan autoplay tanpa user interaction.
+
+Sediakan:
+
+```text
+Music On
+Music Off
+```
+
+---
+
+# 17. PREVIEW SYSTEM
+
+Route:
+
+```text
+/preview/[draftId]
+```
+
+Preview harus menggunakan renderer yang sama dengan public invitation.
+
+Gunakan:
+
+```text
+InvitationRenderer
+```
+
+baik untuk:
+
+```text
+Preview
+```
+
+maupun:
+
+```text
+Published Invitation
+```
+
+Jangan membuat dua implementasi UI berbeda.
+
+Preview memiliki mode:
+
+```text
+Mobile
+Tablet
+Desktop
+```
+
+---
+
+# 18. GUEST PERSONALIZATION
+
+Public invitation juga mendukung:
+
+```text
+/[slug]/[guestToken]
+```
+
+Contoh:
+
+```text
+/shava-dedek/LWG7C9
+```
+
+Halaman menampilkan:
+
+```text
+Kepada Yth.
+
+Muhammad Bayu Nugroho
+```
+
+Guest token:
+
+* random
+* cryptographically secure
+* high entropy
+* tidak sequential
+* tidak menggunakan database integer ID
+
+Simpan token secara aman.
+
+Gunakan hashed token bila sesuai dengan desain security.
+
+---
+
+# 19. GUEST DATA
+
+Minimal:
+
+```text
+id
+invitation_id
+name
+phone
+category
+token_hash
+created_at
+updated_at
+```
+
+Category contoh:
+
+```text
+family
+friend
+coworker
+organization
+other
+```
+
+---
+
+# 20. RSVP
+
+RSVP fields:
+
+```text
+name
+attendance
+guest_count
+message
+```
+
+Attendance:
+
+```text
+hadir
+tidak_hadir
+masih_ragu
+```
+
+Server-side validation wajib.
+
+Batasi guest_count agar tidak absurd.
+
+Tambahkan anti-spam/rate limiting sederhana.
+
+---
+
+# 21. GUESTBOOK
+
+Wishes/guestbook minimal:
+
+```text
+name
+message
+created_at
+```
+
+Message harus diperlakukan sebagai plain text.
+
+Pastikan tidak terjadi:
+
+```text
+XSS
+HTML injection
+script injection
+```
+
+Jangan render raw HTML dari user.
+
+---
+
+# 22. WEDDING GIFT
+
+Data:
+
+```text
+bank_name
+account_name
+account_number
+
+ewallet_provider
+ewallet_number
+```
+
+Public:
+
+```text
+Salin Nomor Rekening
+```
+
+Tidak ada credential financial gateway di sini.
+
+---
+
+# 23. PRICING
+
+MVP V1:
+
+```text
+BASIC
+Rp49.000
+```
+
+```text
+PREMIUM
+Rp99.000
+```
+
+Harga bukan hardcoded business logic di frontend.
+
+Buat:
+
+```text
+plans
+```
+
+di database.
+
+Frontend hanya membaca data.
+
+Server mengambil harga final dari database saat membuat order.
+
+Browser tidak boleh menentukan amount final.
+
+---
+
+# 24. DATABASE
+
+Gunakan PostgreSQL Supabase.
+
+Minimal:
+
+```text
+profiles
+admins
+templates
+plans
+invitations
+invitation_media
+invitation_stories
+invitation_gifts
+guests
+rsvps
+wishes
+orders
+payments
+```
+
+Relationship harus menggunakan foreign key.
+
+Tambahkan index yang relevan.
+
+Unique constraint minimal:
+
+```text
+invitations.slug
+orders.order_number
+payments.provider_transaction_id
+```
+
+Gunakan UUID untuk primary key apabila sesuai.
+
+---
+
+# 25. ROW LEVEL SECURITY
+
+Aktifkan RLS.
+
+Wajib memastikan:
+
+```text
+Public
+```
+
+hanya membaca published invitation.
+
+```text
+Customer
+```
+
+hanya mengakses data yang memang menjadi miliknya.
+
+```text
+Admin
+```
+
+memiliki akses administratif sesuai role.
+
+Jangan mengandalkan filtering frontend sebagai security.
+
+Service role key hanya boleh berada di server.
+
+---
+
+# 26. ADMIN AUTH
+
+Route:
+
+```text
+/admin/login
+```
+
+Gunakan:
+
+```text
+Supabase Auth
+```
+
+Dashboard:
+
+```text
+/admin
+/admin/orders
+/admin/invitations
+/admin/templates
+/admin/plans
+/admin/rsvp
+```
+
+MVP tidak membutuhkan customer account.
+
+---
+
+# 27. ADMIN DASHBOARD
+
+Dashboard minimal:
+
+```text
+Total Orders
+Paid Orders
+Pending Payments
+Published Invitations
+Total RSVPs
+```
+
+Orders:
+
+```text
+Order Number
+Customer
+Package
+Amount
+Payment Status
+Invitation
+Created At
+Action
+```
+
+Actions:
+
+```text
+View
+Open Invitation
+View RSVP
+Publish
+Unpublish
+```
+
+Semua action harus dilindungi authorization server-side.
+
+---
+
+# 28. ORDER SYSTEM
+
+Table:
+
+```text
+orders
+```
+
+fields:
+
+```text
+id
+order_number
+
+customer_name
+customer_email
+customer_phone
+
+invitation_id
+plan_id
+
+amount
+currency
+
+status
+
+payment_provider
+provider_transaction_id
+
+created_at
+updated_at
+paid_at
+```
+
+Order status:
+
+```text
+draft
+pending_payment
+paid
+cancelled
+expired
+refunded
+```
+
+Payment status:
+
+```text
+pending
+settlement
+capture
+deny
+cancel
+expire
+failure
+```
+
+State transition harus jelas.
+
+---
+
+# 29. PAYMENT SYSTEM
+
+Gunakan:
+
+```text
+Midtrans Snap
+```
+
+Development menggunakan:
+
+```text
+SANDBOX
+```
+
+Jangan gunakan production credentials selama development.
+
+Architecture:
+
+```text
+PaymentProvider
+      ↓
+MidtransProvider
+```
+
+Jangan menyebarkan kode Midtrans ke seluruh application layer.
+
+Gunakan interface:
+
+```ts
+interface PaymentProvider {
+  createTransaction(...)
+  getTransactionStatus(...)
+  verifyWebhook(...)
+}
+```
+
+---
+
+# 30. PAYMENT FLOW
+
+Flow:
+
+```text
+Customer clicks Pay
+       ↓
+POST /api/payments/create
+       ↓
+Server validates invitation
+       ↓
+Server retrieves plan
+       ↓
+Server retrieves price
+       ↓
+Server creates order
+       ↓
+Server creates Midtrans transaction
+       ↓
+Snap Token returned
+       ↓
+Frontend opens Midtrans
+```
+
+Browser hanya menerima data yang memang diperlukan untuk checkout.
+
+Server key TIDAK BOLEH dikirim ke client.
+
+---
+
+# 31. PAYMENT VERIFICATION
+
+Frontend callback hanya digunakan untuk UX.
+
+Source of truth:
+
+```text
+Server Webhook
+```
+
+Endpoint:
+
+```text
+/api/webhooks/midtrans
+```
+
+Webhook harus:
+
+```text
+verify signature
+verify order
+verify amount
+verify provider transaction
+verify status
+handle state transition
+be idempotent
+```
+
+Jangan publish invitation hanya karena frontend mengatakan:
+
+```text
+payment success
+```
+
+---
+
+# 32. IDEMPOTENCY
+
+Webhook dapat dikirim lebih dari sekali.
+
+Jika notification yang sama diterima dua kali:
+
+```text
+hasil akhir harus tetap satu transaksi valid
+```
+
+Jangan:
+
+```text
+duplicate order
+duplicate payment
+duplicate publish
+```
+
+Implementasikan idempotent processing.
+
+---
+
+# 33. AUTO PUBLISH
+
+Setelah payment verified:
+
+```text
+payment verified
+      ↓
+order = paid
+      ↓
+invitation = paid/published
+      ↓
+published_at = now()
+      ↓
+URL available
+```
+
+Sistem harus menghasilkan:
+
+```text
+https://domain.com/shava-dedek
+```
+
+Jika personalized guest link tersedia:
+
+```text
+https://domain.com/shava-dedek/{guestToken}
+```
+
+---
+
+# 34. SLUG
+
+Slug contoh:
+
+```text
+shava-dedek
+```
+
+Rules:
+
+* lowercase
+* URL-safe
+* unique
+* readable
+
+Apabila conflict:
+
+```text
+shava-dedek-2
+```
+
+atau strategi unique suffix yang lebih baik.
+
+Jangan menggunakan UUID sebagai URL publik utama.
+
+---
+
+# 35. WHATSAPP
+
+Setelah published:
+
+Display:
+
+```text
+Undangan berhasil diterbitkan!
+
+[Copy Link]
+
+[Bagikan ke WhatsApp]
+```
+
+Gunakan WhatsApp share URL.
+
+Jangan mengirim WhatsApp otomatis dari server pada MVP V1.
+
+Customer tetap melakukan pengiriman sendiri.
+
+---
+
+# 36. PERSONALIZED WHATSAPP MESSAGE
+
+Generated message:
+
+```text
+Assalamu'alaikum.
+
+Dengan penuh kebahagiaan, kami mengundang
+Bapak/Ibu/Saudara untuk hadir dalam acara
+pernikahan kami.
+
+Kepada:
+[NAMA TAMU]
+
+Berikut undangan digital kami:
+
+[LINK]
+
+Merupakan kebahagiaan bagi kami apabila
+Bapak/Ibu/Saudara berkenan hadir.
+```
+
+Encode URL dengan benar.
+
+---
+
+# 37. CUSTOMER ACCESS
+
+Customer tanpa account harus tetap memiliki secure access terhadap draft/order mereka.
+
+Gunakan:
+
+```text
+opaque access token
+```
+
+atau mekanisme aman yang setara.
+
+Jangan menggunakan:
+
+```text
+/invitation/[database-id]
+```
+
+sebagai authorization.
+
+Jangan menganggap slug sebagai secret.
+
+---
+
+# 38. SEO
+
+Public invitation:
+
+```text
+title
+description
+OpenGraph
+canonical
+OpenGraph image
+```
+
+Contoh:
+
+```text
+Shava & Dedek — Undangan Pernikahan
+```
+
+Jangan index:
+
+```text
+/admin
+/create
+/preview
+draft invitation
+```
+
+Gunakan metadata dinamis berdasarkan invitation.
+
+---
+
+# 39. PERFORMANCE
+
+Prioritas:
+
+```text
+fast loading
+mobile-first
+small bundle
+optimized images
+lazy gallery
+minimal hydration
+```
+
+Jangan memasukkan animation library besar tanpa alasan.
+
+Gunakan animation secara halus.
+
+---
+
+# 40. RESPONSIVE
+
+Wajib diuji:
+
+```text
+360px
+390px
+414px
+768px
+1024px
+1440px
+```
+
+Tidak boleh ada:
+
+```text
+horizontal overflow
+clipped content
+broken gallery
+broken modal
+overflowing buttons
+```
+
+---
+
+# 41. ACCESSIBILITY
+
+Minimal:
+
+```text
+semantic HTML
+proper labels
+keyboard navigation
+visible focus
+alt text
+aria-label
+adequate contrast
+reduced motion support
+```
+
+---
+
+# 42. VALIDATION
+
+Gunakan Zod.
+
+Buat schema:
+
+```text
+InvitationSchema
+CoupleSchema
+EventSchema
+MediaSchema
+GuestSchema
+RSVPSchema
+WishSchema
+CheckoutSchema
+```
+
+Validation wajib terjadi:
+
+```text
+Client
++
+Server
+```
+
+Server adalah sumber kebenaran.
+
+---
+
+# 43. ERROR HANDLING
+
+Gunakan error state yang spesifik.
+
+Contoh:
+
+```text
+Pembayaran belum selesai.
+```
+
+```text
+Undangan belum tersedia.
+```
+
+```text
+Foto gagal diunggah.
+```
+
+```text
+Template tidak ditemukan.
+```
+
+```text
+Link undangan tidak valid.
+```
+
+Setiap asynchronous operation memiliki:
+
+```text
+loading
+success
+error
+```
+
+---
+
+# 44. SECURITY REQUIREMENTS
+
+Audit terhadap:
+
+```text
+XSS
+CSRF
+IDOR
+Broken Access Control
+SQL Injection
+SSRF
+File Upload Vulnerability
+Secret Exposure
+Webhook Spoofing
+Rate Abuse
+```
+
+Pastikan:
+
+```text
+RLS enabled
+service role server-only
+secrets server-only
+secure token generation
+secure upload validation
+server-side authorization
+server-side price validation
+webhook verification
+idempotency
+```
+
+Jangan pernah memasukkan secret ke source code.
+
+---
+
+# 45. ENVIRONMENT VARIABLES
+
+Buat:
+
+```text
+.env.example
+```
+
+Minimal:
+
+```env
+NEXT_PUBLIC_APP_URL=
+
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=
+MIDTRANS_SERVER_KEY=
+MIDTRANS_IS_PRODUCTION=false
+```
+
+Jangan commit `.env`.
+
+Jangan menampilkan credential di UI.
+
+Jangan print secret di logs.
+
+---
+
+# 46. MOCK PAYMENT
+
+Buat abstraction:
+
+```text
+PaymentProvider
+├── MidtransProvider
+└── MockPaymentProvider
+```
+
+Development:
+
+```env
+PAYMENT_PROVIDER=mock
+```
+
+Production:
+
+```env
+PAYMENT_PROVIDER=midtrans
+```
+
+Mock payment hanya boleh aktif dalam development/test.
+
+Jangan sampai production secara tidak sengaja menggunakan mock payment.
+
+---
+
+# 47. DEMO INVITATION
+
+Buat demo:
+
+```text
+/demo/shava-dedek
+```
+
+Data contoh:
+
+```text
+Shava & Dedek
+```
+
+Demo tidak membutuhkan payment.
+
+Tujuannya:
+
+```text
+calon customer
+        ↓
+melihat demo
+        ↓
+tertarik
+        ↓
+Buat Undangan
+```
+
+---
+
+# 48. DOCUMENTATION
+
+Buat:
+
+```text
+docs/
+├── MVP_V1_PLAN.md
+├── ARCHITECTURE.md
+├── DATABASE.md
+├── SECURITY.md
+├── PAYMENT.md
+├── DEPLOYMENT.md
+└── TESTING.md
+```
+
+Juga buat:
+
+```text
+AGENTS.md
+```
+
+Isi `AGENTS.md` dengan:
+
+* project principles
+* coding conventions
+* security requirements
+* testing requirements
+* architecture rules
+* commands
+* things agent must not do
+
+---
+
+# 49. DEVELOPMENT PHASES
+
+JANGAN mengerjakan seluruh project dalam satu giant step.
+
+## PHASE 0
+
+Inspection
+
+* inspect repository
+* inspect dependencies
+* inspect current files
+* inspect env
+* identify existing code
+* produce plan
+
+Output:
+
+```text
+docs/MVP_V1_PLAN.md
+docs/ARCHITECTURE.md
+docs/DATABASE.md
+docs/SECURITY.md
+AGENTS.md
+```
+
+Jangan lanjut sebelum repository benar-benar dipahami.
+
+---
+
+## PHASE 1
+
+Foundation
+
+Implement:
+
+```text
+Next.js
+Supabase client
+environment configuration
+database migration
+RLS
+authentication
+validation
+base design system
+```
+
+Verifikasi:
+
+```text
+typecheck
+lint
+build
+```
+
+---
+
+## PHASE 2
+
+Invitation Engine
+
+Implement:
+
+```text
+template system
+3 templates
+invitation renderer
+public invitation layout
+reusable sections
+```
+
+Verifikasi via browser.
+
+---
+
+## PHASE 3
+
+Invitation Builder
+
+Implement:
+
+```text
+template selection
+couple form
+event form
+media upload
+story
+gift
+autosave
+preview
+```
+
+Pastikan data tidak hilang ketika berpindah step.
+
+---
+
+## PHASE 4
+
+Public Invitation
+
+Implement:
+
+```text
+cover
+couple
+event
+countdown
+maps
+story
+gallery
+music
+RSVP
+guestbook
+gift
+```
+
+---
+
+## PHASE 5
+
+Guest Personalization
+
+Implement:
+
+```text
+guest database
+secure token
+personalized URL
+guest greeting
+```
+
+---
+
+## PHASE 6
+
+Payment
+
+Implement:
+
+```text
+plans
+orders
+payments
+Midtrans sandbox
+Snap
+webhook
+signature verification
+idempotency
+```
+
+---
+
+## PHASE 7
+
+Auto Publishing
+
+Implement:
+
+```text
+verified payment
+publish invitation
+slug
+public URL
+success page
+```
+
+---
+
+## PHASE 8
+
+WhatsApp
+
+Implement:
+
+```text
+copy link
+share link
+personalized guest link
+generated message
+```
+
+---
+
+## PHASE 9
+
+Admin
+
+Implement:
+
+```text
+dashboard
+orders
+invitations
+templates
+plans
+RSVP
+publish/unpublish
+```
+
+---
+
+## PHASE 10
+
+QA + Security
+
+Test:
+
+```text
+unit
+integration
+E2E
+RLS
+access control
+upload
+payment
+webhook
+duplicate webhook
+mobile responsiveness
+```
+
+---
+
+# 50. BROWSER TEST SCENARIO
+
+Gunakan browser untuk menguji flow nyata:
+
+```text
+Open /
+↓
+Open /templates
+↓
+Choose template
+↓
+Open /create
+↓
+Fill invitation
+↓
+Upload images
+↓
+Preview
+↓
+Choose plan
+↓
+Create order
+↓
+Open sandbox payment
+↓
+Simulate successful payment
+↓
+Receive webhook
+↓
+Verify payment
+↓
+Publish invitation
+↓
+Open public URL
+↓
+Open personalized guest URL
+↓
+Submit RSVP
+↓
+Submit wish
+↓
+Copy/share WhatsApp link
+```
+
+Uji minimal pada mobile viewport.
+
+---
+
+# 51. ACCEPTANCE CRITERIA
+
+MVP V1 hanya dianggap selesai jika:
+
+```text
+[ ] Landing page bekerja
+[ ] Template page bekerja
+[ ] 3 template tersedia
+[ ] Customer dapat memilih template
+[ ] Customer dapat mengisi data
+[ ] Customer dapat upload foto
+[ ] Customer dapat preview
+[ ] Customer dapat memilih paket
+[ ] Order dapat dibuat
+[ ] Midtrans Sandbox bekerja
+[ ] Webhook dapat diverifikasi
+[ ] Duplicate webhook aman
+[ ] Invitation otomatis publish setelah payment verified
+[ ] Public invitation bekerja
+[ ] Guest personalization bekerja
+[ ] RSVP bekerja
+[ ] Guestbook bekerja
+[ ] Wedding gift bekerja
+[ ] Music bekerja
+[ ] WhatsApp share bekerja
+[ ] Admin login bekerja
+[ ] Admin dashboard bekerja
+[ ] RLS aktif
+[ ] Server-side authorization aktif
+[ ] Secret tidak bocor
+[ ] TypeScript clean
+[ ] Lint clean
+[ ] Build berhasil
+[ ] Critical browser errors = 0
+[ ] Mobile layout verified
+```
+
+---
+
+# 52. NON-GOALS MVP V1
+
+JANGAN implementasikan dahulu:
+
+```text
+WhatsApp API Blast
+Custom Domain
+QR Check-in
+Attendance Scanner
+Advanced Analytics
+Affiliate
+Coupon System
+Subscription
+Multi-level Admin
+Mobile App
+AI Content Generator
+Drag & Drop Editor
+Template Marketplace
+Email Marketing
+```
+
+Architecture harus extensible untuk fitur tersebut, tetapi jangan membangunnya sekarang.
+
+---
+
+# 53. IMPORTANT RULES
+
+Jangan:
+
+```text
+fake payment success
+```
+
+Jangan:
+
+```text
+publish berdasarkan browser callback
+```
+
+Jangan:
+
+```text
+expose MIDTRANS_SERVER_KEY
+```
+
+Jangan:
+
+```text
+hardcode final price di client
+```
+
+Jangan:
+
+```text
+allow draft invitation to be public
+```
+
+Jangan:
+
+```text
+trust client-side validation
+```
+
+Jangan:
+
+```text
+use sequential guest token
+```
+
+Jangan:
+
+```text
+put Supabase service-role key in browser
+```
+
+Jangan:
+
+```text
+duplicate invitation rendering logic
+```
+
+Jangan:
+
+```text
+create giant component with all business logic
+```
+
+---
+
+# 54. GIT / CHANGE MANAGEMENT
+
+Sebelum perubahan besar:
+
+```text
+inspect
+plan
+implement
+test
+verify
+```
+
+Gunakan commit yang jelas apabila Git repository tersedia.
+
+Contoh:
+
+```text
+feat: add invitation template engine
+feat: add invitation builder
+feat: add media upload
+feat: add payment order system
+feat: add Midtrans webhook
+feat: add automatic invitation publishing
+```
+
+Jangan membuat perubahan besar yang tidak terdokumentasi.
+
+---
+
+# 55. FINAL PROJECT REPORT
+
+Ketika selesai, jangan hanya memberikan:
+
+```text
+Done.
+```
+
+Berikan:
+
+```text
+PROJECT STATUS
+
+Architecture      ✓
+Database          ✓
+RLS               ✓
+Authentication    ✓
+Templates         ✓
+Builder           ✓
+Upload            ✓
+Preview           ✓
+Payment           ✓
+Webhook           ✓
+Auto Publish      ✓
+Guest URL         ✓
+RSVP              ✓
+WhatsApp          ✓
+Admin             ✓
+Testing           ✓
+Security Audit    ✓
+Production Build  ✓
+```
+
+Kemudian laporkan:
+
+```text
+Routes
+Database Tables
+Environment Variables
+Test Results
+Security Findings
+Known Limitations
+Local Development Steps
+Deployment Steps
+```
+
+---
+
+# 56. FIRST ACTION
+
+JANGAN langsung membuat semua fitur.
+
+Mulai sekarang dengan:
+
+### STEP 1
+
+Inspect repository secara menyeluruh.
+
+### STEP 2
+
+Jelaskan:
+
+```text
+current architecture
+current dependencies
+current risks
+missing infrastructure
+recommended architecture
+```
+
+### STEP 3
+
+Buat:
+
+```text
+docs/MVP_V1_PLAN.md
+docs/ARCHITECTURE.md
+docs/DATABASE.md
+docs/SECURITY.md
+AGENTS.md
+```
+
+### STEP 4
+
+Jalankan hanya PHASE 1.
+
+### STEP 5
+
+Setelah PHASE 1 selesai:
+
+```text
+typecheck
+lint
+test
+build
+browser verification
+```
+
+### STEP 6
+
+Perbaiki seluruh error sebelum melanjutkan.
+
+### STEP 7
+
+Lanjutkan phase berikutnya secara bertahap.
+
+---
+
+# FINAL OBJECTIVE
+
+Produk akhir MVP V1 harus memungkinkan seseorang melakukan:
+
+```text
+Pilih Template
+      ↓
+Isi Data
+      ↓
+Upload Foto
+      ↓
+Preview
+      ↓
+Bayar
+      ↓
+Undangan Terbit Otomatis
+      ↓
+Dapat Link
+      ↓
+Share WhatsApp
+```
+
+dengan pengalaman yang:
+
+```text
+simple
+fast
+secure
+elegant
+mobile-first
+reusable
+maintainable
+```
+
+Bangun ini sebagai **produk nyata yang siap dikembangkan menjadi platform komersial**, bukan sekadar prototype visual.
