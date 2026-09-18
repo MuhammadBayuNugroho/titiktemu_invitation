@@ -9,11 +9,9 @@ import {
   Zap,
   Music,
   MapPin,
-  Clock,
   Eye,
   Gift,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (

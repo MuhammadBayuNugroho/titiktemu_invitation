@@ -21,10 +21,31 @@ import {
   Sparkles,
   Heart,
   Loader2,
+  Download,
+  SlidersHorizontal,
+  RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { generateWhatsAppMessage, generateWhatsAppUrl } from "@/lib/whatsapp";
+import {
+  generateWhatsAppMessage,
+  generateWhatsAppUrl,
+  generateGuestListCSV,
+} from "@/lib/whatsapp";
 import type { GuestWithRSVP } from "@/types/invitation";
+
+const DEFAULT_WA_TEMPLATE = `Assalamu'alaikum Warahmatullahi Wabarakatuh.
+
+Dengan penuh kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami.
+
+Kepada:
+*{nama}*
+
+Berikut tautan undangan digital kami:
+{link}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+
+Terima kasih.`;
 
 interface GuestManagerClientProps {
   token: string;
@@ -117,6 +138,11 @@ export function GuestManagerClient({
     });
   }, [guests, searchQuery, categoryFilter, rsvpFilter]);
 
+  // WhatsApp Campaign & Template Customizer state
+  const [templateText, setTemplateText] = useState(DEFAULT_WA_TEMPLATE);
+  const [showTemplateEditor, setShowTemplateEditor] = useState(false);
+  const [copiedAll, setCopiedAll] = useState(false);
+
   // Copy helper
   const handleCopyLink = (url: string, tokenId: string) => {
     navigator.clipboard.writeText(url);
@@ -128,6 +154,40 @@ export function GuestManagerClient({
     navigator.clipboard.writeText(generalUrl);
     setCopiedGeneral(true);
     setTimeout(() => setCopiedGeneral(false), 2000);
+  };
+
+  // Bulk Campaign handlers
+  const handleDownloadCSV = () => {
+    const listToExport = filteredGuests.length > 0 ? filteredGuests : guests;
+    const csvContent = generateGuestListCSV(
+      listToExport,
+      baseUrl,
+      initialInvitation.slug,
+      templateText !== DEFAULT_WA_TEMPLATE ? templateText : undefined
+    );
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `daftar_tamu_${initialInvitation.slug}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleCopyAllLinks = () => {
+    const list = filteredGuests.length > 0 ? filteredGuests : guests;
+    if (list.length === 0) return;
+    const formatted = list
+      .map((g, idx) => {
+        const guestUrl = `${baseUrl}/i/${initialInvitation.slug}/${g.token}`;
+        return `${idx + 1}. ${g.name} (${g.phone || "-"}): ${guestUrl}`;
+      })
+      .join("\n");
+    navigator.clipboard.writeText(formatted);
+    setCopiedAll(true);
+    setTimeout(() => setCopiedAll(false), 2500);
   };
 
   // Add single guest handler
@@ -491,6 +551,123 @@ export function GuestManagerClient({
 
         {/* Guest List & Table Section */}
         <div className="bg-stone-900/80 border border-stone-800 rounded-3xl overflow-hidden shadow-xl">
+          {/* Campaign Action Bar */}
+          <div className="p-4 sm:p-6 border-b border-stone-800 flex flex-wrap items-center justify-between gap-3 bg-stone-950/40">
+            <div>
+              <h3 className="text-sm font-semibold text-stone-100 flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-400" />
+                Daftar Tamu Terdaftar
+              </h3>
+              <p className="text-xs text-stone-400 mt-0.5">
+                Menampilkan {filteredGuests.length} dari {guests.length} tamu
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setShowTemplateEditor(!showTemplateEditor)}
+                className={`h-8 rounded-full text-xs font-medium border transition-colors ${
+                  showTemplateEditor
+                    ? "bg-amber-400/15 border-amber-400/40 text-amber-300"
+                    : "bg-stone-900 border-stone-800 text-stone-300 hover:bg-stone-800"
+                }`}
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 mr-1.5" />
+                Kustomisasi Pesan WA
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleCopyAllLinks}
+                disabled={filteredGuests.length === 0}
+                className="h-8 rounded-full text-xs font-medium bg-stone-900 border-stone-800 text-stone-300 hover:bg-stone-800 transition-colors"
+                title="Salin nama dan link personal semua tamu terfilter"
+              >
+                {copiedAll ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                    <span className="text-emerald-400">Tersalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Share2 className="w-3.5 h-3.5 mr-1.5 text-stone-400" />
+                    <span>Salin Semua Link</span>
+                  </>
+                )}
+              </Button>
+
+              <Button
+                type="button"
+                size="sm"
+                onClick={handleDownloadCSV}
+                disabled={guests.length === 0}
+                className="h-8 rounded-full text-xs font-medium bg-white text-stone-950 hover:bg-stone-200 transition-colors flex items-center"
+                title="Unduh daftar tamu beserta tautan dan pesan WA ke file CSV (Excel)"
+              >
+                <Download className="w-3.5 h-3.5 mr-1.5" />
+                <span>Ekspor CSV (Excel)</span>
+              </Button>
+            </div>
+          </div>
+
+          {/* Collapsible WhatsApp Template Editor */}
+          {showTemplateEditor && (
+            <div className="p-4 sm:p-6 border-b border-stone-800 bg-stone-950/90 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="space-y-0.5">
+                  <h4 className="text-xs sm:text-sm font-semibold text-stone-100 flex items-center gap-1.5">
+                    <MessageCircle className="w-4 h-4 text-emerald-400" />
+                    Kustomisasi Template Pesan WhatsApp
+                  </h4>
+                  <p className="text-xs text-stone-400">
+                    Gunakan variabel <code className="text-amber-300 font-mono">{"{nama}"}</code> untuk nama tamu dan <code className="text-amber-300 font-mono">{"{link}"}</code> untuk tautan undangan digital unik.
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setTemplateText(DEFAULT_WA_TEMPLATE)}
+                  className="text-xs text-stone-400 hover:text-stone-100 flex items-center gap-1 self-start sm:self-auto h-7 px-2"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  Reset ke Standar
+                </Button>
+              </div>
+
+              <textarea
+                rows={6}
+                value={templateText}
+                onChange={(e) => setTemplateText(e.target.value)}
+                className="w-full bg-stone-900/90 border border-stone-800 rounded-xl p-3.5 text-xs text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-400 font-mono leading-relaxed"
+                placeholder="Tulis format pesan undangan..."
+              />
+
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-stone-500">Sisipkan Variabel:</span>
+                <button
+                  type="button"
+                  onClick={() => setTemplateText((prev) => prev + " {nama}")}
+                  className="px-2.5 py-1 rounded-lg bg-stone-900 border border-stone-800 text-xs text-amber-300 hover:bg-stone-800 font-mono transition-colors"
+                >
+                  + {"{nama}"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTemplateText((prev) => prev + " {link}")}
+                  className="px-2.5 py-1 rounded-lg bg-stone-900 border border-stone-800 text-xs text-amber-300 hover:bg-stone-800 font-mono transition-colors"
+                >
+                  + {"{link}"}
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Filter Bar */}
           <div className="p-4 sm:p-6 border-b border-stone-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div className="relative flex-1 max-w-md">
@@ -568,6 +745,8 @@ export function GuestManagerClient({
                       brideNickname: initialInvitation.brideName,
                       eventDate: initialInvitation.eventDate,
                       invitationUrl: guestUrl,
+                      customTemplate:
+                        templateText !== DEFAULT_WA_TEMPLATE ? templateText : undefined,
                     });
 
                     return (
@@ -683,14 +862,23 @@ export function GuestManagerClient({
 
         {/* WhatsApp Message Preview Box */}
         <div className="bg-stone-900/60 border border-stone-800 rounded-3xl p-6 space-y-3">
-          <div className="flex items-center gap-2 text-stone-300 text-sm font-medium">
-            <MessageCircle className="w-4 h-4 text-emerald-400" />
-            <span>Format Pesan WhatsApp yang Terkirim ke Tamu (Sesuai Standar):</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-stone-300 text-sm font-medium">
+              <MessageCircle className="w-4 h-4 text-emerald-400" />
+              <span>Format Pesan WhatsApp yang Terkirim ke Tamu:</span>
+            </div>
+            {templateText !== DEFAULT_WA_TEMPLATE && (
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                Kustom Aktif
+              </span>
+            )}
           </div>
           <div className="bg-stone-950 border border-stone-800 rounded-2xl p-4 font-mono text-xs sm:text-sm text-stone-300 whitespace-pre-line leading-relaxed max-w-2xl">
             {generateWhatsAppMessage({
               guestName: "Nama Tamu Undangan",
               invitationUrl: `${baseUrl}/i/${initialInvitation.slug}/[TOKEN_TAMU]`,
+              customTemplate:
+                templateText !== DEFAULT_WA_TEMPLATE ? templateText : undefined,
             })}
           </div>
         </div>

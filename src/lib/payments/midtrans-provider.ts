@@ -98,7 +98,11 @@ export class MidtransPaymentProvider implements IPaymentProvider {
 
   parseWebhookStatus(payload: WebhookPayload): PaymentStatus {
     const status = payload.transaction_status as string;
-    if (["settlement", "capture"].includes(status)) return "settlement";
+    if (status === "capture") {
+      if (payload.fraud_status === "challenge") return "pending";
+      return "settlement";
+    }
+    if (status === "settlement") return "settlement";
     if (status === "pending") return "pending";
     if (status === "cancel") return "cancel";
     if (status === "expire") return "expire";

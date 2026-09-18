@@ -47,14 +47,14 @@ Tujuan MVP V1: Memberikan pengalaman menyeluruh bagi calon pengantin untuk memil
 ---
 
 ## 4. Acceptance Criteria
-- [ ] Landing page & katalog template aktif dan responsif.
-- [ ] 3 template terpisah dapat dirender dengan 1 set data yang sama.
-- [ ] Multi-step form wizard tidak kehilangan state data saat berpindah langkah.
-- [ ] Upload gambar tervalidasi di sisi server (MIME, ekstensi, max 10MB).
-- [ ] Order dihitung dari database `plans` (bukan dari parameter client).
-- [ ] Webhook signature Midtrans terverifikasi dengan SHA512 dan bersifat idempoten.
-- [ ] Undangan otomatis berstatus `published` saat pembayaran sukses.
-- [ ] Guest token acak (high entropy, non-sequential).
-- [ ] RSVP & Guestbook terlindungi dari serangan XSS dan HTML injection.
-- [ ] Admin dashboard dapat mengelola pesanan dan status publikasi undangan.
-- [ ] Typecheck, ESLint, dan Build Next.js 100% lulus tanpa error.
+- [x] Landing page & katalog template aktif dan responsif.
+- [x] 3 template terpisah dapat dirender dengan 1 set data yang sama.
+- [x] Multi-step form wizard tidak kehilangan state data saat berpindah langkah.
+- [x] Upload gambar tervalidasi di sisi server (MIME, ekstensi, max 10MB).
+- [x] Order dihitung dari database `plans` (bukan dari parameter client).
+- [x] Webhook signature Midtrans terverifikasi dengan SHA512 dan bersifat idempoten.
+- [x] Undangan otomatis berstatus `published` saat pembayaran sukses.
+- [x] Guest token acak (high entropy, non-sequential).
+- [x] RSVP & Guestbook terlindungi dari serangan XSS dan HTML injection.
+- [x] Admin dashboard dapat mengelola pesanan dan status publikasi undangan.
+- [x] Typecheck, ESLint, dan Build Next.js 100% lulus tanpa error.

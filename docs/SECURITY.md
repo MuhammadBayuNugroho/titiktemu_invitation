@@ -1,37 +1,69 @@
-# TITIK TEMU INVITATION — SECURITY ARCHITECTURE & POLICIES
+# SECURITY GUIDELINES & AUDIT — TITIK TEMU INVITATION
 
-## 1. Threat Modeling & Core Defense Rules
-
-| Vektor Serangan | Risiko | Mekanisme Pencegahan |
-|---|---|---|
-| **Payment Spoofing** | Memalsukan status pembayaran menjadi `paid` melalui manipulasi request browser | **Source of Truth tunggal:** Server Webhook. Status hanya berubah jika webhook diverifikasi menggunakan hashing SHA-512 `hash(order_id + status_code + gross_amount + ServerKey)`. Callback frontend murni kosmetik. |
-| **Price Tampering** | Mengubah nilai harga paket di frontend | Amount order selalu dihitung dan diambil langsung dari tabel `plans` di database server. |
-| **IDOR (Insecure Direct Object Reference)** | Mengakses/mengubah draft milik pengguna lain dengan menebak ID database | Otorisasi modifikasi draft wajib menyertakan `customer_access_token` rahasia berekstensi kriptografis. Endpoint publik murni read-only pada data yang berstatus `published`. |
-| **Cross-Site Scripting (XSS)** | Injeksi JavaScript melalui form ucapan tamu / guestbook | Seluruh pesan tamu disanitasi dan dirender sebagai teks biasa (*plain text string*). Dilarang keras menggunakan `dangerouslySetInnerHTML`. |
-| **File Upload Exploitation** | Upload malware atau file executable ke server storage | Validasi server-side wajib meliputi MIME type (image/jpeg, image/png, image/webp), batasan ukuran maksimal 10MB, pembersihan nama file, dan isolasi path storage per ID undangan. |
-| **Webhook Replay / Duplication** | Eksekusi webhook berulang kali yang memicu status corrupt | Implementasi pemrosesan *idempotent* dengan pengecekan apakah transaksi telah diproses sebelumnya. |
-| **Secret Leakage** | Pembocoran Midtrans Server Key atau Supabase Service Role Key | Kunci rahasia diletakkan hanya pada environment variable server-side (tanpa prefix `NEXT_PUBLIC_`). |
+Dokumen ini mendefinisikan arsitektur keamanan, kepatuhan RLS, penanganan rahasia server, serta mitigasi kerentanan web pada platform Titik Temu Invitation.
 
 ---
 
-## 2. Row Level Security (RLS) Matrix
+## 1. Zero Secret Leakage Policy
 
-- **`invitations`**:
-  - `SELECT`: Siapapun dapat membaca baris jika `status = 'published'`. Pembeli dengan `customer_access_token` valid dapat membaca draft mereka sendiri. Admin authenticated memiliki akses penuh.
-  - `INSERT`: Diizinkan untuk inisialisasi draft baru.
-  - `UPDATE`: Hanya diizinkan jika menyertakan `customer_access_token` yang sesuai atau oleh role `admin`.
-- **`wishes` & `rsvps`**:
-  - `SELECT`: Diizinkan jika undangan terkait berstatus `published`.
-  - `INSERT`: Diizinkan untuk umum pada undangan yang berstatus `published` (dilengkapi rate limiting).
-- **`orders` & `payments`**:
-  - Akses publik `DENY` secara default.
-  - Hanya dapat di-insert dan di-update melalui Supabase Service Role di Route Handler server.
+1. **Aturan Environment Variables**:
+   - Rahasia server seperti `SUPABASE_SERVICE_ROLE_KEY` dan `MIDTRANS_SERVER_KEY` **DILARANG KERAS** menggunakan prefix `NEXT_PUBLIC_`.
+   - Rahasia server tidak pernah di-bundle ke dalam client-side JavaScript.
+   - Panggilan yang membutuhkan hak akses istimewa (database writes, publishing, webhook verification) hanya dijalankan di lapisan *Server-Only Data Access Layer* (`src/lib/services/*` dan Route Handlers).
+
+2. **Admin Authentication**:
+   - Panel `/admin` dilindungi oleh `ADMIN_SECRET_KEY` yang diverifikasi di sisi server dan disimpan pada HTTP-Only secure cookie (`admin_session`).
+   - Seluruh rute admin disematkan metadata robots `noindex, nofollow` agar tidak dapat diindeks oleh bot mesin pencari.
 
 ---
 
-## 3. Cryptographic Token Generation
+## 2. Server-Authoritative Price Validation
 
-Token tamu (*guest tokens*) wajib memenuhi parameter:
-- Karakter: Alfanumerik (huruf kapital & angka menghindari ambiguitas karakter seperti O/0 atau I/1).
-- Panjang: Minimal 6-8 karakter acak berbobot kriptografis (`crypto.getRandomValues`).
-- Non-sequential: Tidak pernah menggunakan auto-increment ID database.
+1. **Harga Tidak Pernah Dipercaya dari Klien**:
+   - Parameter `amount` yang dikirim dari browser pada saat checkout tidak dijadikan acuan transaksi.
+   - Server selalu membaca nominal harga resmi langsung dari tabel database `plans` (`src/lib/services/order-service.ts` -> `createOrder`).
+   - Webhook notifikasi memvalidasi `gross_amount` transaksi terhadap `orders.amount` di database sebelum mengubah status pesanan.
+
+---
+
+## 3. Webhook Security & Idempotency
+
+1. **Signature Verification**:
+   - Notifikasi Midtrans diverifikasi menggunakan hash SHA-512 dari kombinasi `order_id + status_code + gross_amount + ServerKey`.
+2. **Proteksi Idempotensi**:
+   - Jika notifikasi pembayaran yang sama diterima lebih dari satu kali, server mendeteksi status pesanan `paid` dan langsung merespons `200 OK` tanpa memicu publikasi ganda atau duplikasi catatan keuangan.
+3. **Pemisahan Logika Handler**:
+   - Logika webhook diisolasi dalam `src/lib/payments/webhook-handler.ts` untuk memastikan ekspor HTTP Next.js App Router tetap bersih dan patuh pada type-checker compiler.
+
+---
+
+## 4. XSS & HTML Injection Mitigation
+
+1. **Sanitasi Ucapan & Buku Tamu**:
+   - Ucapan tamu (`wishes`) dan catatan RSVP dirender secara deklaratif melalui sintaks JSX React tanpa pernah menggunakan `dangerouslySetInnerHTML`.
+   - Karakter khusus (`<`, `>`, `"`, `'`) otomatis di-escape oleh React compiler sebelum dirender ke DOM.
+2. **Validasi Input Zod**:
+   - Seluruh payload request ke `/api/rsvp`, `/api/wishes`, dan `/api/guests` divalidasi ketat menggunakan Zod schemas di sisi server.
+
+---
+
+## 5. Token Cryptographic Entropy
+
+1. **Customer Access Token**:
+   - Menggunakan 256-bit random byte buffer yang dikonversi ke 64 karakter heksadesimal berentropi tinggi (`generateSecureToken()`).
+2. **Personalized Guest Token**:
+   - Menggunakan karakter URL-safe Base58 acak sepanjang minimal 10 karakter (`generateGuestToken()`), menghasilkan lebih dari $4.3 \times 10^{17}$ kombinasi unik, mencegah serangan brute-force enumeration.
+
+---
+
+## 6. Row Level Security (RLS) Matrix
+
+| Tabel | Public Read | Public Insert | Update / Delete |
+| :--- | :---: | :---: | :---: |
+| `templates` | ✅ Ya (Katalog) | ❌ Dilarang | Admin Service Only |
+| `plans` | ✅ Ya (Daftar Harga) | ❌ Dilarang | Admin Service Only |
+| `invitations` | ✅ Published Only | ❌ Via Service | Admin / Service Only |
+| `guests` | ✅ By Token | ❌ Via Portal Pengantin | Admin / Customer Token |
+| `rsvp` | ✅ By Invitation | ✅ Tamu Tervalidasi | Admin / Owner |
+| `wishes` | ✅ By Invitation | ✅ Tamu Tervalidasi | Admin Moderasi |
+| `orders` | ❌ Dilarang | ❌ Via Server Checkout | Webhook & Admin Only |

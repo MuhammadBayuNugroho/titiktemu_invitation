@@ -32,17 +32,22 @@ export function formatDateIndonesian(dateString: string): string {
  * Generate a URL-safe slug from couple names + random suffix.
  * Runs server-side only (uses crypto).
  */
-export function generateSlug(brideName: string, groomName: string): string {
-  const clean = (s: string) =>
-    s
+export function generateSlug(brideName?: string, groomName?: string): string {
+  const clean = (s?: string) =>
+    (s || "")
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]/g, "")
-      .slice(0, 12);
-  const suffix = Math.random().toString(36).slice(2, 7);
-  return `${clean(brideName)}-${clean(groomName)}-${suffix}`;
+      .slice(0, 14);
+
+  const b = clean(brideName);
+  const g = clean(groomName);
+  const prefix = b && g ? `${b}-${g}` : b || g || "undangan-pernikahan";
+  const suffix = Math.random().toString(36).slice(2, 6);
+  return `${prefix}-${suffix}`;
 }
+
 
 /**
  * Generate an order number in format TTI-YYYYMMDD-XXXXX.
@@ -74,9 +79,9 @@ export function generateSecureToken(): string {
 }
 
 /**
- * Generate a cryptographically random, URL-safe guest token (e.g. 8 chars, high entropy).
+ * Generate a cryptographically random, URL-safe guest token (e.g. 10 chars, high entropy).
  */
-export function generateGuestToken(length: number = 8): string {
+export function generateGuestToken(length: number = 10): string {
   const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
   if (typeof crypto !== "undefined" && crypto.getRandomValues) {
     const bytes = new Uint8Array(length);

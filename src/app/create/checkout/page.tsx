@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Check, ShieldCheck, ArrowRight, ArrowLeft, Loader2, Sparkles } from "lucide-react";
+import { Check, ShieldCheck, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,7 +39,7 @@ const PLANS: PlanOption[] = [
     originalPrice: 199000,
     recommended: true,
     features: [
-      "Masa Aktif Selamanya",
+      "Masa Aktif 12 Bulan",
       "Galeri Tanpa Batas Foto",
       "Cerita Cinta & Timeline",
       "Amplop Digital & QR Code",
@@ -47,7 +48,21 @@ const PLANS: PlanOption[] = [
       "Prioritas Support 24/7",
     ],
   },
+  {
+    code: "gold",
+    name: "Paket Gold (VIP)",
+    price: 149000,
+    originalPrice: 299000,
+    features: [
+      "Masa Aktif Selamanya",
+      "Seluruh Fitur Premium",
+      "Prioritas Pendampingan Desain",
+      "Custom Subdomain Khusus",
+      "Bebas Watermark Platform",
+    ],
+  },
 ];
+
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -163,12 +178,18 @@ export default function CheckoutPage() {
             router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}${tokenParam}`);
           },
           onPending: function () {
-            alert("Pembayaran Anda sedang diproses. Mohon selesaikan pembayaran.");
+            router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}${tokenParam}&status=pending`);
           },
           onError: function () {
             setError("Pembayaran gagal. Silakan coba lagi.");
+            setLoading(false);
+          },
+          onClose: function () {
+            setError("Jendela pembayaran ditutup sebelum transaksi selesai.");
+            setLoading(false);
           },
         });
+        return; // Modal is open, wait for callback
       } else {
         // Fallback mock complete
         await fetch("/api/payment/mock-callback", {
@@ -187,45 +208,62 @@ export default function CheckoutPage() {
   };
 
   const activePlanObj = PLANS.find((p) => p.code === selectedPlan)!;
+  const midtransClientKey = process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY;
+  const isMidtransProd = process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION === "true";
+  const snapScriptUrl = isMidtransProd
+    ? "https://app.midtrans.com/snap/snap.js"
+    : "https://app.sandbox.midtrans.com/snap/snap.js";
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 py-12 px-4 sm:px-6 lg:px-8 font-sans antialiased">
+      {/* Midtrans Snap Script (Sandbox / Production) */}
+      {midtransClientKey && !midtransClientKey.includes("placeholder") && (
+        <Script
+          src={snapScriptUrl}
+          data-client-key={midtransClientKey}
+          strategy="lazyOnload"
+        />
+      )}
+
       <div className="max-w-5xl mx-auto">
         {/* Navigation back */}
         <div className="mb-8">
           <Link
-            href="/create/steps/review"
-            className="inline-flex items-center text-sm text-stone-400 hover:text-amber-300 transition-colors"
+            href="/create/review"
+            className="inline-flex items-center gap-2 text-xs text-stone-400 hover:text-amber-400 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Kembali ke Peninjauan Undangan
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Kembali ke Peninjauan Desain</span>
           </Link>
         </div>
 
-        <div className="text-center mb-10">
-          <h1 className="text-3xl sm:text-4xl font-serif text-amber-100 tracking-tight font-light">
+        {/* Header */}
+        <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
+          <span className="px-3 py-1 rounded-full bg-amber-950/60 border border-amber-800/40 text-amber-300 text-xs uppercase tracking-wider font-medium inline-block">
+            Langkah Terakhir · Terbit Otomatis
+          </span>
+          <h1 className="text-3xl font-serif font-light text-amber-100">
             Pilih Paket & Aktivasi Undangan
           </h1>
-          <p className="mt-2 text-stone-400 text-sm sm:text-base max-w-xl mx-auto">
-            Selesaikan pembayaran untuk menerbitkan undangan pernikahan digital Anda secara langsung.
+          <p className="text-stone-400 text-xs sm:text-sm">
+            Undangan Anda akan otomatis diterbitkan seketika setelah pembayaran terverifikasi.
           </p>
         </div>
 
         {error && (
-          <div className="mb-8 p-4 rounded-xl bg-red-950/50 border border-red-800/60 text-red-200 text-sm text-center">
+          <div className="mb-6 p-4 rounded-xl border border-rose-800/60 bg-rose-950/40 text-rose-300 text-sm text-center">
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Plan Selector (Left 7 Cols) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Main Checkout Col */}
           <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-lg font-medium text-stone-200 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+            <h2 className="text-lg font-medium text-stone-200">
               Pilih Paket Layanan
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
               {PLANS.map((plan) => {
                 const isSelected = selectedPlan === plan.code;
                 return (
