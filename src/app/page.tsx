@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-[#FBFBFD] text-[#1D1D1F] antialiased selection:bg-amber-100 selection:text-amber-900">
       {/* Floating Apple-Style Glass Pill Navigation Header */}
-      <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-5xl animate-apple-fade-down">
-        <div className="apple-glass rounded-full px-5 sm:px-7 py-3 flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.06]">
+      <header className="fixed top-5 inset-x-0 mx-auto z-50 w-[92%] max-w-5xl pointer-events-none">
+        <div className="apple-glass animate-apple-fade-down pointer-events-auto rounded-full px-5 sm:px-7 py-3 flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.06]">
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-sm sm:text-base font-semibold tracking-tight text-[#1D1D1F] group-hover:text-amber-700 transition-colors">
               TITIK TEMU <span className="font-light text-zinc-400">INVITATION</span>
@@ -54,7 +54,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden">
         {/* Ambient Subtle Warm Radial Glow with Slow GPU Pulse */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-amber-200/25 via-amber-100/20 to-transparent blur-[120px] pointer-events-none rounded-full animate-pulse-glow" />
+        <div className="absolute top-1/3 inset-x-0 mx-auto w-[600px] h-[400px] bg-gradient-to-tr from-amber-200/25 via-amber-100/20 to-transparent blur-[120px] pointer-events-none rounded-full animate-pulse-glow" />
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center space-y-8 z-10">
           {/* Pill Badge */}
@@ -407,7 +407,7 @@ export default function Home() {
 
             {/* Premium - Featured */}
             <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6 border-amber-300 relative shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] bg-white ring-1 ring-amber-400/30">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-amber-500 text-white text-[11px] font-bold uppercase tracking-wider shadow-xs">
+              <div className="absolute -top-3 inset-x-0 mx-auto w-fit px-3 py-0.5 rounded-full bg-amber-500 text-white text-[11px] font-bold uppercase tracking-wider shadow-xs">
                 Paling Populer
               </div>
 
