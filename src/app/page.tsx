@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-[#FBFBFD] text-[#1D1D1F] antialiased selection:bg-amber-100 selection:text-amber-900">
       {/* Floating Apple-Style Glass Pill Navigation Header */}
-      <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-5xl">
+      <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-5xl animate-apple-fade-down">
         <div className="apple-glass rounded-full px-5 sm:px-7 py-3 flex items-center justify-between shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/[0.06]">
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-sm sm:text-base font-semibold tracking-tight text-[#1D1D1F] group-hover:text-amber-700 transition-colors">
@@ -42,7 +42,7 @@ export default function Home() {
 
           <div className="flex items-center gap-3">
             <Link href="/create">
-              <button className="apple-button-primary px-5 py-2 text-xs sm:text-sm font-medium rounded-full flex items-center gap-1.5 shadow-sm">
+              <button className="apple-button-primary px-5 py-2 text-xs sm:text-sm font-medium rounded-full flex items-center gap-1.5 shadow-sm active:scale-95 transition-transform">
                 <span>Mulai Buat</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -53,40 +53,40 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden">
-        {/* Ambient Subtle Warm Radial Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-amber-200/25 via-amber-100/20 to-transparent blur-[120px] pointer-events-none rounded-full" />
+        {/* Ambient Subtle Warm Radial Glow with Slow GPU Pulse */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-amber-200/25 via-amber-100/20 to-transparent blur-[120px] pointer-events-none rounded-full animate-pulse-glow" />
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center space-y-8 z-10">
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/[0.06] text-xs text-zinc-700 tracking-wide font-medium shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/[0.06] text-xs text-zinc-700 tracking-wide font-medium shadow-sm animate-apple-fade-down animation-delay-100 hover-lift-apple cursor-default">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-spin" style={{ animationDuration: "12s" }} />
             <span>Desain Anggun &amp; Simpel · Standar Apple</span>
           </div>
 
           {/* Master Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#1D1D1F] leading-[1.1]">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#1D1D1F] leading-[1.1] animate-apple-fade-up">
             Undangan digital pernikahan,{" "}
-            <span className="font-serif italic bg-gradient-to-r from-amber-800 via-amber-600 to-amber-700 bg-clip-text text-transparent">
+            <span className="font-serif italic apple-gold-shimmer-text">
               dirancang sempurna.
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="mx-auto max-w-2xl text-base sm:text-lg text-zinc-600 font-normal leading-relaxed">
+          <p className="mx-auto max-w-2xl text-base sm:text-lg text-zinc-600 font-normal leading-relaxed animate-apple-fade-up animation-delay-100">
             Pengalaman tanpa hambatan untuk momen paling sakral. Pilih template eksklusif, lengkapi data dalam sekejap, dan bagikan ke WhatsApp tamu dengan personalisasi nama terenkripsi.
           </p>
 
           {/* Action CTAs */}
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5 animate-apple-fade-up animation-delay-200">
             <Link href="/create" className="w-full sm:w-auto">
-              <button className="apple-button-primary w-full sm:w-auto px-8 py-3.5 text-sm font-semibold rounded-full flex items-center justify-center gap-2 shadow-sm">
+              <button className="apple-button-primary w-full sm:w-auto px-8 py-3.5 text-sm font-semibold rounded-full flex items-center justify-center gap-2 shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-transform">
                 <span>Buat Undangan Sekarang</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
 
             <Link href="/templates" className="w-full sm:w-auto">
-              <button className="apple-button-secondary w-full sm:w-auto px-8 py-3.5 text-sm font-medium rounded-full flex items-center justify-center gap-2">
+              <button className="apple-button-secondary w-full sm:w-auto px-8 py-3.5 text-sm font-medium rounded-full flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform">
                 <Eye className="w-4 h-4 text-zinc-600" />
                 <span>Eksplorasi Template</span>
               </button>
@@ -94,16 +94,16 @@ export default function Home() {
           </div>
 
           {/* Trust Micro-Badges */}
-          <div className="pt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-zinc-500 font-medium">
-            <div className="flex items-center gap-2">
+          <div className="pt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-zinc-500 font-medium animate-apple-fade-up animation-delay-300">
+            <div className="flex items-center gap-2 p-1.5 px-3 rounded-full bg-white/70 border border-black/[0.04] shadow-xs">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Tanpa Akun Rumit</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 p-1.5 px-3 rounded-full bg-white/70 border border-black/[0.04] shadow-xs">
               <Zap className="w-4 h-4 text-amber-600" />
               <span>Terbit Otomatis Seketika</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 p-1.5 px-3 rounded-full bg-white/70 border border-black/[0.04] shadow-xs">
               <Smartphone className="w-4 h-4 text-sky-600" />
               <span>Responsif 100% Smartphone</span>
             </div>
@@ -128,7 +128,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* 01 Elegant */}
-            <div className="apple-card p-6 sm:p-8 space-y-6 flex flex-col justify-between">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6 flex flex-col justify-between group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-semibold text-amber-700">01</span>
@@ -136,7 +136,7 @@ export default function Home() {
                     Animasi Kelopak Emas
                   </span>
                 </div>
-                <h3 className="text-2xl font-serif italic text-[#1D1D1F] font-normal">
+                <h3 className="text-2xl font-serif italic text-[#1D1D1F] font-normal group-hover:text-amber-800 transition-colors">
                   01 Elegant
                 </h3>
                 <p className="text-xs text-zinc-600 leading-relaxed">
@@ -146,13 +146,13 @@ export default function Home() {
 
               <div className="space-y-3 pt-4 border-t border-black/[0.06]">
                 <Link href="/demo/shava-dedek?template=elegant" target="_blank" className="block w-full">
-                  <button className="apple-button-secondary w-full py-2.5 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5">
+                  <button className="apple-button-secondary w-full py-2.5 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 active:scale-95 transition-all">
                     <Eye className="w-3.5 h-3.5 text-amber-700" />
                     <span>Lihat Pratinjau Demo</span>
                   </button>
                 </Link>
                 <Link href="/create?template=elegant" className="block w-full">
-                  <button className="apple-button-primary w-full py-2.5 rounded-xl text-xs font-semibold">
+                  <button className="apple-button-primary w-full py-2.5 rounded-xl text-xs font-semibold active:scale-95 transition-all">
                     Pilih Desain Ini
                   </button>
                 </Link>
@@ -160,7 +160,7 @@ export default function Home() {
             </div>
 
             {/* 02 Minimalist */}
-            <div className="apple-card p-6 sm:p-8 space-y-6 flex flex-col justify-between">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6 flex flex-col justify-between group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-semibold text-zinc-500">02</span>
@@ -168,7 +168,7 @@ export default function Home() {
                     Animasi Dedaunan
                   </span>
                 </div>
-                <h3 className="text-2xl font-sans font-light tracking-tight text-[#1D1D1F]">
+                <h3 className="text-2xl font-sans font-light tracking-tight text-[#1D1D1F] group-hover:text-black transition-colors">
                   02 Minimalist
                 </h3>
                 <p className="text-xs text-zinc-600 leading-relaxed">
@@ -178,13 +178,13 @@ export default function Home() {
 
               <div className="space-y-3 pt-4 border-t border-black/[0.06]">
                 <Link href="/demo/shava-dedek?template=minimalist" target="_blank" className="block w-full">
-                  <button className="apple-button-secondary w-full py-2.5 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5">
+                  <button className="apple-button-secondary w-full py-2.5 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 active:scale-95 transition-all">
                     <Eye className="w-3.5 h-3.5 text-zinc-700" />
                     <span>Lihat Pratinjau Demo</span>
                   </button>
                 </Link>
                 <Link href="/create?template=minimalist" className="block w-full">
-                  <button className="apple-button-primary w-full py-2.5 rounded-xl text-xs font-semibold">
+                  <button className="apple-button-primary w-full py-2.5 rounded-xl text-xs font-semibold active:scale-95 transition-all">
                     Pilih Desain Ini
                   </button>
                 </Link>
@@ -192,7 +192,7 @@ export default function Home() {
             </div>
 
             {/* 03 Nusantara */}
-            <div className="apple-card p-6 sm:p-8 space-y-6 flex flex-col justify-between">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6 flex flex-col justify-between group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-semibold text-amber-800">03</span>
@@ -200,7 +200,7 @@ export default function Home() {
                     Gunungan &amp; Melati Gugur
                   </span>
                 </div>
-                <h3 className="text-2xl font-serif text-[#1D1D1F] font-normal">
+                <h3 className="text-2xl font-serif text-[#1D1D1F] font-normal group-hover:text-amber-900 transition-colors">
                   03 Nusantara
                 </h3>
                 <p className="text-xs text-zinc-600 leading-relaxed">
@@ -210,13 +210,13 @@ export default function Home() {
 
               <div className="space-y-3 pt-4 border-t border-black/[0.06]">
                 <Link href="/demo/shava-dedek?template=nusantara" target="_blank" className="block w-full">
-                  <button className="apple-button-secondary w-full py-2.5 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5">
+                  <button className="apple-button-secondary w-full py-2.5 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 active:scale-95 transition-all">
                     <Eye className="w-3.5 h-3.5 text-amber-700" />
                     <span>Lihat Pratinjau Demo</span>
                   </button>
                 </Link>
                 <Link href="/create?template=nusantara" className="block w-full">
-                  <button className="apple-button-primary w-full py-2.5 rounded-xl text-xs font-semibold">
+                  <button className="apple-button-primary w-full py-2.5 rounded-xl text-xs font-semibold active:scale-95 transition-all">
                     Pilih Desain Ini
                   </button>
                 </Link>
@@ -242,8 +242,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="apple-card p-6 sm:p-8 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-50 flex items-center justify-center">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-3 group">
+              <div className="w-10 h-10 rounded-2xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Smartphone className="w-5 h-5 text-amber-700" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-[#1D1D1F]">Mobile-First Fluid</h3>
@@ -252,8 +252,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 sm:p-8 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-rose-50 flex items-center justify-center">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-3 group">
+              <div className="w-10 h-10 rounded-2xl bg-rose-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Heart className="w-5 h-5 text-rose-600" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-[#1D1D1F]">Personalisasi Tamu WhatsApp</h3>
@@ -262,8 +262,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 sm:p-8 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-sky-50 flex items-center justify-center">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-3 group">
+              <div className="w-10 h-10 rounded-2xl bg-sky-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Send className="w-5 h-5 text-sky-600" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-[#1D1D1F]">RSVP &amp; Ucapan Realtime</h3>
@@ -272,8 +272,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 sm:p-8 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-purple-50 flex items-center justify-center">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-3 group">
+              <div className="w-10 h-10 rounded-2xl bg-purple-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Music className="w-5 h-5 text-purple-600" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-[#1D1D1F]">Pemutar Musik Latar</h3>
@@ -282,8 +282,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 sm:p-8 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-3 group">
+              <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <MapPin className="w-5 h-5 text-emerald-600" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-[#1D1D1F]">Petunjuk Arah Google Maps</h3>
@@ -292,8 +292,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 sm:p-8 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-50 flex items-center justify-center">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-3 group">
+              <div className="w-10 h-10 rounded-2xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Gift className="w-5 h-5 text-amber-700" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-[#1D1D1F]">Amplop Digital &amp; Rekening</h3>
@@ -321,8 +321,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="apple-card p-6 space-y-4">
-              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs">
+            <div className="apple-card hover-lift-apple p-6 space-y-4 group">
+              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs group-hover:bg-amber-600 transition-colors">
                 1
               </div>
               <h3 className="text-base font-semibold text-[#1D1D1F]">Pilih Template</h3>
@@ -331,8 +331,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 space-y-4">
-              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs">
+            <div className="apple-card hover-lift-apple p-6 space-y-4 group">
+              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs group-hover:bg-amber-600 transition-colors">
                 2
               </div>
               <h3 className="text-base font-semibold text-[#1D1D1F]">Isi Informasi</h3>
@@ -341,8 +341,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 space-y-4">
-              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs">
+            <div className="apple-card hover-lift-apple p-6 space-y-4 group">
+              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs group-hover:bg-amber-600 transition-colors">
                 3
               </div>
               <h3 className="text-base font-semibold text-[#1D1D1F]">Pratinjau Nyata</h3>
@@ -351,8 +351,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="apple-card p-6 space-y-4">
-              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs">
+            <div className="apple-card hover-lift-apple p-6 space-y-4 group">
+              <div className="w-8 h-8 rounded-full bg-[#1D1D1F] text-white font-bold text-xs flex items-center justify-center shadow-xs group-hover:bg-amber-600 transition-colors">
                 4
               </div>
               <h3 className="text-base font-semibold text-[#1D1D1F]">Bagikan ke WhatsApp</h3>
@@ -381,7 +381,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {/* Basic */}
-            <div className="apple-card p-6 sm:p-8 space-y-6">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6">
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
                   Basic
@@ -399,14 +399,14 @@ export default function Home() {
               </ul>
 
               <Link href="/create?plan=basic" className="block w-full pt-2">
-                <button className="apple-button-secondary w-full py-3 text-xs font-medium rounded-xl">
+                <button className="apple-button-secondary w-full py-3 text-xs font-medium rounded-xl active:scale-95 transition-transform">
                   Pilih Paket Basic
                 </button>
               </Link>
             </div>
 
             {/* Premium - Featured */}
-            <div className="apple-card p-6 sm:p-8 space-y-6 border-amber-300 relative shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] bg-white ring-1 ring-amber-400/30">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6 border-amber-300 relative shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] bg-white ring-1 ring-amber-400/30">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-amber-500 text-white text-[11px] font-bold uppercase tracking-wider shadow-xs">
                 Paling Populer
               </div>
@@ -429,14 +429,14 @@ export default function Home() {
               </ul>
 
               <Link href="/create?plan=premium" className="block w-full pt-2">
-                <button className="apple-button-primary w-full py-3.5 text-xs font-semibold rounded-xl shadow-sm">
+                <button className="apple-button-primary w-full py-3.5 text-xs font-semibold rounded-xl shadow-sm active:scale-95 transition-transform">
                   Pilih Paket Premium
                 </button>
               </Link>
             </div>
 
             {/* Gold */}
-            <div className="apple-card p-6 sm:p-8 space-y-6">
+            <div className="apple-card hover-lift-apple p-6 sm:p-8 space-y-6">
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
                   Gold
@@ -454,7 +454,7 @@ export default function Home() {
               </ul>
 
               <Link href="/create?plan=gold" className="block w-full pt-2">
-                <button className="apple-button-secondary w-full py-3 text-xs font-medium rounded-xl">
+                <button className="apple-button-secondary w-full py-3 text-xs font-medium rounded-xl active:scale-95 transition-transform">
                   Pilih Paket Gold
                 </button>
               </Link>

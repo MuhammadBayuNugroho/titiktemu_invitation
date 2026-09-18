@@ -381,8 +381,8 @@ export function GuestManagerClient({
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="apple-card p-5 space-y-1.5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-apple-fade-up animation-delay-100">
+          <div className="apple-card hover-lift-apple p-5 space-y-1.5 cursor-default">
             <div className="flex items-center justify-between text-zinc-500 text-xs font-medium">
               <span>Total Tamu</span>
               <Users className="w-4 h-4 text-zinc-400" />
@@ -391,7 +391,7 @@ export function GuestManagerClient({
             <div className="text-xs text-zinc-500">{stats.unconfirmed} belum konfirmasi</div>
           </div>
 
-          <div className="apple-card p-5 space-y-1.5 border-emerald-200/80 bg-emerald-50/30">
+          <div className="apple-card hover-lift-apple p-5 space-y-1.5 border-emerald-200/80 bg-emerald-50/30 cursor-default">
             <div className="flex items-center justify-between text-emerald-700 text-xs font-medium">
               <span>Konfirmasi Hadir</span>
               <UserCheck className="w-4 h-4 text-emerald-600" />
@@ -400,7 +400,7 @@ export function GuestManagerClient({
             <div className="text-xs text-emerald-600">{stats.totalPax} total perkiraan pax</div>
           </div>
 
-          <div className="apple-card p-5 space-y-1.5 border-amber-200/80 bg-amber-50/30">
+          <div className="apple-card hover-lift-apple p-5 space-y-1.5 border-amber-200/80 bg-amber-50/30 cursor-default">
             <div className="flex items-center justify-between text-amber-800 text-xs font-medium">
               <span>Masih Ragu</span>
               <HelpCircle className="w-4 h-4 text-amber-600" />
@@ -409,7 +409,7 @@ export function GuestManagerClient({
             <div className="text-xs text-amber-700">Menunggu kepastian</div>
           </div>
 
-          <div className="apple-card p-5 space-y-1.5 border-rose-200/80 bg-rose-50/30">
+          <div className="apple-card hover-lift-apple p-5 space-y-1.5 border-rose-200/80 bg-rose-50/30 cursor-default">
             <div className="flex items-center justify-between text-rose-700 text-xs font-medium">
               <span>Berhalangan</span>
               <UserX className="w-4 h-4 text-rose-600" />

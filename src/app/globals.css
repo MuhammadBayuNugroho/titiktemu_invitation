@@ -183,3 +183,173 @@ body {
   animation: leaf-sway 7s ease-in-out infinite;
   transform-origin: bottom center;
 }
+
+/* ==========================================================================
+   HIGH-PERFORMANCE APPLE UI ANIMATIONS (GPU-COMPOSITED, ZERO RUNTIME OVERHEAD)
+   ========================================================================== */
+
+@keyframes apple-fade-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes apple-fade-down {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes apple-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.96, 0.96, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes apple-text-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.05);
+  }
+}
+
+/* Apple Animation Classes */
+.animate-apple-fade-up {
+  animation: apple-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-apple-fade-down {
+  animation: apple-fade-down 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-apple-scale-in {
+  animation: apple-scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.animate-float-subtle {
+  animation: float-subtle 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-subtle 8s ease-in-out infinite;
+}
+
+/* Apple Gradient Shimmer Text */
+.apple-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #1d1d1f 0%,
+    #86868b 25%,
+    #1d1d1f 50%,
+    #86868b 75%,
+    #1d1d1f 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: apple-text-shimmer 8s linear infinite;
+}
+
+.apple-gold-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #92400e 0%,
+    #d97706 25%,
+    #b45309 50%,
+    #f59e0b 75%,
+    #92400e 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: apple-text-shimmer 6s linear infinite;
+}
+
+/* Stagger Animation Delays */
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Micro-interaction Hover Lift */
+.hover-lift-apple {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift-apple:hover {
+  transform: translate3d(0, -3px, 0);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.08);
+}
+
+.hover-lift-apple:active {
+  transform: translate3d(0, 0, 0) scale(0.99);
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
