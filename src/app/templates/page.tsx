@@ -22,113 +22,125 @@ export default function TemplatesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col">
+    <div className="min-h-screen bg-[#FBFBFD] text-[#1D1D1F] flex flex-col selection:bg-amber-500/20 selection:text-amber-900">
       {/* Header Bar */}
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/80 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-900/80">
+      <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-[#6E6E73] transition hover:text-[#1D1D1F]"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Kembali ke Beranda</span>
           </Link>
-          <span className="font-bold text-sm tracking-tight text-zinc-900 dark:text-white">
-            TITIK TEMU INVITATION
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-amber-500" />
+            <span className="font-semibold text-xs sm:text-sm tracking-tight text-[#1D1D1F]">
+              TITIK TEMU INVITATION
+            </span>
+          </div>
           <Link href="/create">
-            <Button size="sm">Buat Undangan</Button>
+            <Button size="sm" className="apple-button-primary rounded-full px-4 text-xs">
+              Buat Undangan
+            </Button>
           </Link>
         </div>
       </header>
 
+      {/* Ambient background glow */}
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-amber-200/20 via-rose-100/15 to-transparent blur-3xl" />
+      </div>
+
       {/* Main Content */}
       <main className="mx-auto max-w-6xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <Badge variant="secondary" className="mb-3 gap-1 py-1 px-3">
-            <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-black/[0.08] shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-[#1D1D1F] mb-4">
+            <Sparkles className="h-3.5 w-3.5 text-amber-600" />
             <span>Koleksi Desain Eksklusif</span>
-          </Badge>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1D1D1F]">
             Pilih Tema Undangan Anda
           </h1>
-          <p className="mt-3 text-sm text-zinc-500 sm:text-base">
-            Setiap template dirancang secara teliti dengan komposisi warna, tipografi berkelas, dan tata letak mobile-first yang memukau.
+          <p className="mt-3 text-sm sm:text-base text-[#6E6E73] leading-relaxed">
+            Setiap tema dirancang presisi dengan tipografi berkelas, micro-animation responsif, dan tata letak mobile-first yang memukau.
           </p>
         </div>
 
         {/* Templates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {templates.map((tpl) => (
-            <Card key={tpl.slug} className="overflow-hidden flex flex-col justify-between border-zinc-200 dark:border-zinc-800 transition hover:shadow-lg">
+            <div
+              key={tpl.slug}
+              className="apple-card overflow-hidden flex flex-col justify-between rounded-2xl group hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
+            >
               {/* Preview Thumbnail */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100 border-b border-black/[0.06]">
                 <Image
                   src={previewImages[tpl.slug] || previewImages.elegant}
                   alt={tpl.name}
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3">
-                  <span
-                    className="rounded-full px-3 py-1 text-xs font-semibold shadow-sm text-white"
-                    style={{ backgroundColor: tpl.colors.primary }}
-                  >
-                    Style: {tpl.typography.heading === "serif" ? "Klasik Serif" : "Modern Sans"}
+                  <span className="rounded-full px-3 py-1 text-[11px] font-semibold backdrop-blur-md bg-black/60 text-white shadow-sm">
+                    {tpl.typography.heading === "serif" ? "Klasik Serif" : "Modern Sans"}
                   </span>
                 </div>
               </div>
 
               {/* Card Details */}
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">{tpl.name}</CardTitle>
-                  <div className="flex gap-1.5">
-                    <span
-                      className="h-4 w-4 rounded-full border border-black/10 shadow-sm"
-                      style={{ backgroundColor: tpl.colors.primary }}
-                      title="Warna Utama"
-                    />
-                    <span
-                      className="h-4 w-4 rounded-full border border-black/10 shadow-sm"
-                      style={{ backgroundColor: tpl.colors.secondary }}
-                      title="Warna Sekunder"
-                    />
-                    <span
-                      className="h-4 w-4 rounded-full border border-black/10 shadow-sm"
-                      style={{ backgroundColor: tpl.colors.accent }}
-                      title="Warna Aksen"
-                    />
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-[#1D1D1F] tracking-tight">{tpl.name}</h3>
+                    <div className="flex gap-1.5 p-1 bg-zinc-100/70 rounded-full border border-black/[0.04]">
+                      <span
+                        className="h-3.5 w-3.5 rounded-full border border-black/10"
+                        style={{ backgroundColor: tpl.colors.primary }}
+                        title="Warna Utama"
+                      />
+                      <span
+                        className="h-3.5 w-3.5 rounded-full border border-black/10"
+                        style={{ backgroundColor: tpl.colors.secondary }}
+                        title="Warna Sekunder"
+                      />
+                      <span
+                        className="h-3.5 w-3.5 rounded-full border border-black/10"
+                        style={{ backgroundColor: tpl.colors.accent }}
+                        title="Warna Aksen"
+                      />
+                    </div>
                   </div>
+                  <p className="mt-3 text-xs sm:text-sm text-[#6E6E73] leading-relaxed line-clamp-3">
+                    {tpl.description}
+                  </p>
                 </div>
-                <CardDescription className="line-clamp-3 mt-2 text-xs sm:text-sm">
-                  {tpl.description}
-                </CardDescription>
-              </CardHeader>
 
-              {/* Actions */}
-              <CardFooter className="flex flex-col gap-2.5 pt-0">
-                <Link
-                  href={`/demo/shava-dedek?template=${tpl.slug}`}
-                  className="w-full"
-                >
-                  <Button variant="outline" className="w-full justify-center gap-2">
-                    <Eye className="h-4 w-4" />
-                    <span>Lihat Demo Langsung</span>
-                  </Button>
-                </Link>
+                {/* Actions */}
+                <div className="mt-6 flex flex-col gap-2.5 pt-4 border-t border-black/[0.04]">
+                  <Link
+                    href={`/demo/shava-dedek?template=${tpl.slug}`}
+                    className="w-full"
+                  >
+                    <button className="apple-button-secondary w-full py-2 px-3 text-xs font-medium rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                      <Eye className="h-3.5 w-3.5 text-[#6E6E73]" />
+                      <span>Lihat Demo Langsung</span>
+                    </button>
+                  </Link>
 
-                <Link
-                  href={`/create?template=${tpl.slug}`}
-                  className="w-full"
-                >
-                  <Button className="w-full justify-center gap-1.5">
-                    <span>Gunakan Template Ini</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
+                  <Link
+                    href={`/create?template=${tpl.slug}`}
+                    className="w-full"
+                  >
+                    <button className="apple-button-primary w-full py-2 px-3 text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                      <span>Gunakan Template Ini</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </main>

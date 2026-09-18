@@ -3,15 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #f5f5f7;
-  --border: #27272a;
+  --background: #FBFBFD;
+  --foreground: #1D1D1F;
+  --surface: #FFFFFF;
+  --surface-secondary: #F5F5F7;
+  --border: rgba(0, 0, 0, 0.08);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
   --font-serif: "Playfair Display", "Times New Roman", Georgia, serif;
 }
 
 * {
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 html {
@@ -37,44 +39,73 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.28);
 }
 
 /* Apple Design System Utilities */
 @layer utilities {
   .apple-glass {
-    background-color: rgba(18, 18, 20, 0.75);
+    background-color: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
   }
 
   .apple-glass-light {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .apple-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .apple-card:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08);
+  }
+
+  .apple-card-dark {
     background: radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), #0d0d0f;
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .apple-card:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+  .apple-button-primary {
+    background-color: #1d1d1f;
+    color: #ffffff;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .apple-button-primary:hover {
+    background-color: #000000;
+    transform: scale(1.01);
+  }
+
+  .apple-button-secondary {
+    background-color: #ffffff;
+    color: #1d1d1f;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .apple-button-secondary:hover {
+    background-color: #f5f5f7;
   }
 
   .apple-subtle-glow {
-    box-shadow: 0 0 40px -10px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 10px 30px -5px rgba(212, 175, 55, 0.12);
   }
 }
 

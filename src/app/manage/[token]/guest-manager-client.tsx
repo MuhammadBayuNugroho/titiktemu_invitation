@@ -294,38 +294,38 @@ export function GuestManagerClient({
   const getCategoryLabel = (category: string) => {
     switch (category) {
       case "family":
-        return { label: "Keluarga", color: "bg-purple-950/50 border-purple-800/30 text-purple-300" };
+        return { label: "Keluarga", color: "bg-purple-50 border-purple-200 text-purple-800" };
       case "friend":
-        return { label: "Sahabat", color: "bg-blue-950/50 border-blue-800/30 text-blue-300" };
+        return { label: "Sahabat", color: "bg-blue-50 border-blue-200 text-blue-800" };
       case "coworker":
-        return { label: "Rekan Kerja", color: "bg-amber-950/50 border-amber-800/30 text-amber-300" };
+        return { label: "Rekan Kerja", color: "bg-amber-50 border-amber-200 text-amber-800" };
       case "organization":
-        return { label: "Organisasi", color: "bg-cyan-950/50 border-cyan-800/30 text-cyan-300" };
+        return { label: "Organisasi", color: "bg-cyan-50 border-cyan-200 text-cyan-800" };
       default:
-        return { label: "Lainnya", color: "bg-zinc-800 border-zinc-700 text-zinc-300" };
+        return { label: "Lainnya", color: "bg-zinc-100 border-zinc-200 text-zinc-700" };
     }
   };
 
   return (
-    <div className="min-h-screen bg-black text-zinc-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FBFBFD] text-[#1D1D1F] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Top Header with Apple Frosted Glass */}
         <div className="apple-card p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2.5">
-              <span className="px-3.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] text-amber-300 text-xs font-medium tracking-wide uppercase flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span className="px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium tracking-wide uppercase flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                 Portal Tamu Undangan
               </span>
-              <span className="px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/40 text-emerald-400 text-xs font-medium">
+              <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
                 {initialInvitation.status.toUpperCase()}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-light text-[#1D1D1F] tracking-tight">
               {initialInvitation.title || `${initialInvitation.brideName} & ${initialInvitation.groomName}`}
             </h1>
-            <p className="text-zinc-400 text-xs sm:text-sm flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-amber-400" />
+            <p className="text-zinc-500 text-xs sm:text-sm flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-amber-600" />
               <span>{initialInvitation.eventDate} · Template: {initialInvitation.templateName}</span>
             </p>
           </div>
@@ -337,7 +337,7 @@ export function GuestManagerClient({
               rel="noopener noreferrer"
             >
               <button className="apple-button-secondary px-5 py-2.5 text-xs sm:text-sm font-medium rounded-full flex items-center gap-2">
-                <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+                <ExternalLink className="w-3.5 h-3.5 text-amber-700" />
                 <span>Pratinjau Undangan</span>
               </button>
             </Link>
@@ -347,10 +347,10 @@ export function GuestManagerClient({
         {/* General Link & Share Bar */}
         <div className="apple-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="text-xs text-zinc-400 font-medium">
+            <div className="text-xs text-zinc-500 font-medium">
               Link Undangan Publik (Umum tanpa personalisasi nama):
             </div>
-            <div className="font-mono text-xs sm:text-sm text-amber-300 truncate max-w-lg">
+            <div className="font-mono text-xs sm:text-sm text-amber-800 truncate max-w-lg bg-zinc-50 border border-black/[0.06] rounded-xl px-3 py-1.5">
               {generalUrl}
             </div>
           </div>
@@ -359,7 +359,7 @@ export function GuestManagerClient({
               onClick={handleCopyGeneral}
               className="apple-button-secondary px-4 py-2 text-xs font-medium rounded-full flex items-center gap-1.5"
             >
-              {copiedGeneral ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedGeneral ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedGeneral ? "Tersalin" : "Salin Link"}</span>
             </button>
             <a
@@ -372,7 +372,7 @@ export function GuestManagerClient({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full text-xs font-medium flex items-center gap-1.5 transition-all">
+              <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full text-xs font-medium flex items-center gap-1.5 transition-all shadow-xs">
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Share WA</span>
               </button>
@@ -383,58 +383,58 @@ export function GuestManagerClient({
         {/* Statistics Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="apple-card p-5 space-y-1.5">
-            <div className="flex items-center justify-between text-zinc-400 text-xs font-medium">
+            <div className="flex items-center justify-between text-zinc-500 text-xs font-medium">
               <span>Total Tamu</span>
               <Users className="w-4 h-4 text-zinc-400" />
             </div>
-            <div className="text-3xl font-light text-white">{stats.totalGuests}</div>
+            <div className="text-3xl font-light text-[#1D1D1F]">{stats.totalGuests}</div>
             <div className="text-xs text-zinc-500">{stats.unconfirmed} belum konfirmasi</div>
           </div>
 
-          <div className="apple-card p-5 space-y-1.5 border-emerald-500/20 bg-emerald-950/10">
-            <div className="flex items-center justify-between text-emerald-400/80 text-xs font-medium">
+          <div className="apple-card p-5 space-y-1.5 border-emerald-200/80 bg-emerald-50/30">
+            <div className="flex items-center justify-between text-emerald-700 text-xs font-medium">
               <span>Konfirmasi Hadir</span>
-              <UserCheck className="w-4 h-4 text-emerald-400" />
+              <UserCheck className="w-4 h-4 text-emerald-600" />
             </div>
-            <div className="text-3xl font-light text-emerald-300">{stats.attending}</div>
-            <div className="text-xs text-emerald-500/80">{stats.totalPax} total perkiraan pax</div>
+            <div className="text-3xl font-light text-emerald-800">{stats.attending}</div>
+            <div className="text-xs text-emerald-600">{stats.totalPax} total perkiraan pax</div>
           </div>
 
-          <div className="apple-card p-5 space-y-1.5 border-amber-500/20 bg-amber-950/10">
-            <div className="flex items-center justify-between text-amber-400/80 text-xs font-medium">
+          <div className="apple-card p-5 space-y-1.5 border-amber-200/80 bg-amber-50/30">
+            <div className="flex items-center justify-between text-amber-800 text-xs font-medium">
               <span>Masih Ragu</span>
-              <HelpCircle className="w-4 h-4 text-amber-400" />
+              <HelpCircle className="w-4 h-4 text-amber-600" />
             </div>
-            <div className="text-3xl font-light text-amber-300">{stats.uncertain}</div>
-            <div className="text-xs text-amber-500/80">Menunggu kepastian</div>
+            <div className="text-3xl font-light text-amber-900">{stats.uncertain}</div>
+            <div className="text-xs text-amber-700">Menunggu kepastian</div>
           </div>
 
-          <div className="apple-card p-5 space-y-1.5 border-rose-500/20 bg-rose-950/10">
-            <div className="flex items-center justify-between text-rose-400/80 text-xs font-medium">
+          <div className="apple-card p-5 space-y-1.5 border-rose-200/80 bg-rose-50/30">
+            <div className="flex items-center justify-between text-rose-700 text-xs font-medium">
               <span>Berhalangan</span>
-              <UserX className="w-4 h-4 text-rose-400" />
+              <UserX className="w-4 h-4 text-rose-600" />
             </div>
-            <div className="text-3xl font-light text-rose-300">{stats.declined}</div>
-            <div className="text-xs text-rose-500/80">Tidak dapat hadir</div>
+            <div className="text-3xl font-light text-rose-900">{stats.declined}</div>
+            <div className="text-xs text-rose-600">Tidak dapat hadir</div>
           </div>
         </div>
 
         {/* Add Guest Section with Apple Segmented Control */}
         <div className="apple-card p-6 sm:p-8 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/[0.08] pb-5 gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-black/[0.06] pb-5 gap-4">
             <div className="flex items-center gap-2">
-              <Plus className="w-5 h-5 text-amber-400" />
-              <h2 className="text-lg font-medium text-white">Tambah Tamu Undangan</h2>
+              <Plus className="w-5 h-5 text-amber-700" />
+              <h2 className="text-lg font-medium text-[#1D1D1F]">Tambah Tamu Undangan</h2>
             </div>
             {/* Apple iOS-Style Segmented Control Pills */}
-            <div className="inline-flex items-center bg-white/[0.06] p-1 rounded-full border border-white/[0.08] text-xs">
+            <div className="inline-flex items-center bg-zinc-100 p-1 rounded-full border border-black/[0.06] text-xs">
               <button
                 type="button"
                 onClick={() => setActiveTab("single")}
                 className={`px-4 py-1.5 rounded-full transition-all duration-200 ${
                   activeTab === "single"
-                    ? "bg-white text-zinc-950 font-semibold shadow-sm"
-                    : "text-zinc-400 hover:text-white"
+                    ? "bg-white text-[#1D1D1F] font-semibold shadow-xs"
+                    : "text-zinc-500 hover:text-black"
                 }`}
               >
                 Tambah 1 Tamu
@@ -444,8 +444,8 @@ export function GuestManagerClient({
                 onClick={() => setActiveTab("bulk")}
                 className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5 ${
                   activeTab === "bulk"
-                    ? "bg-white text-zinc-950 font-semibold shadow-sm"
-                    : "text-zinc-400 hover:text-white"
+                    ? "bg-white text-[#1D1D1F] font-semibold shadow-xs"
+                    : "text-zinc-500 hover:text-black"
                 }`}
               >
                 <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -457,34 +457,34 @@ export function GuestManagerClient({
           {activeTab === "single" ? (
             <form onSubmit={handleAddSingle} className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
               <div className="sm:col-span-4 space-y-1.5">
-                <label className="text-xs text-stone-300 font-medium">Nama Tamu / Keluarga *</label>
+                <label className="text-xs text-zinc-700 font-medium">Nama Tamu / Keluarga *</label>
                 <input
                   type="text"
                   placeholder="Contoh: Dani Ramadhan & Partner"
                   value={singleName}
                   onChange={(e) => setSingleName(e.target.value)}
-                  className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3.5 py-2.5 text-sm text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-500/60"
+                  className="w-full bg-white border border-black/[0.12] rounded-xl px-3.5 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-amber-600"
                   required
                 />
               </div>
 
               <div className="sm:col-span-3 space-y-1.5">
-                <label className="text-xs text-stone-300 font-medium">Nomor WhatsApp (Opsional)</label>
+                <label className="text-xs text-zinc-700 font-medium">Nomor WhatsApp (Opsional)</label>
                 <input
                   type="text"
                   placeholder="08123456789"
                   value={singlePhone}
                   onChange={(e) => setSinglePhone(e.target.value)}
-                  className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3.5 py-2.5 text-sm text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-500/60"
+                  className="w-full bg-white border border-black/[0.12] rounded-xl px-3.5 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-amber-600"
                 />
               </div>
 
               <div className="sm:col-span-3 space-y-1.5">
-                <label className="text-xs text-stone-300 font-medium">Kategori</label>
+                <label className="text-xs text-zinc-700 font-medium">Kategori</label>
                 <select
                   value={singleCategory}
                   onChange={(e: any) => setSingleCategory(e.target.value)}
-                  className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3.5 py-2.5 text-sm text-stone-100 focus:outline-none focus:border-amber-500/60"
+                  className="w-full bg-white border border-black/[0.12] rounded-xl px-3.5 py-2.5 text-sm text-zinc-900 focus:outline-none focus:border-amber-600"
                 >
                   <option value="friend">Sahabat</option>
                   <option value="family">Keluarga</option>
@@ -495,20 +495,20 @@ export function GuestManagerClient({
               </div>
 
               <div className="sm:col-span-2">
-                <Button
+                <button
                   type="submit"
                   disabled={isSubmittingSingle || !singleName.trim()}
-                  className="w-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-1.5"
+                  className="apple-button-primary w-full py-2.5 rounded-xl text-sm flex items-center justify-center gap-1.5 font-medium shadow-xs"
                 >
                   {isSubmittingSingle ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                   Simpan
-                </Button>
+                </button>
               </div>
             </form>
           ) : (
             <form onSubmit={handleAddBulk} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs text-stone-300 font-medium">
+                <label className="text-xs text-zinc-700 font-medium">
                   Tempel Daftar Nama Tamu (Satu Nama per Baris)
                 </label>
                 <textarea
@@ -516,17 +516,17 @@ export function GuestManagerClient({
                   placeholder={`Bapak Ir. Bambang Soediro\nKeluarga Ibu Hj. Nurhayati\nAndi Prasetyo & Partner\nRekan Tim Marketing`}
                   value={bulkText}
                   onChange={(e) => setBulkText(e.target.value)}
-                  className="w-full bg-stone-950 border border-stone-800 rounded-xl p-3.5 text-sm text-stone-100 font-mono placeholder-stone-600 focus:outline-none focus:border-amber-500/60"
+                  className="w-full bg-white border border-black/[0.12] rounded-xl p-3.5 text-sm text-zinc-900 font-mono placeholder-zinc-400 focus:outline-none focus:border-amber-600"
                 />
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <span className="text-xs text-stone-400">Kategori untuk semua:</span>
+                  <span className="text-xs text-zinc-500">Kategori untuk semua:</span>
                   <select
                     value={bulkCategory}
                     onChange={(e: any) => setBulkCategory(e.target.value)}
-                    className="bg-stone-950 border border-stone-800 rounded-xl px-3 py-1.5 text-xs text-stone-100 focus:outline-none focus:border-amber-500/60"
+                    className="bg-white border border-black/[0.12] rounded-xl px-3 py-1.5 text-xs text-zinc-900 focus:outline-none focus:border-amber-600"
                   >
                     <option value="friend">Sahabat</option>
                     <option value="family">Keluarga</option>
@@ -536,29 +536,29 @@ export function GuestManagerClient({
                   </select>
                 </div>
 
-                <Button
+                <button
                   type="submit"
                   disabled={isSubmittingBulk || !bulkText.trim()}
-                  className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-stone-950 font-medium px-6 py-2.5 rounded-xl text-sm flex items-center justify-center gap-1.5"
+                  className="apple-button-primary w-full sm:w-auto px-6 py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-1.5 shadow-xs"
                 >
                   {isSubmittingBulk ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileSpreadsheet className="w-4 h-4" />}
                   Generate Semua Link Tamu
-                </Button>
+                </button>
               </div>
             </form>
           )}
         </div>
 
         {/* Guest List & Table Section */}
-        <div className="bg-stone-900/80 border border-stone-800 rounded-3xl overflow-hidden shadow-xl">
+        <div className="apple-card overflow-hidden">
           {/* Campaign Action Bar */}
-          <div className="p-4 sm:p-6 border-b border-stone-800 flex flex-wrap items-center justify-between gap-3 bg-stone-950/40">
+          <div className="p-4 sm:p-6 border-b border-black/[0.06] flex flex-wrap items-center justify-between gap-3 bg-zinc-50/70">
             <div>
-              <h3 className="text-sm font-semibold text-stone-100 flex items-center gap-2">
-                <Users className="w-4 h-4 text-amber-400" />
+              <h3 className="text-sm font-semibold text-[#1D1D1F] flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-700" />
                 Daftar Tamu Terdaftar
               </h3>
-              <p className="text-xs text-stone-400 mt-0.5">
+              <p className="text-xs text-zinc-500 mt-0.5">
                 Menampilkan {filteredGuests.length} dari {guests.length} tamu
               </p>
             </div>
@@ -571,8 +571,8 @@ export function GuestManagerClient({
                 onClick={() => setShowTemplateEditor(!showTemplateEditor)}
                 className={`h-8 rounded-full text-xs font-medium border transition-colors ${
                   showTemplateEditor
-                    ? "bg-amber-400/15 border-amber-400/40 text-amber-300"
-                    : "bg-stone-900 border-stone-800 text-stone-300 hover:bg-stone-800"
+                    ? "bg-amber-50 border-amber-300 text-amber-900"
+                    : "bg-white border-black/[0.1] text-zinc-700 hover:bg-zinc-100"
                 }`}
               >
                 <SlidersHorizontal className="w-3.5 h-3.5 mr-1.5" />
@@ -585,47 +585,46 @@ export function GuestManagerClient({
                 size="sm"
                 onClick={handleCopyAllLinks}
                 disabled={filteredGuests.length === 0}
-                className="h-8 rounded-full text-xs font-medium bg-stone-900 border-stone-800 text-stone-300 hover:bg-stone-800 transition-colors"
+                className="h-8 rounded-full text-xs font-medium bg-white border-black/[0.1] text-zinc-700 hover:bg-zinc-100 transition-colors"
                 title="Salin nama dan link personal semua tamu terfilter"
               >
                 {copiedAll ? (
                   <>
-                    <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
-                    <span className="text-emerald-400">Tersalin!</span>
+                    <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+                    <span className="text-emerald-700 font-semibold">Tersalin!</span>
                   </>
                 ) : (
                   <>
-                    <Share2 className="w-3.5 h-3.5 mr-1.5 text-stone-400" />
+                    <Share2 className="w-3.5 h-3.5 mr-1.5 text-zinc-500" />
                     <span>Salin Semua Link</span>
                   </>
                 )}
               </Button>
 
-              <Button
+              <button
                 type="button"
-                size="sm"
                 onClick={handleDownloadCSV}
                 disabled={guests.length === 0}
-                className="h-8 rounded-full text-xs font-medium bg-white text-stone-950 hover:bg-stone-200 transition-colors flex items-center"
+                className="apple-button-primary h-8 px-4 rounded-full text-xs font-medium flex items-center shadow-xs"
                 title="Unduh daftar tamu beserta tautan dan pesan WA ke file CSV (Excel)"
               >
                 <Download className="w-3.5 h-3.5 mr-1.5" />
                 <span>Ekspor CSV (Excel)</span>
-              </Button>
+              </button>
             </div>
           </div>
 
           {/* Collapsible WhatsApp Template Editor */}
           {showTemplateEditor && (
-            <div className="p-4 sm:p-6 border-b border-stone-800 bg-stone-950/90 space-y-4">
+            <div className="p-4 sm:p-6 border-b border-black/[0.06] bg-amber-50/40 space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="space-y-0.5">
-                  <h4 className="text-xs sm:text-sm font-semibold text-stone-100 flex items-center gap-1.5">
-                    <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <h4 className="text-xs sm:text-sm font-semibold text-[#1D1D1F] flex items-center gap-1.5">
+                    <MessageCircle className="w-4 h-4 text-emerald-600" />
                     Kustomisasi Template Pesan WhatsApp
                   </h4>
-                  <p className="text-xs text-stone-400">
-                    Gunakan variabel <code className="text-amber-300 font-mono">{"{nama}"}</code> untuk nama tamu dan <code className="text-amber-300 font-mono">{"{link}"}</code> untuk tautan undangan digital unik.
+                  <p className="text-xs text-zinc-500">
+                    Gunakan variabel <code className="text-amber-800 font-mono font-bold">{"{nama}"}</code> untuk nama tamu dan <code className="text-amber-800 font-mono font-bold">{"{link}"}</code> untuk tautan undangan digital unik.
                   </p>
                 </div>
                 <Button
@@ -633,7 +632,7 @@ export function GuestManagerClient({
                   variant="ghost"
                   size="sm"
                   onClick={() => setTemplateText(DEFAULT_WA_TEMPLATE)}
-                  className="text-xs text-stone-400 hover:text-stone-100 flex items-center gap-1 self-start sm:self-auto h-7 px-2"
+                  className="text-xs text-zinc-500 hover:text-black flex items-center gap-1 self-start sm:self-auto h-7 px-2"
                 >
                   <RotateCcw className="w-3 h-3" />
                   Reset ke Standar
@@ -644,23 +643,23 @@ export function GuestManagerClient({
                 rows={6}
                 value={templateText}
                 onChange={(e) => setTemplateText(e.target.value)}
-                className="w-full bg-stone-900/90 border border-stone-800 rounded-xl p-3.5 text-xs text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-400 font-mono leading-relaxed"
+                className="w-full bg-white border border-black/[0.12] rounded-xl p-3.5 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-amber-600 font-mono leading-relaxed"
                 placeholder="Tulis format pesan undangan..."
               />
 
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs text-stone-500">Sisipkan Variabel:</span>
+                <span className="text-xs text-zinc-500">Sisipkan Variabel:</span>
                 <button
                   type="button"
                   onClick={() => setTemplateText((prev) => prev + " {nama}")}
-                  className="px-2.5 py-1 rounded-lg bg-stone-900 border border-stone-800 text-xs text-amber-300 hover:bg-stone-800 font-mono transition-colors"
+                  className="px-2.5 py-1 rounded-lg bg-white border border-black/[0.1] text-xs text-amber-800 hover:bg-zinc-50 font-mono transition-colors"
                 >
                   + {"{nama}"}
                 </button>
                 <button
                   type="button"
                   onClick={() => setTemplateText((prev) => prev + " {link}")}
-                  className="px-2.5 py-1 rounded-lg bg-stone-900 border border-stone-800 text-xs text-amber-300 hover:bg-stone-800 font-mono transition-colors"
+                  className="px-2.5 py-1 rounded-lg bg-white border border-black/[0.1] text-xs text-amber-800 hover:bg-zinc-50 font-mono transition-colors"
                 >
                   + {"{link}"}
                 </button>
@@ -669,24 +668,24 @@ export function GuestManagerClient({
           )}
 
           {/* Filter Bar */}
-          <div className="p-4 sm:p-6 border-b border-stone-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="p-4 sm:p-6 border-b border-black/[0.06] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white">
             <div className="relative flex-1 max-w-md">
-              <Search className="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Cari nama tamu atau nomor HP..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-stone-950 border border-stone-800 rounded-xl pl-9 pr-4 py-2 text-sm text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-500/60"
+                className="w-full bg-zinc-50 border border-black/[0.08] rounded-xl pl-9 pr-4 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-amber-600"
               />
             </div>
 
             <div className="flex items-center gap-2.5">
-              <Filter className="w-4 h-4 text-stone-500 shrink-0" />
+              <Filter className="w-4 h-4 text-zinc-400 shrink-0" />
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-xs text-stone-300 focus:outline-none"
+                className="bg-zinc-50 border border-black/[0.08] rounded-xl px-3 py-2 text-xs text-zinc-700 focus:outline-none"
               >
                 <option value="all">Semua Kategori</option>
                 <option value="family">Keluarga</option>
@@ -699,7 +698,7 @@ export function GuestManagerClient({
               <select
                 value={rsvpFilter}
                 onChange={(e) => setRsvpFilter(e.target.value)}
-                className="bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-xs text-stone-300 focus:outline-none"
+                className="bg-zinc-50 border border-black/[0.08] rounded-xl px-3 py-2 text-xs text-zinc-700 focus:outline-none"
               >
                 <option value="all">Semua RSVP</option>
                 <option value="attending">Hadir</option>
@@ -712,8 +711,8 @@ export function GuestManagerClient({
 
           {/* Table */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-stone-300">
-              <thead className="bg-stone-950/60 text-xs text-stone-400 uppercase tracking-wider border-b border-stone-800">
+            <table className="w-full text-left text-sm text-zinc-700">
+              <thead className="bg-zinc-50 text-xs text-zinc-500 uppercase tracking-wider border-b border-black/[0.06]">
                 <tr>
                   <th className="px-6 py-3.5 font-medium">Nama Tamu</th>
                   <th className="px-4 py-3.5 font-medium">Kategori</th>
@@ -722,10 +721,10 @@ export function GuestManagerClient({
                   <th className="px-6 py-3.5 font-medium text-right">Aksi Bagikan</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-800/60">
+              <tbody className="divide-y divide-black/[0.05]">
                 {filteredGuests.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center text-stone-500">
+                    <td colSpan={5} className="px-6 py-12 text-center text-zinc-500">
                       {searchQuery || categoryFilter !== "all" || rsvpFilter !== "all"
                         ? "Tidak ada tamu yang cocok dengan filter pencarian Anda."
                         : "Belum ada tamu terdaftar. Silakan tambahkan tamu melalui formulir di atas."}
@@ -750,11 +749,11 @@ export function GuestManagerClient({
                     });
 
                     return (
-                      <tr key={guest.id || guest.token} className="hover:bg-stone-800/30 transition-colors">
+                      <tr key={guest.id || guest.token} className="hover:bg-zinc-50/80 transition-colors">
                         <td className="px-6 py-4">
-                          <div className="font-medium text-stone-100">{guest.name}</div>
+                          <div className="font-medium text-[#1D1D1F]">{guest.name}</div>
                           {guest.phone && (
-                            <div className="text-xs text-stone-500 font-mono">{guest.phone}</div>
+                            <div className="text-xs text-zinc-500 font-mono">{guest.phone}</div>
                           )}
                         </td>
 
@@ -770,34 +769,34 @@ export function GuestManagerClient({
                           {guest.rsvp ? (
                             <div className="space-y-0.5">
                               {guest.rsvp.status === "attending" && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-950/60 border border-emerald-800/40 text-emerald-400">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 border border-emerald-200 text-emerald-700">
                                   <UserCheck className="w-3 h-3" /> Hadir ({guest.rsvp.paxCount} Pax)
                                 </span>
                               )}
                               {guest.rsvp.status === "uncertain" && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-950/60 border border-amber-800/40 text-amber-400">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 border border-amber-200 text-amber-700">
                                   <HelpCircle className="w-3 h-3" /> Ragu
                                 </span>
                               )}
                               {guest.rsvp.status === "declined" && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-950/60 border border-rose-800/40 text-rose-400">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 border border-rose-200 text-rose-700">
                                   <UserX className="w-3 h-3" /> Berhalangan
                                 </span>
                               )}
                               {guest.rsvp.notes && (
-                                <div className="text-xs text-stone-400 italic max-w-xs truncate">
+                                <div className="text-xs text-zinc-500 italic max-w-xs truncate">
                                   &ldquo;{guest.rsvp.notes}&rdquo;
                                 </div>
                               )}
                             </div>
                           ) : (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-stone-500 bg-stone-900 border border-stone-800">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-zinc-500 bg-zinc-100 border border-zinc-200">
                               Belum Konfirmasi
                             </span>
                           )}
                         </td>
 
-                        <td className="px-4 py-4 font-mono text-xs text-amber-300/90">
+                        <td className="px-4 py-4 font-mono text-xs text-amber-800">
                           <div className="flex items-center gap-1.5 max-w-[220px] truncate">
                             <span>/i/{initialInvitation.slug}/{guest.token}</span>
                           </div>
@@ -809,11 +808,11 @@ export function GuestManagerClient({
                               onClick={() => handleCopyLink(guestUrl, guest.token)}
                               size="sm"
                               variant="ghost"
-                              className="text-stone-400 hover:text-amber-300 hover:bg-stone-800 h-8 px-2.5 rounded-lg text-xs"
+                              className="text-zinc-600 hover:text-black hover:bg-zinc-100 h-8 px-2.5 rounded-lg text-xs"
                               title="Salin Link Personal"
                             >
                               {isCopied ? (
-                                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                                <Check className="w-3.5 h-3.5 text-emerald-600" />
                               ) : (
                                 <Copy className="w-3.5 h-3.5" />
                               )}
@@ -827,7 +826,7 @@ export function GuestManagerClient({
                             >
                               <Button
                                 size="sm"
-                                className="bg-emerald-600/90 hover:bg-emerald-500 text-white h-8 px-2.5 rounded-lg text-xs flex items-center gap-1"
+                                className="bg-emerald-600 hover:bg-emerald-500 text-white h-8 px-2.5 rounded-lg text-xs flex items-center gap-1 shadow-xs"
                                 title="Kirim via WhatsApp"
                               >
                                 <MessageCircle className="w-3.5 h-3.5" />
@@ -840,7 +839,7 @@ export function GuestManagerClient({
                               disabled={isDeleting}
                               size="sm"
                               variant="ghost"
-                              className="text-stone-500 hover:text-rose-400 hover:bg-rose-950/30 h-8 w-8 p-0 rounded-lg"
+                              className="text-zinc-400 hover:text-rose-600 hover:bg-rose-50 h-8 w-8 p-0 rounded-lg"
                               title="Hapus Tamu"
                             >
                               {isDeleting ? (
@@ -861,19 +860,19 @@ export function GuestManagerClient({
         </div>
 
         {/* WhatsApp Message Preview Box */}
-        <div className="bg-stone-900/60 border border-stone-800 rounded-3xl p-6 space-y-3">
+        <div className="apple-card p-6 space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-stone-300 text-sm font-medium">
-              <MessageCircle className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-2 text-[#1D1D1F] text-sm font-medium">
+              <MessageCircle className="w-4 h-4 text-emerald-600" />
               <span>Format Pesan WhatsApp yang Terkirim ke Tamu:</span>
             </div>
             {templateText !== DEFAULT_WA_TEMPLATE && (
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
                 Kustom Aktif
               </span>
             )}
           </div>
-          <div className="bg-stone-950 border border-stone-800 rounded-2xl p-4 font-mono text-xs sm:text-sm text-stone-300 whitespace-pre-line leading-relaxed max-w-2xl">
+          <div className="bg-zinc-50 border border-black/[0.06] rounded-2xl p-4 font-mono text-xs sm:text-sm text-zinc-800 whitespace-pre-line leading-relaxed max-w-2xl">
             {generateWhatsAppMessage({
               guestName: "Nama Tamu Undangan",
               invitationUrl: `${baseUrl}/i/${initialInvitation.slug}/[TOKEN_TAMU]`,
@@ -884,7 +883,7 @@ export function GuestManagerClient({
         </div>
 
         {/* Footer info */}
-        <div className="text-center text-xs text-stone-500 pb-10 flex items-center justify-center gap-1.5">
+        <div className="text-center text-xs text-zinc-500 pb-10 flex items-center justify-center gap-1.5">
           <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
           <span>Titik Temu Invitation · Sistem Undangan Terpersonalisasi Aman</span>
         </div>

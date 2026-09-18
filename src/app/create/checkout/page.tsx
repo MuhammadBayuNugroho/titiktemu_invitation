@@ -215,7 +215,7 @@ export default function CheckoutPage() {
     : "https://app.sandbox.midtrans.com/snap/snap.js";
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 py-12 px-4 sm:px-6 lg:px-8 font-sans antialiased">
+    <div className="min-h-screen bg-[#FBFBFD] text-[#1D1D1F] py-12 px-4 sm:px-6 lg:px-8 font-sans antialiased selection:bg-amber-500/20 selection:text-amber-900">
       {/* Midtrans Snap Script (Sandbox / Production) */}
       {midtransClientKey && !midtransClientKey.includes("placeholder") && (
         <Script
@@ -225,12 +225,17 @@ export default function CheckoutPage() {
         />
       )}
 
+      {/* Ambient glow */}
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-amber-100/30 via-rose-50/20 to-transparent blur-3xl" />
+      </div>
+
       <div className="max-w-5xl mx-auto">
         {/* Navigation back */}
         <div className="mb-8">
           <Link
             href="/create/review"
-            className="inline-flex items-center gap-2 text-xs text-stone-400 hover:text-amber-400 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-medium text-[#6E6E73] hover:text-[#1D1D1F] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Kembali ke Peninjauan Desain</span>
@@ -239,19 +244,19 @@ export default function CheckoutPage() {
 
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
-          <span className="px-3 py-1 rounded-full bg-amber-950/60 border border-amber-800/40 text-amber-300 text-xs uppercase tracking-wider font-medium inline-block">
+          <span className="px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs uppercase tracking-wider font-semibold inline-block">
             Langkah Terakhir · Terbit Otomatis
           </span>
-          <h1 className="text-3xl font-serif font-light text-amber-100">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1D1D1F]">
             Pilih Paket & Aktivasi Undangan
           </h1>
-          <p className="text-stone-400 text-xs sm:text-sm">
+          <p className="text-[#6E6E73] text-xs sm:text-sm">
             Undangan Anda akan otomatis diterbitkan seketika setelah pembayaran terverifikasi.
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded-xl border border-rose-800/60 bg-rose-950/40 text-rose-300 text-sm text-center">
+          <div className="mb-6 p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 text-sm text-center">
             {error}
           </div>
         )}
@@ -259,7 +264,7 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Checkout Col */}
           <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-lg font-medium text-stone-200">
+            <h2 className="text-base font-semibold text-[#1D1D1F]">
               Pilih Paket Layanan
             </h2>
 
@@ -272,42 +277,42 @@ export default function CheckoutPage() {
                     onClick={() => setSelectedPlan(plan.code)}
                     className={`relative cursor-pointer rounded-2xl p-5 border transition-all duration-200 ${
                       isSelected
-                        ? "border-amber-400/80 bg-amber-950/20 shadow-lg shadow-amber-950/30"
-                        : "border-stone-800 bg-stone-900/60 hover:border-stone-700"
+                        ? "border-[#1D1D1F] bg-white shadow-md ring-2 ring-[#1D1D1F]"
+                        : "border-black/[0.08] bg-white hover:border-black/[0.16] hover:bg-zinc-50/50"
                     }`}
                   >
                     {plan.recommended && (
-                      <span className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-amber-400 text-stone-950 font-semibold text-[11px] uppercase tracking-wider">
+                      <span className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-[#1D1D1F] text-white font-semibold text-[10px] uppercase tracking-wider shadow-sm">
                         Paling Populer
                       </span>
                     )}
 
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h3 className="font-serif text-lg font-medium text-amber-100">{plan.name}</h3>
-                        <div className="mt-1 flex items-baseline gap-2">
-                          <span className="text-2xl font-semibold text-stone-100">
+                        <h3 className="text-sm font-semibold text-[#1D1D1F]">{plan.name}</h3>
+                        <div className="mt-1 flex flex-col">
+                          <span className="text-xl font-bold text-[#1D1D1F] tracking-tight">
                             Rp {plan.price.toLocaleString("id-ID")}
                           </span>
-                          <span className="text-xs text-stone-500 line-through">
+                          <span className="text-[11px] text-[#86868B] line-through">
                             Rp {plan.originalPrice.toLocaleString("id-ID")}
                           </span>
                         </div>
                       </div>
                       <div
-                        className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                          isSelected ? "border-amber-400 bg-amber-400 text-stone-950" : "border-stone-600"
+                        className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                          isSelected ? "border-[#1D1D1F] bg-[#1D1D1F] text-white" : "border-black/20"
                         }`}
                       >
                         {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                       </div>
                     </div>
 
-                    <ul className="mt-4 space-y-2 text-xs text-stone-300">
+                    <ul className="mt-4 space-y-2 text-xs text-[#6E6E73]">
                       {plan.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <Check className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                          <span>{feat}</span>
+                          <Check className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                          <span className="text-zinc-700">{feat}</span>
                         </li>
                       ))}
                     </ul>
@@ -317,11 +322,11 @@ export default function CheckoutPage() {
             </div>
 
             {/* Customer Info Form */}
-            <div className="bg-stone-900/60 border border-stone-800 rounded-2xl p-6 space-y-4">
-              <h3 className="text-md font-medium text-stone-200">Informasi Pemesan</h3>
+            <div className="apple-card rounded-2xl p-6 space-y-4">
+              <h3 className="text-sm font-semibold text-[#1D1D1F]">Informasi Pemesan</h3>
               <form onSubmit={handleCheckout} id="checkout-form" className="space-y-4">
                 <div>
-                  <Label htmlFor="name" className="text-xs text-stone-400">
+                  <Label htmlFor="name" className="text-xs font-medium text-[#6E6E73]">
                     Nama Lengkap
                   </Label>
                   <Input
@@ -330,13 +335,13 @@ export default function CheckoutPage() {
                     placeholder="Contoh: Budi Santoso"
                     value={customerInfo.name}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                    className="mt-1 bg-stone-950 border-stone-800 text-stone-100 text-sm focus:border-amber-400"
+                    className="mt-1.5 bg-white border-black/[0.1] text-[#1D1D1F] text-sm focus:border-black focus:ring-1 focus:ring-black rounded-xl"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email" className="text-xs text-stone-400">
+                    <Label htmlFor="email" className="text-xs font-medium text-[#6E6E73]">
                       Email (Untuk Akses & Kuitansi)
                     </Label>
                     <Input
@@ -346,11 +351,11 @@ export default function CheckoutPage() {
                       placeholder="budi@example.com"
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                      className="mt-1 bg-stone-950 border-stone-800 text-stone-100 text-sm focus:border-amber-400"
+                      className="mt-1.5 bg-white border-black/[0.1] text-[#1D1D1F] text-sm focus:border-black focus:ring-1 focus:ring-black rounded-xl"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-xs text-stone-400">
+                    <Label htmlFor="phone" className="text-xs font-medium text-[#6E6E73]">
                       Nomor WhatsApp
                     </Label>
                     <Input
@@ -360,7 +365,7 @@ export default function CheckoutPage() {
                       placeholder="081234567890"
                       value={customerInfo.phone}
                       onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
-                      className="mt-1 bg-stone-950 border-stone-800 text-stone-100 text-sm focus:border-amber-400"
+                      className="mt-1.5 bg-white border-black/[0.1] text-[#1D1D1F] text-sm focus:border-black focus:ring-1 focus:ring-black rounded-xl"
                     />
                   </div>
                 </div>
@@ -369,64 +374,68 @@ export default function CheckoutPage() {
           </div>
 
           {/* Order Summary Sidebar (Right 5 Cols) */}
-          <div className="lg:col-span-5 bg-stone-900/80 border border-stone-800 rounded-2xl p-6 space-y-6">
-            <h2 className="text-lg font-medium text-amber-100 border-b border-stone-800 pb-4">
-              Ringkasan Pesanan
-            </h2>
+          <div className="lg:col-span-5 apple-card rounded-2xl p-6 space-y-6 flex flex-col justify-between">
+            <div className="space-y-6">
+              <h2 className="text-sm font-semibold text-[#1D1D1F] border-b border-black/[0.06] pb-4">
+                Ringkasan Pesanan
+              </h2>
 
-            {wizardSummary && (
-              <div className="p-4 rounded-xl bg-stone-950/60 border border-stone-800/80 text-xs space-y-2 text-stone-300">
-                <div className="text-amber-400 font-medium text-sm">
-                  {wizardSummary.groom} & {wizardSummary.bride}
+              {wizardSummary && (
+                <div className="p-4 rounded-xl bg-zinc-50 border border-black/[0.06] text-xs space-y-1.5 text-zinc-700">
+                  <div className="text-amber-800 font-semibold text-sm">
+                    {wizardSummary.groom} & {wizardSummary.bride}
+                  </div>
+                  <div className="text-[#6E6E73]">Tanggal: {wizardSummary.date}</div>
                 </div>
-                <div className="text-stone-400">Tanggal: {wizardSummary.date}</div>
-              </div>
-            )}
+              )}
 
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between text-stone-300">
-                <span>{activePlanObj.name}</span>
-                <span>Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
-              </div>
-              <div className="flex justify-between text-stone-400 text-xs">
-                <span>Diskon Promo</span>
-                <span className="text-emerald-400">
-                  -Rp {(activePlanObj.originalPrice - activePlanObj.price).toLocaleString("id-ID")}
-                </span>
-              </div>
-              <div className="flex justify-between text-stone-400 text-xs">
-                <span>Biaya Layanan Platform</span>
-                <span className="text-stone-300">Rp 0</span>
-              </div>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between text-zinc-700">
+                  <span>{activePlanObj.name}</span>
+                  <span className="font-medium text-[#1D1D1F]">Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
+                </div>
+                <div className="flex justify-between text-[#6E6E73] text-xs">
+                  <span>Diskon Promo</span>
+                  <span className="text-emerald-600 font-medium">
+                    -Rp {(activePlanObj.originalPrice - activePlanObj.price).toLocaleString("id-ID")}
+                  </span>
+                </div>
+                <div className="flex justify-between text-[#6E6E73] text-xs">
+                  <span>Biaya Layanan Platform</span>
+                  <span className="text-zinc-600">Gratis (Rp 0)</span>
+                </div>
 
-              <div className="border-t border-stone-800 pt-3 flex justify-between font-medium text-base text-amber-100">
-                <span>Total Pembayaran</span>
-                <span>Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
+                <div className="border-t border-black/[0.06] pt-3 flex justify-between font-semibold text-base text-[#1D1D1F]">
+                  <span>Total Pembayaran</span>
+                  <span className="text-lg">Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
+                </div>
               </div>
             </div>
 
-            <Button
-              type="submit"
-              form="checkout-form"
-              disabled={loading}
-              className="w-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-semibold py-6 rounded-xl text-base shadow-lg shadow-amber-400/10 transition-all flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Memproses Pembayaran...
-                </>
-              ) : (
-                <>
-                  Bayar & Terbitkan Undangan
-                  <ArrowRight className="w-5 h-5" />
-                </>
-              )}
-            </Button>
+            <div className="space-y-3 pt-4">
+              <button
+                type="submit"
+                form="checkout-form"
+                disabled={loading}
+                className="apple-button-primary w-full py-3.5 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.12)] disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Memproses Pembayaran...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Bayar & Terbitkan Undangan</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
 
-            <div className="flex items-center justify-center gap-2 text-xs text-stone-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Pembayaran Aman & Terverifikasi Otomatis</span>
+              <div className="flex items-center justify-center gap-1.5 text-xs text-[#6E6E73]">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Pembayaran Aman & Terverifikasi Otomatis</span>
+              </div>
             </div>
           </div>
         </div>
