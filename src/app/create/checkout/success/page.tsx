@@ -3,13 +3,14 @@
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { CheckCircle2, ExternalLink, Copy, Share2, Heart, Loader2 } from "lucide-react";
+import { CheckCircle2, ExternalLink, Copy, Share2, Heart, Loader2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug") || "sample-wedding";
   const orderNumber = searchParams.get("order") || "TTI-20260918-0001";
+  const token = searchParams.get("token");
   const [copied, setCopied] = useState(false);
 
   const invitationUrl = typeof window !== "undefined"
@@ -70,8 +71,24 @@ function CheckoutSuccessContent() {
 
       {/* Action Buttons */}
       <div className="space-y-3 pt-2">
+        {token && (
+          <Link href={`/manage/${token}`} className="block w-full">
+            <Button className="w-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-semibold py-6 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg">
+              <Users className="w-4 h-4 text-stone-950" />
+              Kelola Daftar Tamu & WhatsApp Personal
+            </Button>
+          </Link>
+        )}
+
         <Link href={`/i/${slug}`} target="_blank" className="block w-full">
-          <Button className="w-full bg-amber-400 hover:bg-amber-300 text-stone-950 font-semibold py-6 rounded-xl text-sm flex items-center justify-center gap-2">
+          <Button
+            variant={token ? "outline" : "primary"}
+            className={`w-full py-6 rounded-xl text-sm flex items-center justify-center gap-2 ${
+              token
+                ? "border-stone-700 bg-stone-900/60 text-stone-200 hover:bg-stone-800"
+                : "bg-amber-400 hover:bg-amber-300 text-stone-950 font-semibold"
+            }`}
+          >
             <ExternalLink className="w-4 h-4" />
             Buka & Lihat Undangan Saya
           </Button>
@@ -88,7 +105,7 @@ function CheckoutSuccessContent() {
             className="w-full border-emerald-700/60 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-900/40 hover:text-emerald-200 py-6 rounded-xl text-sm flex items-center justify-center gap-2"
           >
             <Share2 className="w-4 h-4 text-emerald-400" />
-            Bagikan via WhatsApp
+            Bagikan Link Umum via WhatsApp
           </Button>
         </a>
       </div>

@@ -59,7 +59,6 @@ export function generateOrderNumber(): string {
 
 /**
  * Generate a cryptographically random hex token (64 chars = 32 bytes).
- * Falls back to Math.random for environments without Web Crypto.
  */
 export function generateSecureToken(): string {
   if (typeof crypto !== "undefined" && crypto.getRandomValues) {
@@ -69,11 +68,29 @@ export function generateSecureToken(): string {
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("");
   }
-  // Fallback (non-secure, only for SSR environments without Web Crypto)
   return Array.from({ length: 64 }, () =>
     Math.floor(Math.random() * 16).toString(16)
   ).join("");
 }
+
+/**
+ * Generate a cryptographically random, URL-safe guest token (e.g. 8 chars, high entropy).
+ */
+export function generateGuestToken(length: number = 8): string {
+  const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    const bytes = new Uint8Array(length);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes)
+      .map((b) => chars[b % chars.length])
+      .join("");
+  }
+  return Array.from({ length }, () =>
+    chars[Math.floor(Math.random() * chars.length)]
+  ).join("");
+}
+
+
 
 /**
  * Build a WhatsApp share URL with a pre-filled message.

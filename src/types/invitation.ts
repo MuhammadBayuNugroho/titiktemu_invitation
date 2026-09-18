@@ -101,6 +101,16 @@ export interface GuestData {
   token: string
 }
 
+export interface GuestWithRSVP extends GuestData {
+  rsvp?: {
+    status: 'attending' | 'declined' | 'uncertain'
+    paxCount: number
+    notes?: string
+    createdAt: string
+  } | null
+}
+
+
 export interface RSVPInput {
   invitationId: string
   guestId?: string

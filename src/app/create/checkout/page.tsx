@@ -119,7 +119,7 @@ export default function CheckoutPage() {
         throw new Error(invData.error || "Gagal menyimpan draf undangan.");
       }
 
-      const { invitationId, slug } = invData;
+      const { invitationId, slug, customerAccessToken } = invData;
 
       // 3. Create Order
       const orderRes = await fetch("/api/orders", {
@@ -139,6 +139,8 @@ export default function CheckoutPage() {
         throw new Error(orderData.error || "Gagal membuat pesanan.");
       }
 
+      const tokenParam = customerAccessToken ? `&token=${customerAccessToken}` : "";
+
       // 4. Handle Mock or Midtrans payment
       if (orderData.redirectUrl && orderData.redirectUrl.includes("mock-checkout")) {
         // Execute Mock Callback automatically for instant deployment simulation
@@ -150,7 +152,7 @@ export default function CheckoutPage() {
 
         const mockData = await mockRes.json();
         if (mockData.success) {
-          router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}`);
+          router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}${tokenParam}`);
         } else {
           throw new Error("Gagal menyelesaikan pembayaran simulasi.");
         }
@@ -158,7 +160,7 @@ export default function CheckoutPage() {
         // Real Midtrans Snap
         (window as any).snap.pay(orderData.token, {
           onSuccess: function () {
-            router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}`);
+            router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}${tokenParam}`);
           },
           onPending: function () {
             alert("Pembayaran Anda sedang diproses. Mohon selesaikan pembayaran.");
@@ -174,7 +176,7 @@ export default function CheckoutPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ orderId: orderData.orderId }),
         });
-        router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}`);
+        router.push(`/create/checkout/success?slug=${slug}&order=${orderData.orderNumber}${tokenParam}`);
       }
     } catch (err: any) {
       console.error(err);

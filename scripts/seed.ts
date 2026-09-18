@@ -168,12 +168,19 @@ async function runSeed() {
     const invId1 = "11111111-1111-1111-1111-111111111111";
     const invId2 = "22222222-2222-2222-2222-222222222222";
 
+    const { data: tplRow } = await supabase
+      .from("templates")
+      .select("id")
+      .eq("slug", "elegant")
+      .single();
+    const templateId = tplRow?.id || "00000000-0000-0000-0000-000000000001";
+
     const { error: invErr } = await supabase.from("invitations").upsert(
       [
         {
           id: invId1,
           slug: "shava-dedek",
-          template_id: "00000000-0000-0000-0000-000000000001",
+          template_id: templateId,
           customer_access_token: "cat_shava_dedek_secret_token_2026",
           title: "Pernikahan Shava & Dedek",
           event_type: "wedding",
@@ -207,7 +214,7 @@ async function runSeed() {
         {
           id: invId2,
           slug: "sample-wedding",
-          template_id: "00000000-0000-0000-0000-000000000001",
+          template_id: templateId,
           customer_access_token: "cat_sample_wedding_secret_token_2026",
           title: "Pernikahan Rizky & Nabila",
           event_type: "wedding",

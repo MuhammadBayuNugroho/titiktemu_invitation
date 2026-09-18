@@ -16,6 +16,8 @@ import { GuestbookSection } from "./sections/guestbook-section";
 import { MusicPlayer } from "./sections/music-player";
 import { ClosingSection } from "./sections/closing-section";
 
+import { ThemedDecorations } from "./themed-decorations";
+
 interface InvitationRendererProps {
   data: InvitationData;
   templateSlug?: string;
@@ -47,6 +49,9 @@ export function InvitationRenderer({
         color: config.colors.foreground,
       }}
     >
+      {/* Animated Themed Background Layer (Floral petals, Wayang Gunungan, Botanical leaves) */}
+      <ThemedDecorations templateSlug={activeSlug} />
+
       {/* Cover Overlay Screen */}
       <InvitationCover
         data={data}

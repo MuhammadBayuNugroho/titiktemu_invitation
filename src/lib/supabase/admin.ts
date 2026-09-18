@@ -11,12 +11,10 @@ import type { Database } from "@/types/database";
  * DILARANG KERAS mengekspos client atau kuncinya ke browser!
  */
 export function createAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+  const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co")
+    .replace(/\/rest\/v1\/?$/, "")
+    .replace(/\/$/, "");
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!serviceRoleKey || serviceRoleKey === "placeholder-service-key") {
-    // Return fallback for build/test environments
-  }
 
   return createSupabaseClient<Database>(
     supabaseUrl,

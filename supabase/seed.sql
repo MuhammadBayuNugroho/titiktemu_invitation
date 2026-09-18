@@ -160,7 +160,7 @@ VALUES
 (
   '11111111-1111-1111-1111-111111111111',
   'shava-dedek',
-  '00000000-0000-0000-0000-000000000001',
+  (SELECT id FROM public.templates WHERE slug = 'elegant' LIMIT 1),
   'cat_shava_dedek_secret_token_2026',
   'Pernikahan Shava & Dedek',
   'wedding',
@@ -194,7 +194,7 @@ VALUES
 (
   '22222222-2222-2222-2222-222222222222',
   'sample-wedding',
-  '00000000-0000-0000-0000-000000000001',
+  (SELECT id FROM public.templates WHERE slug = 'elegant' LIMIT 1),
   'cat_sample_wedding_secret_token_2026',
   'Pernikahan Rizky & Nabila',
   'wedding',
