@@ -37,31 +37,20 @@ export default function TemplatesPage() {
   return (
     <div
       className="relative min-h-screen flex flex-col overflow-x-hidden"
-      style={{ background: "#F8F7F4", color: "#1A1A2E", fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+      style={{
+        /**
+         * PERFORMANCE: Static radial gradient — zero GPU cost.
+         * Same visual warmth as the landing page without any animation.
+         */
+        background: `
+          radial-gradient(ellipse 70% 45% at 10% 0%,   rgba(201,144,108,0.10) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 40% at 90% 100%, rgba(201,168,76,0.07)  0%, transparent 60%),
+          #F8F7F4
+        `,
+        color: "#1A1A2E",
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+      }}
     >
-      {/* Aurora background */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div
-          className="animate-aurora-drift absolute"
-          style={{
-            top: "-20%", left: "-15%", width: "65vw", height: "65vw",
-            maxWidth: 800, maxHeight: 800,
-            background: "radial-gradient(ellipse, rgba(201,144,108,0.10) 0%, transparent 70%)",
-            willChange: "transform",
-          }}
-        />
-        <div
-          className="animate-aurora-drift delay-400"
-          style={{
-            position: "absolute",
-            bottom: "-15%", right: "-15%", width: "60vw", height: "60vw",
-            maxWidth: 750, maxHeight: 750,
-            background: "radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%)",
-            animationDirection: "reverse",
-            willChange: "transform",
-          }}
-        />
-      </div>
 
       {/* Sticky Header */}
       <header className="sticky top-0 z-40">
