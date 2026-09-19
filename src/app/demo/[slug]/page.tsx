@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft, ArrowRight, Palette, Box } from "lucide-react";
+import { ArrowLeft, ArrowRight, Palette } from "lucide-react";
 import { DEMO_INVITATION } from "@/lib/demo-data";
 import { InvitationRenderer } from "@/components/invitation/invitation-renderer";
 import { Button } from "@/components/ui/button";
@@ -15,54 +15,46 @@ export default function DemoPage() {
   const [currentTemplate, setCurrentTemplate] = useState<string>(initialTemplate);
 
   const templateOptions = [
-    { slug: "elegant", label: "01 Elegant", tag: "3D Motion" },
-    { slug: "minimalist", label: "02 Minimalist", tag: "Clean" },
-    { slug: "nusantara", label: "03 Nusantara", tag: "Heritage" },
-    { slug: "celestial", label: "04 Celestial", tag: "Dark 3D" },
-    { slug: "editorial", label: "05 Editorial", tag: "Vogue" },
-    { slug: "botanical", label: "06 Botanical", tag: "Garden" },
+    { slug: "elegant", label: "01 Elegant" },
+    { slug: "minimalist", label: "02 Minimalist" },
+    { slug: "nusantara", label: "03 Nusantara" },
   ];
 
   return (
     <div className="relative min-h-screen bg-zinc-950">
       {/* Top Demo Bar */}
-      <div className="sticky top-0 z-40 w-full border-b border-zinc-800 bg-zinc-900/90 px-3 sm:px-4 py-2 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2.5 text-xs text-white">
+      <div className="sticky top-0 z-40 w-full border-b border-zinc-800 bg-zinc-900/90 px-4 py-2.5 backdrop-blur-md">
+        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 text-xs text-white">
           <Link
             href="/templates"
             className="inline-flex items-center gap-1.5 font-medium text-zinc-400 hover:text-white transition"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Katalog Template</span>
-            <span className="sm:hidden">Katalog</span>
+            <span>Katalog Template</span>
           </Link>
 
           {/* Template Switcher Live Controls */}
-          <div className="flex items-center gap-1 bg-zinc-800/90 p-1 rounded-lg border border-zinc-700 overflow-x-auto max-w-full">
-            <Palette className="h-3.5 w-3.5 text-zinc-400 ml-1 mr-0.5 shrink-0" />
+          <div className="flex items-center gap-1 bg-zinc-800/90 p-1 rounded-lg border border-zinc-700">
+            <Palette className="h-3.5 w-3.5 text-zinc-400 ml-1 mr-0.5" />
             {templateOptions.map((opt) => (
               <button
                 key={opt.slug}
                 onClick={() => setCurrentTemplate(opt.slug)}
-                className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 ${
+                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
                   currentTemplate === opt.slug
                     ? "bg-white text-zinc-950 shadow-sm"
                     : "text-zinc-400 hover:text-white"
                 }`}
               >
-                <span>{opt.label}</span>
-                {opt.tag.includes("3D") && (
-                  <Box className="w-2.5 h-2.5 text-amber-500" />
-                )}
+                {opt.label}
               </button>
             ))}
           </div>
 
           <Link href={`/create?template=${currentTemplate}`}>
-            <Button size="sm" className="h-8 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold text-xs">
-              <span className="hidden sm:inline">Gunakan Desain Ini</span>
-              <span className="sm:hidden">Pilih</span>
-              <ArrowRight className="ml-1 h-3 w-3" />
+            <Button size="sm" className="h-8 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold">
+              <span>Gunakan Desain Ini</span>
+              <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>
@@ -71,7 +63,6 @@ export default function DemoPage() {
       {/* Main Invitation Demo Frame */}
       <div className="w-full">
         <InvitationRenderer
-          key={currentTemplate}
           data={DEMO_INVITATION}
           templateSlug={currentTemplate}
           guestName="Bapak Budi Santoso & Keluarga"
