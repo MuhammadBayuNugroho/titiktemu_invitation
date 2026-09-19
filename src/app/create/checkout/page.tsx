@@ -215,7 +215,7 @@ export default function CheckoutPage() {
     : "https://app.sandbox.midtrans.com/snap/snap.js";
 
   return (
-    <div className="min-h-screen bg-[#FBFBFD] text-[#1D1D1F] py-12 px-4 sm:px-6 lg:px-8 font-sans antialiased selection:bg-amber-500/20 selection:text-amber-900">
+    <div className="min-h-screen bg-[#F8F7F4] text-[#1A1A2E] py-12 px-4 sm:px-6 lg:px-8 font-sans antialiased selection:bg-[#C9906C]/20 selection:text-[#1A1A2E]">
       {/* Midtrans Snap Script (Sandbox / Production) */}
       {midtransClientKey && !midtransClientKey.includes("placeholder") && (
         <Script
@@ -227,7 +227,7 @@ export default function CheckoutPage() {
 
       {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-amber-100/30 via-rose-50/20 to-transparent blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-b from-[#C9906C]/10 via-[#C9A84C]/5 to-transparent blur-3xl" />
       </div>
 
       <div className="max-w-5xl mx-auto">
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
         <div className="mb-8">
           <Link
             href="/create/review"
-            className="inline-flex items-center gap-2 text-xs font-medium text-[#6E6E73] hover:text-[#1D1D1F] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-medium text-[#71717A] hover:text-[#C9906C] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Kembali ke Peninjauan Desain</span>
@@ -243,14 +243,14 @@ export default function CheckoutPage() {
         </div>
 
         {/* Header */}
-        <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
-          <span className="px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs uppercase tracking-wider font-semibold inline-block">
+        <div className="text-center max-w-xl mx-auto mb-10 space-y-3">
+          <span className="px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border text-[#C9906C] bg-[rgba(201,144,108,0.08)] border-[rgba(201,144,108,0.25)] inline-block">
             Langkah Terakhir · Terbit Otomatis
           </span>
-          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1D1D1F]">
+          <h1 className="font-serif text-3xl sm:text-4xl text-[#1A1A2E] font-normal tracking-tight">
             Pilih Paket & Aktivasi Undangan
           </h1>
-          <p className="text-[#6E6E73] text-xs sm:text-sm">
+          <p className="text-[#71717A] text-xs sm:text-sm">
             Undangan Anda akan otomatis diterbitkan seketika setelah pembayaran terverifikasi.
           </p>
         </div>
@@ -264,7 +264,7 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Checkout Col */}
           <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-base font-semibold text-[#1D1D1F]">
+            <h2 className="text-base font-semibold text-[#1A1A2E]">
               Pilih Paket Layanan
             </h2>
 
@@ -277,42 +277,42 @@ export default function CheckoutPage() {
                     onClick={() => setSelectedPlan(plan.code)}
                     className={`relative cursor-pointer rounded-2xl p-5 border transition-all duration-200 ${
                       isSelected
-                        ? "border-[#1D1D1F] bg-white shadow-md ring-2 ring-[#1D1D1F]"
-                        : "border-black/[0.08] bg-white hover:border-black/[0.16] hover:bg-zinc-50/50"
+                        ? "border-[#C9906C] bg-white shadow-sm ring-2 ring-[#C9906C]/30"
+                        : "border-[rgba(201,144,108,0.18)] bg-white hover:border-[#C9906C]/50 hover:shadow-xs"
                     }`}
                   >
                     {plan.recommended && (
-                      <span className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-[#1D1D1F] text-white font-semibold text-[10px] uppercase tracking-wider shadow-sm">
+                      <span className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-gradient-to-r from-[#C9906C] to-[#C9A84C] text-white font-semibold text-[10px] uppercase tracking-wider shadow-xs">
                         Paling Populer
                       </span>
                     )}
 
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h3 className="text-sm font-semibold text-[#1D1D1F]">{plan.name}</h3>
+                        <h3 className="text-sm font-semibold text-[#1A1A2E]">{plan.name}</h3>
                         <div className="mt-1 flex flex-col">
-                          <span className="text-xl font-bold text-[#1D1D1F] tracking-tight">
+                          <span className="text-xl font-bold text-[#1A1A2E] tracking-tight">
                             Rp {plan.price.toLocaleString("id-ID")}
                           </span>
-                          <span className="text-[11px] text-[#86868B] line-through">
+                          <span className="text-[11px] text-[#A1A1AA] line-through">
                             Rp {plan.originalPrice.toLocaleString("id-ID")}
                           </span>
                         </div>
                       </div>
                       <div
                         className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
-                          isSelected ? "border-[#1D1D1F] bg-[#1D1D1F] text-white" : "border-black/20"
+                          isSelected ? "border-[#C9906C] bg-[#C9906C] text-white" : "border-[rgba(201,144,108,0.3)]"
                         }`}
                       >
                         {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                       </div>
                     </div>
 
-                    <ul className="mt-4 space-y-2 text-xs text-[#6E6E73]">
+                    <ul className="mt-4 space-y-2 text-xs text-[#71717A]">
                       {plan.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <Check className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                          <span className="text-zinc-700">{feat}</span>
+                          <Check className="w-3.5 h-3.5 text-[#C9906C] shrink-0 mt-0.5" />
+                          <span className="text-[#3F3F46]">{feat}</span>
                         </li>
                       ))}
                     </ul>
@@ -322,11 +322,11 @@ export default function CheckoutPage() {
             </div>
 
             {/* Customer Info Form */}
-            <div className="apple-card rounded-2xl p-6 space-y-4">
-              <h3 className="text-sm font-semibold text-[#1D1D1F]">Informasi Pemesan</h3>
+            <div className="bg-white border border-[rgba(201,144,108,0.18)] rounded-2xl p-6 space-y-4 shadow-xs">
+              <h3 className="text-sm font-semibold text-[#1A1A2E]">Informasi Pemesan</h3>
               <form onSubmit={handleCheckout} id="checkout-form" className="space-y-4">
                 <div>
-                  <Label htmlFor="name" className="text-xs font-medium text-[#6E6E73]">
+                  <Label htmlFor="name" className="text-xs font-medium text-[#71717A]">
                     Nama Lengkap
                   </Label>
                   <Input
@@ -335,13 +335,13 @@ export default function CheckoutPage() {
                     placeholder="Contoh: Budi Santoso"
                     value={customerInfo.name}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                    className="mt-1.5 bg-white border-black/[0.1] text-[#1D1D1F] text-sm focus:border-black focus:ring-1 focus:ring-black rounded-xl"
+                    className="mt-1.5 bg-[#F8F7F4]/50 border-[rgba(201,144,108,0.25)] text-[#1A1A2E] text-sm focus:border-[#C9906C] focus:ring-1 focus:ring-[#C9906C] rounded-xl"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email" className="text-xs font-medium text-[#6E6E73]">
+                    <Label htmlFor="email" className="text-xs font-medium text-[#71717A]">
                       Email (Untuk Akses & Kuitansi)
                     </Label>
                     <Input
@@ -351,11 +351,11 @@ export default function CheckoutPage() {
                       placeholder="budi@example.com"
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                      className="mt-1.5 bg-white border-black/[0.1] text-[#1D1D1F] text-sm focus:border-black focus:ring-1 focus:ring-black rounded-xl"
+                      className="mt-1.5 bg-[#F8F7F4]/50 border-[rgba(201,144,108,0.25)] text-[#1A1A2E] text-sm focus:border-[#C9906C] focus:ring-1 focus:ring-[#C9906C] rounded-xl"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-xs font-medium text-[#6E6E73]">
+                    <Label htmlFor="phone" className="text-xs font-medium text-[#71717A]">
                       Nomor WhatsApp
                     </Label>
                     <Input
@@ -365,7 +365,7 @@ export default function CheckoutPage() {
                       placeholder="081234567890"
                       value={customerInfo.phone}
                       onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
-                      className="mt-1.5 bg-white border-black/[0.1] text-[#1D1D1F] text-sm focus:border-black focus:ring-1 focus:ring-black rounded-xl"
+                      className="mt-1.5 bg-[#F8F7F4]/50 border-[rgba(201,144,108,0.25)] text-[#1A1A2E] text-sm focus:border-[#C9906C] focus:ring-1 focus:ring-[#C9906C] rounded-xl"
                     />
                   </div>
                 </div>
@@ -374,40 +374,40 @@ export default function CheckoutPage() {
           </div>
 
           {/* Order Summary Sidebar (Right 5 Cols) */}
-          <div className="lg:col-span-5 apple-card rounded-2xl p-6 space-y-6 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-white border border-[rgba(201,144,108,0.18)] rounded-2xl p-6 space-y-6 flex flex-col justify-between shadow-xs">
             <div className="space-y-6">
-              <h2 className="text-sm font-semibold text-[#1D1D1F] border-b border-black/[0.06] pb-4">
+              <h2 className="text-sm font-semibold text-[#1A1A2E] border-b border-[rgba(201,144,108,0.15)] pb-4">
                 Ringkasan Pesanan
               </h2>
 
               {wizardSummary && (
-                <div className="p-4 rounded-xl bg-zinc-50 border border-black/[0.06] text-xs space-y-1.5 text-zinc-700">
-                  <div className="text-amber-800 font-semibold text-sm">
+                <div className="p-4 rounded-xl bg-[#F8F7F4] border border-[rgba(201,144,108,0.15)] text-xs space-y-1.5 text-[#3F3F46]">
+                  <div className="text-[#C9906C] font-semibold text-sm">
                     {wizardSummary.groom} & {wizardSummary.bride}
                   </div>
-                  <div className="text-[#6E6E73]">Tanggal: {wizardSummary.date}</div>
+                  <div className="text-[#71717A]">Tanggal: {wizardSummary.date}</div>
                 </div>
               )}
 
               <div className="space-y-3 text-sm">
-                <div className="flex justify-between text-zinc-700">
+                <div className="flex justify-between text-[#3F3F46]">
                   <span>{activePlanObj.name}</span>
-                  <span className="font-medium text-[#1D1D1F]">Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
+                  <span className="font-medium text-[#1A1A2E]">Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
                 </div>
-                <div className="flex justify-between text-[#6E6E73] text-xs">
+                <div className="flex justify-between text-[#71717A] text-xs">
                   <span>Diskon Promo</span>
                   <span className="text-emerald-600 font-medium">
                     -Rp {(activePlanObj.originalPrice - activePlanObj.price).toLocaleString("id-ID")}
                   </span>
                 </div>
-                <div className="flex justify-between text-[#6E6E73] text-xs">
+                <div className="flex justify-between text-[#71717A] text-xs">
                   <span>Biaya Layanan Platform</span>
-                  <span className="text-zinc-600">Gratis (Rp 0)</span>
+                  <span className="text-[#3F3F46]">Gratis (Rp 0)</span>
                 </div>
 
-                <div className="border-t border-black/[0.06] pt-3 flex justify-between font-semibold text-base text-[#1D1D1F]">
+                <div className="border-t border-[rgba(201,144,108,0.15)] pt-3 flex justify-between font-semibold text-base text-[#1A1A2E]">
                   <span>Total Pembayaran</span>
-                  <span className="text-lg">Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
+                  <span className="text-lg text-[#C9906C]">Rp {activePlanObj.price.toLocaleString("id-ID")}</span>
                 </div>
               </div>
             </div>
@@ -417,7 +417,7 @@ export default function CheckoutPage() {
                 type="submit"
                 form="checkout-form"
                 disabled={loading}
-                className="apple-button-primary w-full py-3.5 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.12)] disabled:opacity-50"
+                className="btn-primary w-full py-3.5 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -432,7 +432,7 @@ export default function CheckoutPage() {
                 )}
               </button>
 
-              <div className="flex items-center justify-center gap-1.5 text-xs text-[#6E6E73]">
+              <div className="flex items-center justify-center gap-1.5 text-xs text-[#71717A]">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Pembayaran Aman & Terverifikasi Otomatis</span>
               </div>

@@ -307,25 +307,49 @@ export function GuestManagerClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#FBFBFD] text-[#1D1D1F] py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8"
+      style={{
+        background: `
+          radial-gradient(ellipse 90% 50% at 10% 0%, rgba(201,144,108,0.08) 0%, transparent 50%),
+          radial-gradient(ellipse 70% 40% at 90% 100%, rgba(201,168,76,0.06) 0%, transparent 50%),
+          #F8F7F4
+        `,
+        color: "#1A1A2E",
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+      }}
+    >
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* Top Header with Apple Frosted Glass */}
-        <div className="apple-card p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        {/* Top Header */}
+        <div
+          className="p-6 sm:p-8 rounded-3xl bg-white shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+          style={{ border: "1px solid rgba(201,144,108,0.18)" }}
+        >
           <div className="space-y-2">
             <div className="flex items-center gap-2.5">
-              <span className="px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium tracking-wide uppercase flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span
+                className="px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide uppercase flex items-center gap-1.5"
+                style={{
+                  background: "rgba(201,144,108,0.10)",
+                  color: "#C9906C",
+                  border: "1px solid rgba(201,144,108,0.22)",
+                }}
+              >
+                <Sparkles className="w-3.5 h-3.5" style={{ color: "#C9906C" }} />
                 Portal Tamu Undangan
               </span>
-              <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
+              <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
                 {initialInvitation.status.toUpperCase()}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-light text-[#1D1D1F] tracking-tight">
+            <h1
+              className="text-2xl sm:text-4xl font-light tracking-tight"
+              style={{ fontFamily: "'DM Serif Display', serif", color: "#1A1A2E" }}
+            >
               {initialInvitation.title || `${initialInvitation.brideName} & ${initialInvitation.groomName}`}
             </h1>
-            <p className="text-zinc-500 text-xs sm:text-sm flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-amber-600" />
+            <p className="text-[#6B7280] text-xs sm:text-sm flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#C9906C]" />
               <span>{initialInvitation.eventDate} · Template: {initialInvitation.templateName}</span>
             </p>
           </div>
@@ -336,8 +360,8 @@ export function GuestManagerClient({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="apple-button-secondary px-5 py-2.5 text-xs sm:text-sm font-medium rounded-full flex items-center gap-2">
-                <ExternalLink className="w-3.5 h-3.5 text-amber-700" />
+              <button className="btn-secondary px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full flex items-center gap-2 active:scale-95 transition-all shadow-xs">
+                <ExternalLink className="w-3.5 h-3.5 text-[#C9906C]" />
                 <span>Pratinjau Undangan</span>
               </button>
             </Link>
@@ -345,21 +369,27 @@ export function GuestManagerClient({
         </div>
 
         {/* General Link & Share Bar */}
-        <div className="apple-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div
+          className="p-4 sm:p-5 rounded-2xl bg-white shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          style={{ border: "1px solid rgba(201,144,108,0.18)" }}
+        >
           <div className="space-y-1">
-            <div className="text-xs text-zinc-500 font-medium">
+            <div className="text-xs text-[#6B7280] font-medium">
               Link Undangan Publik (Umum tanpa personalisasi nama):
             </div>
-            <div className="font-mono text-xs sm:text-sm text-amber-800 truncate max-w-lg bg-zinc-50 border border-black/[0.06] rounded-xl px-3 py-1.5">
+            <div
+              className="font-mono text-xs sm:text-sm text-[#C9906C] truncate max-w-lg bg-[#FAF9F6] border rounded-xl px-3 py-1.5"
+              style={{ borderColor: "rgba(201,144,108,0.20)" }}
+            >
               {generalUrl}
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handleCopyGeneral}
-              className="apple-button-secondary px-4 py-2 text-xs font-medium rounded-full flex items-center gap-1.5"
+              className="btn-secondary px-4 py-2 text-xs font-semibold rounded-full flex items-center gap-1.5 active:scale-95 transition-all shadow-xs"
             >
-              {copiedGeneral ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedGeneral ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-[#6B7280]" />}
               <span>{copiedGeneral ? "Tersalin" : "Salin Link"}</span>
             </button>
             <a
@@ -372,7 +402,7 @@ export function GuestManagerClient({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full text-xs font-medium flex items-center gap-1.5 transition-all shadow-xs">
+              <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs active:scale-95">
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Share WA</span>
               </button>
@@ -381,17 +411,22 @@ export function GuestManagerClient({
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-apple-fade-up animation-delay-100">
-          <div className="apple-card hover-lift-apple p-5 space-y-1.5 cursor-default">
-            <div className="flex items-center justify-between text-zinc-500 text-xs font-medium">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div
+            className="p-5 space-y-1.5 rounded-2xl bg-white shadow-xs transition-all hover:-translate-y-0.5"
+            style={{ border: "1px solid rgba(201,144,108,0.18)" }}
+          >
+            <div className="flex items-center justify-between text-[#6B7280] text-xs font-medium">
               <span>Total Tamu</span>
-              <Users className="w-4 h-4 text-zinc-400" />
+              <Users className="w-4 h-4 text-[#9CA3AF]" />
             </div>
-            <div className="text-3xl font-light text-[#1D1D1F]">{stats.totalGuests}</div>
-            <div className="text-xs text-zinc-500">{stats.unconfirmed} belum konfirmasi</div>
+            <div className="text-3xl font-light text-[#1A1A2E]">{stats.totalGuests}</div>
+            <div className="text-xs text-[#9CA3AF]">{stats.unconfirmed} belum konfirmasi</div>
           </div>
 
-          <div className="apple-card hover-lift-apple p-5 space-y-1.5 border-emerald-200/80 bg-emerald-50/30 cursor-default">
+          <div
+            className="p-5 space-y-1.5 rounded-2xl bg-emerald-50/40 border border-emerald-200/80 shadow-xs transition-all hover:-translate-y-0.5"
+          >
             <div className="flex items-center justify-between text-emerald-700 text-xs font-medium">
               <span>Konfirmasi Hadir</span>
               <UserCheck className="w-4 h-4 text-emerald-600" />
@@ -400,7 +435,9 @@ export function GuestManagerClient({
             <div className="text-xs text-emerald-600">{stats.totalPax} total perkiraan pax</div>
           </div>
 
-          <div className="apple-card hover-lift-apple p-5 space-y-1.5 border-amber-200/80 bg-amber-50/30 cursor-default">
+          <div
+            className="p-5 space-y-1.5 rounded-2xl bg-amber-50/40 border border-amber-200/80 shadow-xs transition-all hover:-translate-y-0.5"
+          >
             <div className="flex items-center justify-between text-amber-800 text-xs font-medium">
               <span>Masih Ragu</span>
               <HelpCircle className="w-4 h-4 text-amber-600" />
@@ -409,7 +446,9 @@ export function GuestManagerClient({
             <div className="text-xs text-amber-700">Menunggu kepastian</div>
           </div>
 
-          <div className="apple-card hover-lift-apple p-5 space-y-1.5 border-rose-200/80 bg-rose-50/30 cursor-default">
+          <div
+            className="p-5 space-y-1.5 rounded-2xl bg-rose-50/40 border border-rose-200/80 shadow-xs transition-all hover:-translate-y-0.5"
+          >
             <div className="flex items-center justify-between text-rose-700 text-xs font-medium">
               <span>Berhalangan</span>
               <UserX className="w-4 h-4 text-rose-600" />
@@ -419,22 +458,28 @@ export function GuestManagerClient({
           </div>
         </div>
 
-        {/* Add Guest Section with Apple Segmented Control */}
-        <div className="apple-card p-6 sm:p-8 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-black/[0.06] pb-5 gap-4">
+        {/* Add Guest Section */}
+        <div
+          className="p-6 sm:p-8 rounded-3xl bg-white shadow-xs space-y-6"
+          style={{ border: "1px solid rgba(201,144,108,0.18)" }}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-5 gap-4" style={{ borderColor: "rgba(201,144,108,0.12)" }}>
             <div className="flex items-center gap-2">
-              <Plus className="w-5 h-5 text-amber-700" />
-              <h2 className="text-lg font-medium text-[#1D1D1F]">Tambah Tamu Undangan</h2>
+              <Plus className="w-5 h-5 text-[#C9906C]" />
+              <h2 className="text-lg font-semibold text-[#1A1A2E]">Tambah Tamu Undangan</h2>
             </div>
-            {/* Apple iOS-Style Segmented Control Pills */}
-            <div className="inline-flex items-center bg-zinc-100 p-1 rounded-full border border-black/[0.06] text-xs">
+            {/* Segmented Control Pills */}
+            <div
+              className="inline-flex items-center bg-[#FAF9F6] p-1 rounded-full border text-xs"
+              style={{ borderColor: "rgba(201,144,108,0.20)" }}
+            >
               <button
                 type="button"
                 onClick={() => setActiveTab("single")}
                 className={`px-4 py-1.5 rounded-full transition-all duration-200 ${
                   activeTab === "single"
-                    ? "bg-white text-[#1D1D1F] font-semibold shadow-xs"
-                    : "text-zinc-500 hover:text-black"
+                    ? "bg-[#1A1A2E] text-white font-semibold shadow-xs"
+                    : "text-[#6B7280] hover:text-[#1A1A2E]"
                 }`}
               >
                 Tambah 1 Tamu
@@ -444,8 +489,8 @@ export function GuestManagerClient({
                 onClick={() => setActiveTab("bulk")}
                 className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5 ${
                   activeTab === "bulk"
-                    ? "bg-white text-[#1D1D1F] font-semibold shadow-xs"
-                    : "text-zinc-500 hover:text-black"
+                    ? "bg-[#1A1A2E] text-white font-semibold shadow-xs"
+                    : "text-[#6B7280] hover:text-[#1A1A2E]"
                 }`}
               >
                 <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -457,34 +502,37 @@ export function GuestManagerClient({
           {activeTab === "single" ? (
             <form onSubmit={handleAddSingle} className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
               <div className="sm:col-span-4 space-y-1.5">
-                <label className="text-xs text-zinc-700 font-medium">Nama Tamu / Keluarga *</label>
+                <label className="text-xs text-[#1A1A2E] font-semibold">Nama Tamu / Keluarga *</label>
                 <input
                   type="text"
-                  placeholder="Contoh: Dani Ramadhan & Partner"
+                  placeholder="Contoh: Dani Ramadhan &amp; Partner"
                   value={singleName}
                   onChange={(e) => setSingleName(e.target.value)}
-                  className="w-full bg-white border border-black/[0.12] rounded-xl px-3.5 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-amber-600"
+                  className="w-full bg-[#FAFAFA] border rounded-xl px-3.5 py-2.5 text-sm text-[#1A1A2E] placeholder-zinc-400 focus:outline-none focus:bg-white transition-all"
+                  style={{ borderColor: "rgba(26,26,46,0.12)" }}
                   required
                 />
               </div>
 
               <div className="sm:col-span-3 space-y-1.5">
-                <label className="text-xs text-zinc-700 font-medium">Nomor WhatsApp (Opsional)</label>
+                <label className="text-xs text-[#1A1A2E] font-semibold">Nomor WhatsApp (Opsional)</label>
                 <input
                   type="text"
                   placeholder="08123456789"
                   value={singlePhone}
                   onChange={(e) => setSinglePhone(e.target.value)}
-                  className="w-full bg-white border border-black/[0.12] rounded-xl px-3.5 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-amber-600"
+                  className="w-full bg-[#FAFAFA] border rounded-xl px-3.5 py-2.5 text-sm text-[#1A1A2E] placeholder-zinc-400 focus:outline-none focus:bg-white transition-all"
+                  style={{ borderColor: "rgba(26,26,46,0.12)" }}
                 />
               </div>
 
               <div className="sm:col-span-3 space-y-1.5">
-                <label className="text-xs text-zinc-700 font-medium">Kategori</label>
+                <label className="text-xs text-[#1A1A2E] font-semibold">Kategori</label>
                 <select
                   value={singleCategory}
                   onChange={(e: any) => setSingleCategory(e.target.value)}
-                  className="w-full bg-white border border-black/[0.12] rounded-xl px-3.5 py-2.5 text-sm text-zinc-900 focus:outline-none focus:border-amber-600"
+                  className="w-full bg-[#FAFAFA] border rounded-xl px-3.5 py-2.5 text-sm text-[#1A1A2E] focus:outline-none focus:bg-white transition-all"
+                  style={{ borderColor: "rgba(26,26,46,0.12)" }}
                 >
                   <option value="friend">Sahabat</option>
                   <option value="family">Keluarga</option>
@@ -498,7 +546,7 @@ export function GuestManagerClient({
                 <button
                   type="submit"
                   disabled={isSubmittingSingle || !singleName.trim()}
-                  className="apple-button-primary w-full py-2.5 rounded-xl text-sm flex items-center justify-center gap-1.5 font-medium shadow-xs"
+                  className="btn-primary w-full py-2.5 rounded-xl text-sm flex items-center justify-center gap-1.5 font-semibold shadow-xs active:scale-95 transition-all"
                 >
                   {isSubmittingSingle ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                   Simpan
@@ -508,7 +556,7 @@ export function GuestManagerClient({
           ) : (
             <form onSubmit={handleAddBulk} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs text-zinc-700 font-medium">
+                <label className="text-xs text-[#1A1A2E] font-semibold">
                   Tempel Daftar Nama Tamu (Satu Nama per Baris)
                 </label>
                 <textarea
@@ -516,17 +564,19 @@ export function GuestManagerClient({
                   placeholder={`Bapak Ir. Bambang Soediro\nKeluarga Ibu Hj. Nurhayati\nAndi Prasetyo & Partner\nRekan Tim Marketing`}
                   value={bulkText}
                   onChange={(e) => setBulkText(e.target.value)}
-                  className="w-full bg-white border border-black/[0.12] rounded-xl p-3.5 text-sm text-zinc-900 font-mono placeholder-zinc-400 focus:outline-none focus:border-amber-600"
+                  className="w-full bg-[#FAFAFA] border rounded-xl p-3.5 text-sm text-[#1A1A2E] font-mono placeholder-zinc-400 focus:outline-none focus:bg-white transition-all"
+                  style={{ borderColor: "rgba(26,26,46,0.12)" }}
                 />
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <span className="text-xs text-zinc-500">Kategori untuk semua:</span>
+                  <span className="text-xs text-[#6B7280]">Kategori untuk semua:</span>
                   <select
                     value={bulkCategory}
                     onChange={(e: any) => setBulkCategory(e.target.value)}
-                    className="bg-white border border-black/[0.12] rounded-xl px-3 py-1.5 text-xs text-zinc-900 focus:outline-none focus:border-amber-600"
+                    className="bg-[#FAFAFA] border rounded-xl px-3 py-1.5 text-xs text-[#1A1A2E] focus:outline-none focus:bg-white transition-all"
+                    style={{ borderColor: "rgba(26,26,46,0.12)" }}
                   >
                     <option value="friend">Sahabat</option>
                     <option value="family">Keluarga</option>
@@ -539,7 +589,7 @@ export function GuestManagerClient({
                 <button
                   type="submit"
                   disabled={isSubmittingBulk || !bulkText.trim()}
-                  className="apple-button-primary w-full sm:w-auto px-6 py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-1.5 shadow-xs"
+                  className="btn-primary w-full sm:w-auto px-6 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all"
                 >
                   {isSubmittingBulk ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileSpreadsheet className="w-4 h-4" />}
                   Generate Semua Link Tamu
@@ -550,15 +600,18 @@ export function GuestManagerClient({
         </div>
 
         {/* Guest List & Table Section */}
-        <div className="apple-card overflow-hidden">
+        <div
+          className="rounded-3xl bg-white shadow-xs overflow-hidden"
+          style={{ border: "1px solid rgba(201,144,108,0.18)" }}
+        >
           {/* Campaign Action Bar */}
-          <div className="p-4 sm:p-6 border-b border-black/[0.06] flex flex-wrap items-center justify-between gap-3 bg-zinc-50/70">
+          <div className="p-4 sm:p-6 border-b flex flex-wrap items-center justify-between gap-3 bg-[#FAF9F6]" style={{ borderColor: "rgba(201,144,108,0.12)" }}>
             <div>
-              <h3 className="text-sm font-semibold text-[#1D1D1F] flex items-center gap-2">
-                <Users className="w-4 h-4 text-amber-700" />
+              <h3 className="text-sm font-semibold text-[#1A1A2E] flex items-center gap-2">
+                <Users className="w-4 h-4 text-[#C9906C]" />
                 Daftar Tamu Terdaftar
               </h3>
-              <p className="text-xs text-zinc-500 mt-0.5">
+              <p className="text-xs text-[#6B7280] mt-0.5">
                 Menampilkan {filteredGuests.length} dari {guests.length} tamu
               </p>
             </div>
@@ -569,10 +622,10 @@ export function GuestManagerClient({
                 variant="outline"
                 size="sm"
                 onClick={() => setShowTemplateEditor(!showTemplateEditor)}
-                className={`h-8 rounded-full text-xs font-medium border transition-colors ${
+                className={`h-8 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
                   showTemplateEditor
-                    ? "bg-amber-50 border-amber-300 text-amber-900"
-                    : "bg-white border-black/[0.1] text-zinc-700 hover:bg-zinc-100"
+                    ? "bg-[#FAF9F6] border-[#C9906C] text-[#C9906C]"
+                    : "bg-white border-black/[0.1] text-[#1A1A2E] hover:bg-[#FAF9F6]"
                 }`}
               >
                 <SlidersHorizontal className="w-3.5 h-3.5 mr-1.5" />
@@ -585,7 +638,7 @@ export function GuestManagerClient({
                 size="sm"
                 onClick={handleCopyAllLinks}
                 disabled={filteredGuests.length === 0}
-                className="h-8 rounded-full text-xs font-medium bg-white border-black/[0.1] text-zinc-700 hover:bg-zinc-100 transition-colors"
+                className="h-8 rounded-full text-xs font-semibold bg-white border-black/[0.1] text-[#1A1A2E] hover:bg-[#FAF9F6] transition-all active:scale-95"
                 title="Salin nama dan link personal semua tamu terfilter"
               >
                 {copiedAll ? (
@@ -595,7 +648,7 @@ export function GuestManagerClient({
                   </>
                 ) : (
                   <>
-                    <Share2 className="w-3.5 h-3.5 mr-1.5 text-zinc-500" />
+                    <Share2 className="w-3.5 h-3.5 mr-1.5 text-[#6B7280]" />
                     <span>Salin Semua Link</span>
                   </>
                 )}
@@ -605,7 +658,7 @@ export function GuestManagerClient({
                 type="button"
                 onClick={handleDownloadCSV}
                 disabled={guests.length === 0}
-                className="apple-button-primary h-8 px-4 rounded-full text-xs font-medium flex items-center shadow-xs"
+                className="btn-primary h-8 px-4 rounded-full text-xs font-semibold flex items-center shadow-xs active:scale-95 transition-all"
                 title="Unduh daftar tamu beserta tautan dan pesan WA ke file CSV (Excel)"
               >
                 <Download className="w-3.5 h-3.5 mr-1.5" />
@@ -749,11 +802,11 @@ export function GuestManagerClient({
                     });
 
                     return (
-                      <tr key={guest.id || guest.token} className="hover:bg-zinc-50/80 transition-colors">
+                      <tr key={guest.id || guest.token} className="hover:bg-[#FAF9F6] transition-colors">
                         <td className="px-6 py-4">
-                          <div className="font-medium text-[#1D1D1F]">{guest.name}</div>
+                          <div className="font-semibold text-[#1A1A2E]">{guest.name}</div>
                           {guest.phone && (
-                            <div className="text-xs text-zinc-500 font-mono">{guest.phone}</div>
+                            <div className="text-xs text-[#6B7280] font-mono">{guest.phone}</div>
                           )}
                         </td>
 
@@ -769,34 +822,34 @@ export function GuestManagerClient({
                           {guest.rsvp ? (
                             <div className="space-y-0.5">
                               {guest.rsvp.status === "attending" && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 border border-emerald-200 text-emerald-700">
-                                  <UserCheck className="w-3 h-3" /> Hadir ({guest.rsvp.paxCount} Pax)
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 border border-emerald-200 text-emerald-700">
+                                <UserCheck className="w-3 h-3" /> Hadir ({guest.rsvp.paxCount} Pax)
                                 </span>
                               )}
                               {guest.rsvp.status === "uncertain" && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 border border-amber-200 text-amber-700">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 border border-amber-200 text-amber-700">
                                   <HelpCircle className="w-3 h-3" /> Ragu
                                 </span>
                               )}
                               {guest.rsvp.status === "declined" && (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 border border-rose-200 text-rose-700">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 border border-rose-200 text-rose-700">
                                   <UserX className="w-3 h-3" /> Berhalangan
                                 </span>
                               )}
                               {guest.rsvp.notes && (
-                                <div className="text-xs text-zinc-500 italic max-w-xs truncate">
+                                <div className="text-xs text-[#6B7280] italic max-w-xs truncate">
                                   &ldquo;{guest.rsvp.notes}&rdquo;
                                 </div>
                               )}
                             </div>
                           ) : (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-zinc-500 bg-zinc-100 border border-zinc-200">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-[#9CA3AF] bg-[#FAFAFA] border border-zinc-200">
                               Belum Konfirmasi
                             </span>
                           )}
                         </td>
 
-                        <td className="px-4 py-4 font-mono text-xs text-amber-800">
+                        <td className="px-4 py-4 font-mono text-xs text-[#C9906C]">
                           <div className="flex items-center gap-1.5 max-w-[220px] truncate">
                             <span>/i/{initialInvitation.slug}/{guest.token}</span>
                           </div>
