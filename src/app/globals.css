@@ -2,129 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES — DESIGN TOKENS
+   ========================================================================== */
+
 :root {
-  --background: #FBFBFD;
-  --foreground: #1D1D1F;
-  --surface: #FFFFFF;
-  --surface-secondary: #F5F5F7;
-  --border: rgba(0, 0, 0, 0.08);
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
-  --font-serif: "Playfair Display", "Times New Roman", Georgia, serif;
+  --bg-base:        #F8F7F4;
+  --text-primary:   #1A1A2E;
+  --text-secondary: #6B7280;
+  --accent-rose:    #C9906C;
+  --accent-gold:    #C9A84C;
+  --font-sans:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif:     'DM Serif Display', 'Playfair Display', Georgia, serif;
+
+  /* Legacy tokens (keep for existing wizard / admin pages) */
+  --background:  #F8F7F4;
+  --foreground:  #1A1A2E;
+  --surface:     #FFFFFF;
+  --surface-secondary: #F2F0EC;
+  --border:      rgba(0, 0, 0, 0.07);
 }
 
-* {
-  border-color: rgba(0, 0, 0, 0.08);
+/* ==========================================================================
+   GLOBAL BASE STYLES
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-color: rgba(0, 0, 0, 0.07);
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--text-primary);
+  background: var(--bg-base);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Custom Minimalist Scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+/* Elegant thin scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(201, 144, 108, 0.25);
   border-radius: 9999px;
 }
+::-webkit-scrollbar-thumb:hover { background: rgba(201, 144, 108, 0.45); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.28);
+/* ==========================================================================
+   LEGACY APPLE DESIGN SYSTEM ALIASES
+   (Keep for wizard.css and admin components that rely on these classes)
+   ========================================================================== */
+
+.apple-glass {
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Apple Design System Utilities */
-@layer utilities {
-  .apple-glass {
-    background-color: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-  }
+.apple-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  .apple-glass-light {
-    background-color: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
+.apple-card:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08);
+}
 
-  .apple-card {
-    background-color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.apple-button-primary {
+  background-color: #1d1d1f;
+  color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  cursor: pointer;
+}
 
-  .apple-card:hover {
-    border-color: rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08);
-  }
+.apple-button-primary:hover {
+  background-color: #000000;
+  transform: scale(1.01);
+}
 
-  .apple-card-dark {
-    background: radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), #0d0d0f;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.apple-button-secondary {
+  background-color: #ffffff;
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
 
-  .apple-button-primary {
-    background-color: #1d1d1f;
-    color: #ffffff;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.apple-button-secondary:hover {
+  background-color: #f5f5f7;
+}
 
-  .apple-button-primary:hover {
-    background-color: #000000;
-    transform: scale(1.01);
-  }
+/* Legacy shimmer text */
+.apple-shimmer-text,
+.apple-gold-shimmer-text {
+  background: linear-gradient(90deg, #C9906C 0%, #D4A847 25%, #C9906C 50%, #D4A847 75%, #C9906C 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-legacy 6s linear infinite;
+}
 
-  .apple-button-secondary {
-    background-color: #ffffff;
-    color: #1d1d1f;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .apple-button-secondary:hover {
-    background-color: #f5f5f7;
-  }
-
-  .apple-subtle-glow {
-    box-shadow: 0 10px 30px -5px rgba(212, 175, 55, 0.12);
-  }
+@keyframes shimmer-legacy {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
 }
 
 /* ==========================================================================
-   THEMED INVITATION ANIMATIONS (FLORAL PETALS, BOTANICAL, GUNUNGAN JAWA)
+   THEMED INVITATION ANIMATIONS
    ========================================================================== */
 
-/* 1. Falling Petals (Melati / Rose / Gold) */
+/* Falling Petals */
 @keyframes petal-fall {
   0% {
     transform: translate3d(0, -10vh, 0) rotate(0deg) scale(0.8);
     opacity: 0;
   }
-  15% {
-    opacity: 0.85;
-  }
-  85% {
-    opacity: 0.85;
-  }
+  15% { opacity: 0.85; }
+  85% { opacity: 0.85; }
   100% {
     transform: translate3d(var(--drift-x, 40px), 110vh, 0) rotate(var(--rot-deg, 360deg)) scale(1.1);
     opacity: 0;
@@ -136,16 +144,10 @@ body {
   will-change: transform, opacity;
 }
 
-/* 2. Traditional Javanese Wayang Gunungan Ambient Sway */
+/* Javanese Gunungan Sway */
 @keyframes gunungan-sway {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-    opacity: 0.18;
-  }
-  50% {
-    transform: translateY(-8px) rotate(0.8deg) scale(1.02);
-    opacity: 0.28;
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.18; }
+  50%       { transform: translateY(-8px) rotate(0.8deg) scale(1.02); opacity: 0.28; }
 }
 
 .animate-gunungan {
@@ -153,30 +155,20 @@ body {
   will-change: transform, opacity;
 }
 
-/* 3. Golden Dust & Sparkles */
+/* Sparkle / Golden Dust */
 @keyframes sparkle-pulse {
-  0%, 100% {
-    opacity: 0.15;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 0.75;
-    transform: scale(1.2);
-  }
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50%       { opacity: 0.75; transform: scale(1.2); }
 }
 
 .animate-sparkle {
   animation: sparkle-pulse var(--pulse-speed, 4s) ease-in-out infinite;
 }
 
-/* 4. Minimalist Botanical Leaves Sway */
+/* Botanical Leaf Sway */
 @keyframes leaf-sway {
-  0%, 100% {
-    transform: rotate(0deg) translateY(0px);
-  }
-  50% {
-    transform: rotate(3deg) translateY(-5px);
-  }
+  0%, 100% { transform: rotate(0deg) translateY(0px); }
+  50%       { transform: rotate(3deg) translateY(-5px); }
 }
 
 .animate-leaf {
@@ -185,168 +177,11 @@ body {
 }
 
 /* ==========================================================================
-   HIGH-PERFORMANCE APPLE UI ANIMATIONS (GPU-COMPOSITED, ZERO RUNTIME OVERHEAD)
+   ACCESSIBILITY
    ========================================================================== */
 
-@keyframes apple-fade-up {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes apple-fade-down {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, -14px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes apple-scale-in {
-  0% {
-    opacity: 0;
-    transform: scale3d(0.96, 0.96, 1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@keyframes apple-text-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes float-subtle {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -6px, 0);
-  }
-}
-
-@keyframes pulse-subtle {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.35;
-    transform: scale(1.05);
-  }
-}
-
-/* Apple Animation Classes */
-.animate-apple-fade-up {
-  animation: apple-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: transform, opacity;
-}
-
-.animate-apple-fade-down {
-  animation: apple-fade-down 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: transform, opacity;
-}
-
-.animate-apple-scale-in {
-  animation: apple-scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: transform, opacity;
-}
-
-.animate-float-subtle {
-  animation: float-subtle 6s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-subtle 8s ease-in-out infinite;
-}
-
-/* Apple Gradient Shimmer Text */
-.apple-shimmer-text {
-  background: linear-gradient(
-    90deg,
-    #1d1d1f 0%,
-    #86868b 25%,
-    #1d1d1f 50%,
-    #86868b 75%,
-    #1d1d1f 100%
-  );
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: apple-text-shimmer 8s linear infinite;
-}
-
-.apple-gold-shimmer-text {
-  background: linear-gradient(
-    90deg,
-    #92400e 0%,
-    #d97706 25%,
-    #b45309 50%,
-    #f59e0b 75%,
-    #92400e 100%
-  );
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: apple-text-shimmer 6s linear infinite;
-}
-
-/* Stagger Animation Delays */
-.animation-delay-100 {
-  animation-delay: 100ms;
-}
-
-.animation-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animation-delay-300 {
-  animation-delay: 300ms;
-}
-
-.animation-delay-400 {
-  animation-delay: 400ms;
-}
-
-.animation-delay-500 {
-  animation-delay: 500ms;
-}
-
-/* Micro-interaction Hover Lift */
-.hover-lift-apple {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hover-lift-apple:hover {
-  transform: translate3d(0, -3px, 0);
-  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.08);
-}
-
-.hover-lift-apple:active {
-  transform: translate3d(0, 0, 0) scale(0.99);
-}
-
-/* Accessibility: Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
+  *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
