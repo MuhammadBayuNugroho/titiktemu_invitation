@@ -20,7 +20,7 @@ export function ScrollReveal({
   className = '',
   delay = 0,
   direction = 'up',
-  threshold = 0.08,
+  threshold = 0.01,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -38,16 +38,20 @@ export function ScrollReveal({
       ([entry]) => {
         if (entry.isIntersecting) {
           // Apply delay and trigger reveal
-          setTimeout(() => {
+          if (delay > 0) {
+            setTimeout(() => {
+              el.classList.add('sr-revealed');
+            }, delay);
+          } else {
             el.classList.add('sr-revealed');
-          }, delay);
+          }
           // Disconnect immediately — no need to keep observing
           observer.disconnect();
         }
       },
       {
         threshold,
-        rootMargin: '0px 0px -32px 0px',
+        rootMargin: '100px 0px 0px 0px',
       }
     );
 

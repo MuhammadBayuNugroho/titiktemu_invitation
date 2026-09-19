@@ -1,11 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  themeColor: "#F8F7F4",
+};
 
 export const metadata: Metadata = {
   title: "Titik Temu Invitation — Undangan Digital Pernikahan Elegan",
   description: "Buat undangan digital pernikahan yang elegan, personal, dan mudah dibagikan dalam beberapa langkah. Template eksklusif, animasi indah, dan RSVP realtime.",
   keywords: ["undangan digital", "wedding invitation", "titik temu invitation", "undangan online", "undangan pernikahan", "digital invitation indonesia"],
-  themeColor: "#F8F7F4",
   openGraph: {
     title: "Titik Temu Invitation — Undangan Digital Pernikahan Elegan",
     description: "Platform undangan digital pernikahan yang elegan dan modern.",

@@ -61,28 +61,23 @@ body {
    ========================================================================== */
 
 /* Hidden initial state */
-.sr-hidden {
-  will-change: opacity, transform;
-}
-
-.sr-hidden.sr-up    { opacity: 0; transform: translate3d(0,  28px, 0); }
-.sr-hidden.sr-down  { opacity: 0; transform: translate3d(0, -18px, 0); }
-.sr-hidden.sr-left  { opacity: 0; transform: translate3d( 24px, 0, 0); }
-.sr-hidden.sr-right { opacity: 0; transform: translate3d(-24px, 0, 0); }
+.sr-hidden.sr-up    { opacity: 0; transform: translate3d(0,  18px, 0); }
+.sr-hidden.sr-down  { opacity: 0; transform: translate3d(0, -14px, 0); }
+.sr-hidden.sr-left  { opacity: 0; transform: translate3d( 18px, 0, 0); }
+.sr-hidden.sr-right { opacity: 0; transform: translate3d(-18px, 0, 0); }
 .sr-hidden.sr-fade  { opacity: 0; transform: none; }
 
-/* Transition — only runs ONCE when class is added by IntersectionObserver */
+/* Transition — lightweight, runs once when .sr-revealed is added */
 .sr-hidden {
   transition:
-    opacity  0.60s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.60s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity  0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Revealed state — element is now visible */
 .sr-hidden.sr-revealed {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  will-change: auto; /* release GPU layer after animation */
 }
 
 /* ==========================================================================

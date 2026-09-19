@@ -63,7 +63,7 @@ export default function Home() {
 
           {/* CTA */}
           <Link href="/create">
-            <button className="btn-primary px-5 py-2 text-xs sm:text-sm font-semibold flex items-center gap-1.5">
+            <button className="btn-primary px-5 py-2 text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-all">
               <span>Mulai Buat</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
@@ -106,13 +106,13 @@ export default function Home() {
           {/* CTA Buttons */}
           <div className="animate-fade-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
             <Link href="/create" className="w-full sm:w-auto">
-              <button className="btn-primary w-full sm:w-auto px-8 py-4 text-sm font-semibold flex items-center justify-center gap-2">
+              <button className="btn-primary w-full sm:w-auto px-8 py-4 text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
                 <span>Buat Undangan Sekarang</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
             <Link href="/templates" className="w-full sm:w-auto">
-              <button className="btn-secondary w-full sm:w-auto px-8 py-4 text-sm font-medium flex items-center justify-center gap-2">
+              <button className="btn-secondary w-full sm:w-auto px-8 py-4 text-sm font-medium flex items-center justify-center gap-2 active:scale-95 transition-all">
                 <Eye className="w-4 h-4" style={{ color: '#C9906C' }} />
                 <span>Eksplorasi Template</span>
               </button>
@@ -187,8 +187,9 @@ export default function Home() {
                     </button>
                   </Link>
                   <Link href="/create?template=elegant" className="block w-full">
-                    <button className="btn-primary w-full py-2.5 text-xs font-semibold" style={{ borderRadius: 12 }}>
-                      Pilih Desain Ini
+                    <button className="btn-primary w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-all" style={{ borderRadius: 12 }}>
+                      <span>Pilih Desain Ini</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
                     </button>
                   </Link>
                 </div>
@@ -225,8 +226,9 @@ export default function Home() {
                     </button>
                   </Link>
                   <Link href="/create?template=minimalist" className="block w-full">
-                    <button className="w-full py-2.5 text-xs font-semibold flex items-center justify-center active:scale-95 transition-transform" style={{ background: '#1A1A2E', color: '#fff', borderRadius: 12 }}>
-                      Pilih Desain Ini
+                    <button className="w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-all" style={{ background: '#1A1A2E', color: '#fff', borderRadius: 12 }}>
+                      <span>Pilih Desain Ini</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
                     </button>
                   </Link>
                 </div>
@@ -264,8 +266,9 @@ export default function Home() {
                     </button>
                   </Link>
                   <Link href="/create?template=nusantara" className="block w-full">
-                    <button className="btn-primary w-full py-2.5 text-xs font-semibold" style={{ borderRadius: 12 }}>
-                      Pilih Desain Ini
+                    <button className="btn-primary w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-all" style={{ borderRadius: 12 }}>
+                      <span>Pilih Desain Ini</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
                     </button>
                   </Link>
                 </div>
@@ -408,7 +411,9 @@ export default function Home() {
                   ))}
                 </ul>
                 <Link href="/create?plan=basic" className="block w-full mt-6">
-                  <button className="btn-secondary w-full py-3.5 text-xs font-semibold" style={{ borderRadius: 14 }}>Pilih Paket Basic</button>
+                  <button className="btn-secondary w-full py-3.5 px-4 text-xs font-semibold flex items-center justify-center text-center gap-2 active:scale-95 transition-all" style={{ borderRadius: 14 }}>
+                    <span>Pilih Paket Basic</span>
+                  </button>
                 </Link>
               </div>
             </ScrollReveal>
@@ -437,7 +442,10 @@ export default function Home() {
                   ))}
                 </ul>
                 <Link href="/create?plan=premium" className="block w-full mt-6">
-                  <button className="btn-primary w-full py-3.5 text-sm font-semibold" style={{ borderRadius: 14 }}>Pilih Paket Premium</button>
+                  <button className="btn-primary w-full py-3.5 px-4 text-sm font-semibold flex items-center justify-center text-center gap-2 active:scale-95 transition-all" style={{ borderRadius: 14 }}>
+                    <span>Pilih Paket Premium</span>
+                    <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                  </button>
                 </Link>
               </div>
             </ScrollReveal>
@@ -460,7 +468,9 @@ export default function Home() {
                   ))}
                 </ul>
                 <Link href="/create?plan=gold" className="block w-full mt-6">
-                  <button className="btn-secondary w-full py-3.5 text-xs font-semibold" style={{ borderRadius: 14 }}>Pilih Paket Gold</button>
+                  <button className="btn-secondary w-full py-3.5 px-4 text-xs font-semibold flex items-center justify-center text-center gap-2 active:scale-95 transition-all" style={{ borderRadius: 14 }}>
+                    <span>Pilih Paket Gold</span>
+                  </button>
                 </Link>
               </div>
             </ScrollReveal>
