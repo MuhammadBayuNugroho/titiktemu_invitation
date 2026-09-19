@@ -7,7 +7,7 @@ interface ThemedDecorationsProps {
 }
 
 export function ThemedDecorations({ templateSlug = "elegant" }: ThemedDecorationsProps) {
-  // Generate stable randomized petal positions to prevent hydration mismatch
+  // Stable randomized petal positions for hydration safety
   const petals = useMemo(() => {
     return Array.from({ length: 14 }).map((_, i) => ({
       id: i,
@@ -21,16 +21,135 @@ export function ThemedDecorations({ templateSlug = "elegant" }: ThemedDecoration
   }, []);
 
   const sparkles = useMemo(() => {
-    return Array.from({ length: 10 }).map((_, i) => ({
+    return Array.from({ length: 14 }).map((_, i) => ({
       id: i,
-      top: `${(i * 9.5 + 5) % 90}%`,
-      left: `${(i * 11 + 7) % 92}%`,
-      delay: `${(i * 0.9) % 5}s`,
-      duration: `${3.5 + (i % 3)}s`,
-      size: 4 + (i % 3) * 3,
+      top: `${(i * 9.5 + 5) % 92}%`,
+      left: `${(i * 11 + 7) % 94}%`,
+      delay: `${(i * 0.7) % 5}s`,
+      duration: `${2.5 + (i % 3)}s`,
+      size: 3 + (i % 4) * 2,
     }));
   }, []);
 
+  // 04 Celestial Midnight: 3D Stardust & Constellation Shimmer
+  if (templateSlug === "celestial") {
+    return (
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
+        {/* Soft Golden Nebula Backdrop Glow */}
+        <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-amber-500/5 filter blur-[100px]" />
+        <div className="absolute bottom-1/3 -right-20 w-96 h-96 rounded-full bg-indigo-500/5 filter blur-[100px]" />
+
+        {/* Twinkling 3D Stardust Particles */}
+        {sparkles.map((s) => (
+          <div
+            key={s.id}
+            className="absolute rounded-full animate-sparkle"
+            style={{
+              top: s.top,
+              left: s.left,
+              width: s.size,
+              height: s.size,
+              background:
+                s.id % 3 === 0
+                  ? "radial-gradient(circle, #FFE28A 0%, rgba(212,175,55,0.4) 60%, transparent 100%)"
+                  : "radial-gradient(circle, #FFFFFF 0%, rgba(255,255,255,0.3) 70%, transparent 100%)",
+              boxShadow: "0 0 8px rgba(245, 215, 127, 0.7)",
+              animationDelay: s.delay,
+              animationDuration: s.duration,
+            }}
+          />
+        ))}
+
+        {/* Delicate Constellation Hairlines */}
+        <svg
+          className="absolute inset-0 w-full h-full opacity-20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line x1="10%" y1="20%" x2="25%" y2="28%" stroke="#D4AF37" strokeWidth="0.7" strokeDasharray="3 3" />
+          <line x1="25%" y1="28%" x2="35%" y2="15%" stroke="#D4AF37" strokeWidth="0.7" strokeDasharray="3 3" />
+          <line x1="75%" y1="65%" x2="88%" y2="72%" stroke="#D4AF37" strokeWidth="0.7" strokeDasharray="3 3" />
+          <line x1="88%" y1="72%" x2="92%" y2="85%" stroke="#D4AF37" strokeWidth="0.7" strokeDasharray="3 3" />
+        </svg>
+      </div>
+    );
+  }
+
+  // 05 Modern Editorial: Clean Architectural Grid & Typography Accents
+  if (templateSlug === "editorial") {
+    return (
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
+        {/* Subtle Architectural Hairline Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        {/* Minimal Corner Crosshair Registration Marks */}
+        <div className="absolute top-6 left-6 text-zinc-400/40 text-[10px] font-mono tracking-widest">
+          + 01 / ED.
+        </div>
+        <div className="absolute top-6 right-6 text-zinc-400/40 text-[10px] font-mono tracking-widest">
+          EST. 2026 +
+        </div>
+      </div>
+    );
+  }
+
+  // 06 Romantic Botanical: Soft Falling Leaves & Frosted Organic Vignette
+  if (templateSlug === "botanical") {
+    return (
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
+        {/* Soft Garden Sunlight Bloom */}
+        <div className="absolute top-0 right-10 w-80 h-80 rounded-full bg-emerald-500/5 filter blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-amber-500/5 filter blur-3xl" />
+
+        {/* Floating Sage & Olive Leaves */}
+        {petals.map((p) => (
+          <div
+            key={p.id}
+            className="absolute animate-petal"
+            style={
+              {
+                left: p.left,
+                top: 0,
+                animationDelay: p.delay,
+                "--fall-duration": `${parseInt(p.duration) + 3}s`,
+                "--drift-x": p.driftX,
+                "--rot-deg": p.rotDeg,
+              } as React.CSSProperties
+            }
+          >
+            <svg
+              width={p.size * 1.1}
+              height={p.size * 1.5}
+              viewBox="0 0 30 45"
+              fill="none"
+              className="opacity-70 drop-shadow-sm"
+            >
+              <path
+                d="M15 0 C28 16, 26 34, 15 45 C4 34, 2 16, 15 0 Z"
+                fill="url(#botanical-leaf-grad)"
+              />
+              <path d="M15 5 L15 40" stroke="#2D4A3E" strokeWidth="0.8" strokeOpacity="0.4" />
+              <defs>
+                <linearGradient id="botanical-leaf-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#A8C2B3" stopOpacity="0.85" />
+                  <stop offset="60%" stopColor="#6C8F7E" stopOpacity="0.75" />
+                  <stop offset="100%" stopColor="#3E6151" stopOpacity="0.5" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // 03 Nusantara: Wayang Gunungan & Batik Kawung Watermark
   if (templateSlug === "nusantara") {
     return (
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
@@ -65,17 +184,8 @@ export function ThemedDecorations({ templateSlug = "elegant" }: ThemedDecoration
             <ellipse cx="80" cy="50" rx="20" ry="14" />
           </svg>
         </div>
-        <div className="absolute bottom-6 right-4 w-24 h-24 opacity-15 text-amber-700/60">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <circle cx="50" cy="50" r="30" />
-            <ellipse cx="50" cy="20" rx="14" ry="20" />
-            <ellipse cx="50" cy="80" rx="14" ry="20" />
-            <ellipse cx="20" cy="50" rx="20" ry="14" />
-            <ellipse cx="80" cy="50" rx="20" ry="14" />
-          </svg>
-        </div>
 
-        {/* Falling White Jasmine (Melati) Petals */}
+        {/* Falling Melati Petals */}
         {petals.map((p) => (
           <div
             key={p.id}
@@ -91,7 +201,6 @@ export function ThemedDecorations({ templateSlug = "elegant" }: ThemedDecoration
               } as React.CSSProperties
             }
           >
-            {/* White Jasmine Petal Vector */}
             <svg
               width={p.size}
               height={p.size * 1.3}
@@ -131,15 +240,6 @@ export function ThemedDecorations({ templateSlug = "elegant" }: ThemedDecoration
           </svg>
         </div>
 
-        <div className="absolute bottom-20 -left-8 w-36 h-52 text-slate-500/15 animate-leaf" style={{ animationDelay: "-3.5s" }}>
-          <svg viewBox="0 0 120 200" fill="none" stroke="currentColor" strokeWidth="1.2" className="scale-x-[-1]">
-            <path d="M60 200 Q55 120 70 30" />
-            <ellipse cx="85" cy="50" rx="18" ry="10" transform="rotate(-25 85 50)" fill="currentColor" fillOpacity="0.08" />
-            <ellipse cx="45" cy="90" rx="20" ry="11" transform="rotate(30 45 90)" fill="currentColor" fillOpacity="0.08" />
-            <ellipse cx="85" cy="130" rx="22" ry="12" transform="rotate(-20 85 130)" fill="currentColor" fillOpacity="0.08" />
-          </svg>
-        </div>
-
         {/* Gentle Monochrome Editorial Petals */}
         {petals.slice(0, 8).map((p) => (
           <div
@@ -175,7 +275,7 @@ export function ThemedDecorations({ templateSlug = "elegant" }: ThemedDecoration
     );
   }
 
-  // Default: Elegant (01 Elegant - Classic Gold)
+  // Default: Elegant (01 Elegant - Classic Gold & Rose Warmth)
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
       {/* Floating Golden Dust / Ambient Sparkles */}

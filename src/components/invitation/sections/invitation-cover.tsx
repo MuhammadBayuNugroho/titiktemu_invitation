@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { MailOpen, Calendar } from "lucide-react";
 import type { InvitationData, TemplateConfig } from "@/types/invitation";
-import { formatDateIndonesian } from "@/lib/utils";
+import { Envelope3D } from "../cover/envelope-3d";
 
 interface InvitationCoverProps {
   data: InvitationData;
@@ -21,68 +20,80 @@ export function InvitationCover({
   isOpen,
   onOpen,
 }: InvitationCoverProps) {
-  if (isOpen) return null;
+  const [isRendered, setIsRendered] = useState(!isOpen);
+  const [isExiting, setIsExiting] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsExiting(true);
+      const timer = setTimeout(() => {
+        setIsRendered(false);
+      }, 700);
+      return () => clearTimeout(timer);
+    } else {
+      setIsRendered(true);
+      setIsExiting(false);
+    }
+  }, [isOpen]);
+
+  if (!isRendered) return null;
+
+  const handleOpenFlow = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      onOpen();
+    }, 600);
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-zinc-950 text-white">
-      {/* Background Image with Overlay */}
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden p-4 sm:p-6 transition-all duration-700 ease-out select-none ${
+        isExiting
+          ? "opacity-0 scale-105 pointer-events-none filter blur-sm"
+          : "opacity-100 scale-100"
+      }`}
+      style={{
+        backgroundColor:
+          config.slug === "celestial" ? "#07070B" : "#120E0C",
+      }}
+    >
+      {/* Background Ambience: Couple Photo Blurred Vignette */}
       {data.media.coverImageUrl && (
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <Image
             src={data.media.coverImageUrl}
             alt={data.title}
             fill
             priority
-            className="object-cover opacity-35 filter blur-[1px] scale-105 transition-transform duration-1000"
+            className="object-cover opacity-20 filter blur-xl scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/80" />
+          {/* Radial Dark Vignette */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                config.slug === "celestial"
+                  ? "radial-gradient(ellipse at center, rgba(16, 16, 26, 0.7) 0%, #06060A 85%)"
+                  : "radial-gradient(ellipse at center, rgba(30, 20, 16, 0.7) 0%, #0E0A08 85%)",
+            }}
+          />
         </div>
       )}
 
-      {/* Content Container */}
-      <div className="relative z-10 mx-auto flex h-full max-w-lg flex-col items-center justify-between px-6 py-12 text-center">
-        {/* Top Header */}
-        <div className="space-y-2">
-          <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
-            The Wedding Of
-          </span>
-        </div>
+      {/* Subtle Floating Ambient Embers */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-10 left-1/4 w-72 h-72 rounded-full bg-amber-500/10 filter blur-3xl animate-pulse" />
+        <div className="absolute -bottom-10 right-1/4 w-80 h-80 rounded-full bg-rose-500/10 filter blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+      </div>
 
-        {/* Middle: Couple Names & Ornament */}
-        <div className="my-auto space-y-4">
-          <div
-            className={`text-4xl sm:text-5xl md:text-6xl font-normal tracking-wide text-white drop-shadow-md ${
-              config.typography.heading === "serif" ? "font-serif italic" : "font-sans font-bold"
-            }`}
-          >
-            {data.couple.brideName} & {data.couple.groomName}
-          </div>
-
-          <div className="flex items-center justify-center gap-4 text-xs tracking-wider text-zinc-300">
-            <span className="flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5 text-amber-400" />
-              {formatDateIndonesian(data.event.eventDate)}
-            </span>
-          </div>
-        </div>
-
-        {/* Bottom: Guest Greeting & Open Button */}
-        <div className="w-full max-w-xs space-y-6">
-          <div className="rounded-xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
-            <p className="text-xs text-zinc-300">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-            <p className="mt-1 text-base font-semibold text-white">
-              {guestName || "Tamu Undangan"}
-            </p>
-          </div>
-
-          <button
-            onClick={onOpen}
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-zinc-950 shadow-lg transition-all duration-200 hover:bg-zinc-100 hover:shadow-xl active:scale-95 cursor-pointer"
-          >
-            <MailOpen className="h-4 w-4 transition-transform group-hover:scale-110" />
-            <span>Buka Undangan</span>
-          </button>
-        </div>
+      {/* Main 3D Interactive Envelope Modal Container */}
+      <div className="relative z-10 w-full my-auto flex flex-col items-center justify-center">
+        <Envelope3D
+          data={data}
+          config={config}
+          guestName={guestName}
+          onOpenInvitation={handleOpenFlow}
+        />
       </div>
     </div>
   );
